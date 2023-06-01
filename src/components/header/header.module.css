@@ -1,0 +1,26 @@
+.img{
+    height: 3.5rem;
+    border-radius: 50px;
+}
+
+.navii{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: rem 4rem;
+    background: var(--gray-800);
+    border-bottom: 1px solid var(--gray-700);
+}
+
+.marginLogo{
+    margin-left: 0.5rem;
+}
+
+.test{
+    height: 200px;
+    width: 200px;
+}
+
+.logoLink {
+    text-decoration: none;
+  }
