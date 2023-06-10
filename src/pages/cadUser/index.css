@@ -156,7 +156,7 @@
 }
 
 .formatForm{
-    background: var(--gray-800);
+    background: #333;
     border-bottom: 1px solid var(--gray-700);
     padding: 1rem 4rem;
     display: flex;
@@ -171,3 +171,34 @@
     min-height: calc(100vh - 60px - 60px); /* Altura do header e do footer (60px cada) */
     background: var(--gray-900);
   }
+
+  .containerLoginFormBtn{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 13px;
+}
+
+.loginFormBtn{
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+
+    line-height: 1.2;
+
+    text-transform: uppercase;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 50px;
+
+    background: -webkit-linear-gradient(to left, #a6e6a6, #106494);
+    background: -o-linear-gradient(to left, #a6e6a6, #106494);
+    background: -moz-linear-gradient(to left, #a6e6a6, #106494);
+    background: linear-gradient(to left, #a6e6a6, #106494);
+
+}

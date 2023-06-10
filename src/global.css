@@ -1,8 +1,17 @@
-body.my-custom-body{
-    background: var(--gray-900);
+body.dark-mode{
+    background-color: var(--gray-700);
     color: var(--gray-300);
     -webkit-font-smoothing: antialiased;   
 }
+
+body.light-mode{
+    color: var(--gray-300);
+    -webkit-font-smoothing: antialiased;  
+    --background-color: var(--background-color-light);
+    --text-color: var(--text-color-light);
+    --primary-color: var(--primary-color-light); 
+}
+
 
 body,  input, textarea, button{
     font-family: 'Roboto', sans-serif;
@@ -29,4 +38,29 @@ body,  input, textarea, button{
 
     --green-500: #00875f;
 
+
+
+    --body-color: #E4E9F7;
+    --sidebar-color: #FFF;
+    --primary-color: #695CFE;
+    --primary-color-light: #F6F5FF;
+    --toggle-color: #DDD;
+    --text-color: #707070;
+
+    
+    --tran-02: all 0.2 ease;
+    --tran-03: all 0.3 ease;
+    --tran-04: all 0.4 ease;
+    --tran-05: all 0.5 ease;
+
+}
+
+
+.wrapper{
+    max-width: 70rem;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 256px 1fr;
+    align-items: flex-start;
 }

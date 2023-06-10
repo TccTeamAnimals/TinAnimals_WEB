@@ -9,8 +9,6 @@ export function LoginUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
-
   return (
     <div>
       <Header />
@@ -55,8 +53,8 @@ export function LoginUser() {
                 </div>
 
                 <div className={styles.textCenter}> 
-                  <span className={styles.txt1}>Não possui conta ? <br /></span>
-                  <Link to="/cadUser" className={styles.linkCad}>
+                  <span className={styles.txt1}>esqueceu a senha ? <br /></span>
+                  <Link to="/forgetPassword" className={styles.linkCad}>
                     <a className={styles.linkCad}>
                       Click Aqui !
                     </a>
