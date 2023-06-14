@@ -1,38 +1,30 @@
+import { useState, useContext, useEffect } from 'react';
 import styles from './sidebar.module.css'
 import logo from '../../imgs/logo.jpg';
 import { Link } from 'react-router-dom'
 import { 
-         BsArrowRightShort, 
-         BsFillHouseDoorFill,
-         BsSearchHeart,
-         BsHeartFill,
-         BsChatHeart,
-         BsTencentQq,
-         BsFillPinMapFill,
-         BsFillPersonFill,
-         BsMoonStars,
-         BsFillSunFill,
-         BsDoorOpen
-        } from "react-icons/bs";
-import { useState } from 'react';
+    BsArrowRightShort, 
+    BsFillHouseDoorFill,
+    BsSearchHeart,
+    BsHeartFill,
+    BsChatHeart,
+    BsTencentQq,
+    BsFillPinMapFill,
+    BsFillPersonFill,
+    BsMoonStars,
+    BsFillSunFill,
+    BsDoorOpen
+} from "react-icons/bs";
+import { ThemeContext } from '../../contextApi/ThemeContext';
 
 
 export function Sidebar(){
+    const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+
+    useEffect(() => {
+        console.log('Valor do darkmode:', darkMode)
+    }, [darkMode])
     
-    const [isSwitchToggled, setIsSwitchToggled] = useState(false);
-    const [isDarkMode, setIsDarkMode] = useState(false);
-
-
-    const handleToggle = () => {
-        console.log("Toggle foi clicado!");
-        setIsSwitchToggled(!isSwitchToggled);
-        console.log("isSwitchToggled: ", isSwitchToggled);
-    };
-
-
-    let classeTexto = isSwitchToggled ? "dark-mode" : "light-mode";
-    
-  
 
     return (
         <nav className={styles.sidebar}>
@@ -48,6 +40,7 @@ export function Sidebar(){
                     <div className={`${styles.text} ${styles.headerText}`}>
                         <span className={styles.name}>TinAnimals</span>
                         <span className={styles.description}>Adote seu pet!</span>
+                        <span className={styles.description}>{name}</span>
                     </div>
                 </div>
 
@@ -122,7 +115,7 @@ export function Sidebar(){
 
                                 <div className={styles.toggleSwitch} >
                                     {/* <span className={styles.switch} onClick={handleToggle}> </span> */}
-                                    <span className={`${styles.switch} ${isSwitchToggled ? styles.switchToggled : ''}`} onClick={handleToggle}></span>
+                                    <span className={`${styles.switch} ${darkMode ? styles.switchToggled : ''}`} onClick={toggleDarkMode}></span>
                                 </div>
 
                             </li>
@@ -130,9 +123,6 @@ export function Sidebar(){
                     </ul>
                 </div>
             </div>
-            <script scr="scriptSidebar.js"></script>
         </nav>
-       
-
-        )
+    )
 }

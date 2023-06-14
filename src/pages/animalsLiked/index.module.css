@@ -1,0 +1,20 @@
+.container{
+    margin-left: 18rem;
+    height: 100%;
+}
+
+.dark_mode{
+    background-color: var(--gray-700);
+    color: var(--gray-300); 
+}
+
+.light_mode{
+    color: var(--gray-300); 
+    --background-color: var(--background-color-light);
+}
+
+.full_height {
+    height: 100%;
+    background-color: var(--gray-800);
+  }
+

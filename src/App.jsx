@@ -13,17 +13,15 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 function App() {
   
   return (
-    <>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cadUser" element={<CadUser />} />
-          <Route path="/loginUser" element={<LoginUser />} />
-          <Route path="/forgetPassword" element={<ForgetPassword />} />
-          <Route path="/profileUser" element={<ProfileUser />} />
-          <Route path='/animalsLiked'element={<AnimalsLiked />} />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/cadUser" element={<CadUser />} />
+      <Route path="/loginUser" element={<LoginUser />} />
+      <Route path="/forgetPassword" element={<ForgetPassword />} />
+      <Route path="/profileUser" element={<ProfileUser />} />
+      <Route path='/animalsLiked'element={<AnimalsLiked />} />
 
-        </Routes>
-    </>
+    </Routes>
   );
 }
 
