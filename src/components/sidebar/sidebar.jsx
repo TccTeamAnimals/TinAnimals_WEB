@@ -27,7 +27,7 @@ export function Sidebar(){
     
 
     return (
-        <nav className={styles.sidebar}>
+        <nav className={`${darkMode ? styles.sidebarDark : styles.sidebar}`}>
             <header>
                 <div className={styles.imageText}>
                     <span className={styles.image}>
@@ -51,11 +51,9 @@ export function Sidebar(){
             <div className={styles.menuBar}>
                 <div className={styles.menu}>
 
-                    <li className={styles.seachBox}>
-                        
+                    <li className={`${darkMode ? styles.seachBoxDark : styles.seachBox}`}>
                         <i className={styles.icon}> <BsSearchHeart/></i>
                         <input type="search" placeholder="Search..." />
-                       
                     </li>
 
                     <ul className={styles.menuLinks}>
@@ -97,7 +95,7 @@ export function Sidebar(){
                         </li>
                     
 
-                        <div className={styles.bottomContent}>
+                        <div className={`${styles.bottomContent} ${styles.navLink}`}>
                             <li className=''>
                                 <a href="#" >
                                     <i className={styles.icon}> <BsDoorOpen/></i>
@@ -114,7 +112,6 @@ export function Sidebar(){
                                 <span className={`${styles.modeText} ${styles.text}`}>Dark Mode</span>
 
                                 <div className={styles.toggleSwitch} >
-                                    {/* <span className={styles.switch} onClick={handleToggle}> </span> */}
                                     <span className={`${styles.switch} ${darkMode ? styles.switchToggled : ''}`} onClick={toggleDarkMode}></span>
                                 </div>
 
