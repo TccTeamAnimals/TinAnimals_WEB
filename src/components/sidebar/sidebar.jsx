@@ -40,7 +40,7 @@ export function Sidebar(){
                     <div className={`${styles.text} ${styles.headerText}`}>
                         <span className={styles.name}>TinAnimals</span>
                         <span className={styles.description}>Adote seu pet!</span>
-                        <span className={styles.description}>{name}</span>
+                        <span className={styles.description}></span>
                     </div>
                 </div>
 
@@ -58,10 +58,10 @@ export function Sidebar(){
 
                     <ul className={styles.menuLinks}>
                         <li className={styles.navLink}>
-                            <a href="#">
+                            <Link to="/#">
                                 <i className={styles.icon}> <BsFillHouseDoorFill/></i>
                                 <span className={`${styles.text} ${styles.navText}`}> Dashboard</span>
-                            </a>
+                            </Link>
                         </li>
                         <li className={styles.navLink}>
                             <a href="#">

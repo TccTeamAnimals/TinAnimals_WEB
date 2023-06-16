@@ -12,7 +12,6 @@ export function AnimalsLiked (){
             <div className={styles.margin}>
                 <h1>test </h1>
             </div>
-            
             <Sidebar/>
         </div>
         
