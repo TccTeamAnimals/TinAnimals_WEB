@@ -7,6 +7,10 @@ import { LoginUser } from './pages/loginUser/index.jsx';
 import { ForgetPassword } from './pages/forgetPassword/index.jsx';
 import { ProfileUser } from './pages/profileUser/index.jsx';
 import { AnimalsLiked } from './pages/animalsLiked/index.jsx';
+import { FeedAnimals } from './pages/feedAnimals/index.jsx';
+import { FirstPage } from './pages/firstPage/index.jsx';
+
+
 import 'bootstrap/dist/css/bootstrap.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
@@ -19,7 +23,9 @@ function App() {
       <Route path="/loginUser" element={<LoginUser />} />
       <Route path="/forgetPassword" element={<ForgetPassword />} />
       <Route path="/profileUser" element={<ProfileUser />} />
-      <Route path='/animalsLiked'element={<AnimalsLiked />} />
+      <Route path='/animalsLiked' element={<AnimalsLiked />} />
+      <Route path='/feedAnimals' element={<FeedAnimals />} />
+      <Route path='/firstPage' element={<FirstPage />} />
 
     </Routes>
   );

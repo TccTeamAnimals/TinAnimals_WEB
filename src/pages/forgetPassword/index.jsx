@@ -14,7 +14,7 @@ export function ForgetPassword() {
     return(
 
 
-        <div>
+        <div className={styles.darkMode}>
             <Header/>
 
               <div className={styles.containerMain}>

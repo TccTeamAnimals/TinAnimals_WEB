@@ -60,8 +60,8 @@ export function Footer() {
                     </a>
                 </section>
             </div>
-            <div className="text-center p-1" style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}> © 2023 Copyright:
-                <p className="text-white"> TinAnimals</p>
+            <div className="text-center p-1" style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}>
+              © 2023 Copyright: TinAnimals
             </div>
         </footer>
     )

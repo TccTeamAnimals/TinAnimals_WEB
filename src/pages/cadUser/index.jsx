@@ -11,7 +11,7 @@ export function CadUser() {
   }, []);
 
   return (
-    <div>
+    <div className="darkMode">
       <Header />
       <div className="content">
         <div className="container_form formatForm" >

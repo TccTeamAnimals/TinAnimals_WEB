@@ -10,7 +10,7 @@ export function AnimalsLiked (){
         <div className={`${darkMode ? styles.dark_mode : styles.light_mode}`}>
 
             <div className={styles.margin}>
-                <h1>test </h1>
+                <h1>page animal curtidos </h1>
             </div>
             <Sidebar/>
         </div>

@@ -20,14 +20,14 @@ import { ThemeContext } from '../../contextApi/ThemeContext';
 
 export function Sidebar(){
     const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+    const [sidebarExpanded, setSidebarExpanded] = useState(false);
 
     useEffect(() => {
         console.log('Valor do darkmode:', darkMode)
     }, [darkMode])
-    
 
     return (
-        <nav className={`${darkMode ? styles.sidebarDark : styles.sidebar}`}>
+        <nav className={`${darkMode ? styles.sidebarDark : styles.sidebar} ${sidebarExpanded ? styles.sidebarExpanded : ''}`}>
             <header>
                 <div className={styles.imageText}>
                     <span className={styles.image}>
@@ -44,7 +44,7 @@ export function Sidebar(){
                     </div>
                 </div>
 
-                <i className={styles.toggle}> <BsArrowRightShort /></i>
+                <i className={styles.toggle} onClick={() => setSidebarExpanded(!sidebarExpanded)}> <BsArrowRightShort /></i>
                     
             </header>
 
@@ -58,22 +58,22 @@ export function Sidebar(){
 
                     <ul className={styles.menuLinks}>
                         <li className={styles.navLink}>
-                            <Link to="/#">
+                            <Link to="/FirstPage">
                                 <i className={styles.icon}> <BsFillHouseDoorFill/></i>
                                 <span className={`${styles.text} ${styles.navText}`}> Dashboard</span>
                             </Link>
                         </li>
                         <li className={styles.navLink}>
-                            <a href="#">
+                            <a href="/feedAnimals">
                                 <i className={styles.icon}> <BsTencentQq/> </i>
                                 <span className={`${styles.text} ${styles.navText}`}> Feed </span>
                             </a>
                         </li>
                         <li className={styles.navLink}>
-                            <a href="#">
+                            <Link to="/animalsLiked">
                                 <i className={styles.icon}> <BsHeartFill/></i>
                                 <span className={`${styles.text} ${styles.navText}`}> Curtidas</span>
-                            </a>
+                            </Link>
                         </li>
                         <li className={styles.navLink}>
                             <a href="#">
@@ -88,19 +88,19 @@ export function Sidebar(){
                             </a>
                         </li>
                         <li className={styles.navLink}>
-                            <a href="#">
+                            <Link to="/profileUser">
                                 <i className={styles.icon}> <BsFillPersonFill/></i>
                                 <span className={`${styles.text} ${styles.navText}`}> Perfil</span>
-                            </a>
+                            </Link>
                         </li>
                     
 
                         <div className={`${styles.bottomContent} ${styles.navLink}`}>
                             <li className=''>
-                                <a href="#" >
+                                <Link to="/#" >
                                     <i className={styles.icon}> <BsDoorOpen/></i>
                                     <span className={`${styles.text} ${styles.navText}`}> Sair </span>
-                                </a>
+                                </Link>
                             </li>
 
 
@@ -112,7 +112,7 @@ export function Sidebar(){
                                 <span className={`${styles.modeText} ${styles.text}`}>Dark Mode</span>
 
                                 <div className={styles.toggleSwitch} >
-                                    <span className={`${styles.switch} ${darkMode ? styles.switchToggled : ''}`} onClick={toggleDarkMode}></span>
+                                    <span className={`${styles.switch} ${darkMode ? styles.switchDark : styles.switchToggled}`} onClick={toggleDarkMode}></span>
                                 </div>
 
                             </li>

@@ -10,7 +10,7 @@ export function LoginUser() {
   const [password, setPassword] = useState("");
 
   return (
-    <div>
+    <div className={styles.darkMode}>
       <Header />
         <div className={styles.containerMain}>
           <div className={styles.containerLogin}>
@@ -49,25 +49,24 @@ export function LoginUser() {
                 </div>
 
                 <div className={styles.containerLoginFormBtn}>
-                  <button className={styles.loginFormBtn}>Login</button>
+                <Link to="/FirstPage" className={styles.loginFormBtn}>
+                  <span>Login</span>
+                </Link>
                 </div>
 
                 <div className={styles.textCenter}> 
                   <span className={styles.txt1}>esqueceu a senha ? <br /></span>
                   <Link to="/forgetPassword" className={styles.linkCad}>
-                    <a className={styles.linkCad}>
+                    <span className={styles.linkCad}>
                       Click Aqui !
-                    </a>
+                    </span>
                   </Link>
                 </div>
-
               </form>
             </div>
           </div>
         </div>
-
       <Footer />
-      
     </div>
   )
 }

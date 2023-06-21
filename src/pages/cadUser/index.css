@@ -163,13 +163,11 @@
     justify-content: space-between;
 }
 
-
-
 .content {
     margin-top: 20px;
     margin-bottom: 20px;
     min-height: calc(100vh - 60px - 60px); /* Altura do header e do footer (60px cada) */
-    background: var(--gray-900);
+    /* background: var(--gray-900); */
   }
 
   .containerLoginFormBtn{
@@ -201,4 +199,11 @@
     background: -moz-linear-gradient(to left, #a6e6a6, #106494);
     background: linear-gradient(to left, #a6e6a6, #106494);
 
+}
+
+.darkMode{
+    background-color: var(--gray-700);
+    color: var(--gray-300); 
+    height: 100vh;
+    width: 100vw;
 }
