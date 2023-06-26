@@ -1,27 +1,107 @@
 import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
-// import './index.css';
+
 import Inputmask from 'inputmask';
 import { useEffect } from 'react';
-import logo from '../../imgs/logo.jpg';
-import styles from './index.module.css';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
+import logo from '../../imgs/logo.jpg';
+import styles from './index.module.css';
+
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import axios from 'axios';
+
 export function CadUser() {
+
+  const [informationUsers, setInformationUsers] = useState({
+    name: "",
+    phone: "",
+    cpf: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
+
+  const [isCPFHovered, setIsCPFHovered] = useState(false);
+  const [isPhoneHovered, setIsPhoneHovered] = useState(false);
+
   useEffect(() => {
     Inputmask("(99) 9-9999-9999").mask("#phone");
     Inputmask("999.999.999-99").mask("#cpf");
   }, []);
 
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [isCPFHovered, setIsCPFHovered] = useState(false);
-  const [isPhoneHovered, setIsPhoneHovered] = useState(false);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setInformationUsers((prevInformationUsers) => ({
+      ...prevInformationUsers,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    console.log(informationUsers)
+    if (informationUsers.password == informationUsers.confirmPassword) {
+      event.preventDefault();
+      axios.post("http://localhost:3333/api/users", informationUsers)
+        .then((response) => {
+          toast.success('Usuario cadastrado com sucesso!', {
+            position: "bottom-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            });
+            setTimeout(() => {
+              window.location.href = "/loginUser";
+            }, 2800);
+        })
+        .catch((error) => {
+          if(error.response.data.message == "email already used"){
+            toast.error('🦄 Email já cadastrado !', {
+              position: "bottom-right",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              });
+          }
+          if(error.response.data.message == "cpf already used"){
+            toast.error('CPF já cadastrado !', {
+              position: "bottom-right",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              });
+          }
+          console.log("error", error);
+        });
+      }
+    else {
+      toast.warn('Senhas Não Coincidem !', {
+        position: "bottom-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+    }
+  }
 
   return (
     <div className={styles.darkMode}>
@@ -36,86 +116,96 @@ export function CadUser() {
 
               <div className={styles.wrapInput}>
                 <input
-                  className={`${name !== "" ? styles.hasVal : ""} ${styles.inputs}`}
+                  className={`${informationUsers.name !== "" ? styles.hasVal : ""} ${styles.inputs}`}
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  name="name"
+                  value={informationUsers.name}
+                  onChange={handleInputChange}
                 />
                 <span className={styles.focusInput} data-placeholder="Nome Completo"></span>
               </div>
 
               <div className={styles.wrapInput}>
                 <input
-                  className={`${phone !== "" ? styles.hasVal : ""} ${styles.inputs}`}
+                  className={`${informationUsers.phone !== "" ? styles.hasVal : ""} ${styles.inputs}`}
                   type="text"
                   id="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  name="phone"
+                  value={informationUsers.phone}
+                  onChange={handleInputChange}
                   onMouseEnter={() => setIsPhoneHovered(true)}
                   onMouseLeave={() => setIsPhoneHovered(false)}
                 />
                 <span
-                  className={`${styles.focusInput} ${isPhoneHovered || phone !== "" ? styles.focused : ""}`}
+                  className={`${styles.focusInput} ${isPhoneHovered || informationUsers.phone !== "" ? styles.focused : ""}`}
                   data-placeholder="Telefone"
                 ></span>
               </div>
 
               <div className={styles.wrapInput}>
                 <input
-                  className={`${cpf !== "" ? styles.hasVal : ""} ${styles.inputs}`}
+                  className={`${informationUsers.cpf !== "" ? styles.hasVal : ""} ${styles.inputs}`}
                   type="text"
                   id="cpf"
-                  value={cpf}
-                  onChange={(e) => setCpf(e.target.value)}
+                  name="cpf"
+                  value={informationUsers.cpf}
+                  onChange={handleInputChange}
                   onMouseEnter={() => setIsCPFHovered(true)}
                   onMouseLeave={() => setIsCPFHovered(false)}
                 />
                 <span
-                  className={`${styles.focusInput} ${isCPFHovered || cpf !== "" ? styles.focused : ""}`}
+                  className={`${styles.focusInput} ${isCPFHovered || informationUsers.cpf !== "" ? styles.focused : ""}`}
                   data-placeholder="CPF"
                 ></span>
               </div>
 
               <div className={styles.wrapInput}>
                 <input
-                  className={`${email !== "" ? styles.hasVal : ""} ${styles.inputs}`}
+                  className={`${informationUsers.email !== "" ? styles.hasVal : ""} ${styles.inputs}`}
                   type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  name="email"
+                  value={informationUsers.email}
+                  onChange={handleInputChange}
                 />
                 <span className={styles.focusInput} data-placeholder="Email"></span>
               </div>
 
               <div className={styles.wrapInput}>
                 <input
-                  className={`${password !== "" ? styles.hasVal : ""} ${styles.inputs}`}
+                  className={`${informationUsers.password !== "" ? styles.hasVal : ""} ${styles.inputs}`}
                   type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  name="password"
+                  value={informationUsers.password}
+                  onChange={handleInputChange}
                 />
                 <span className={styles.focusInput} data-placeholder="Password"></span>
               </div>
 
               <div className={styles.wrapInput}>
                 <input
-                  className={`${confirmPassword !== "" ? styles.hasVal : ""} ${styles.inputs}`}
+                  className={`${informationUsers.confirmPassword !== "" ? styles.hasVal : ""} ${styles.inputs}`}
                   type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  name="confirmPassword"
+                  value={informationUsers.confirmPassword}
+                  onChange={handleInputChange}
                 />
                 <span className={styles.focusInput} data-placeholder="Confirm Password"></span>
               </div>
 
               <div className={styles.containerLoginFormBtn}>
-                <Link to="/FirstPage" className={styles.loginFormBtn}>
-                  <span>Register</span>
-                </Link>
+                {/* <Link to="/FirstPage" className={styles.loginFormBtn}>
+                  <span>Cadastrar</span>
+                </Link> */}
+                 <button type="button" onClick={handleSubmit} className={styles.loginFormBtn}>
+                    <span>Cadastrar</span>
+                 </button>
               </div>
             </form>
           </div>
         </div>
       </div>
       <Footer />
+      <ToastContainer />
     </div>
   );
 }

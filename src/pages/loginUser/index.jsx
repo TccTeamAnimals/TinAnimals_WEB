@@ -2,13 +2,54 @@ import { Header } from '../../components/header/header';
 import { Footer } from '../../components/footer/footer';
 import  logo  from '../../imgs/logo.jpg';
 import styles from './index.module.css';
+
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import axios from 'axios';
 
 export function LoginUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post("http://localhost:3333/api/users/login", { email, password })
+      .then((response) => {
+        toast.success('Usuario Logado Com Sucesso!', {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        setTimeout(() => {
+          window.location.href = "/firstPage";
+        }, 2800);
+      })
+      .catch((error) => {
+        console.log("error", error);
+        if(error.response.data.message == "user not found"){
+          toast.warn('Login ou Senha Inválidos 😕 ', {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      });
+  }
   return (
     <div className={styles.darkMode}>
       <Header />
@@ -49,9 +90,12 @@ export function LoginUser() {
                 </div>
 
                 <div className={styles.containerLoginFormBtn}>
-                <Link to="/FirstPage" className={styles.loginFormBtn}>
+                {/* <Link to="/FirstPage" className={styles.loginFormBtn}>
                   <span>Login</span>
-                </Link>
+                </Link> */}
+                <button type="button" onClick={handleSubmit} className={styles.loginFormBtn}>
+                  <span>Login</span>
+                </button>
                 </div>
 
                 <div className={styles.textCenter}> 
@@ -67,6 +111,7 @@ export function LoginUser() {
           </div>
         </div>
       <Footer />
+      <ToastContainer />
     </div>
   )
 }
