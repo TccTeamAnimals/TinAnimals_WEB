@@ -4,25 +4,30 @@ import  logo  from '../../imgs/logo.jpg';
 import styles from './index.module.css';
 
 import { Link } from 'react-router-dom'
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
 
+import { ThemeContext } from '../../contextApi/ThemeContext';
+
 export function LoginUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { insertLocalStorage } = useContext(ThemeContext);
 
 
   const handleSubmit = (event) => {
     event.preventDefault();
     axios.post("http://localhost:3333/api/users/login", { email, password })
       .then((response) => {
+        console.log("responsecxxffd", response)
+        insertLocalStorage(response.data)
         toast.success('Usuario Logado Com Sucesso!', {
           position: "bottom-right",
-          autoClose: 2000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -30,9 +35,10 @@ export function LoginUser() {
           progress: undefined,
           theme: "dark",
         });
+        
         setTimeout(() => {
           window.location.href = "/firstPage";
-        }, 2800);
+        }, 1800);
       })
       .catch((error) => {
         console.log("error", error);

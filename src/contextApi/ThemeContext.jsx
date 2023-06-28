@@ -10,8 +10,25 @@ const ThemeProvider = ({ children }) => {
   if(!cacheDarkMode) {
     cacheDarkMode = false
   }
-
+  
   const [darkMode, setDarkMode] = useState(cacheDarkMode);
+
+  const insertLocalStorage = (usuario) => {
+    localStorage.setItem('usuario', JSON.stringify(usuario));
+  }
+
+  const removeLocalStorage = () => {
+    console.log("passou aqui")
+    localStorage.removeItem('usuario');
+  }
+
+  const getLocalStorage = () => {
+    const usuario = localStorage.getItem('usuario');
+    if (usuario) {
+      return JSON.parse(usuario);
+    }
+    
+  }
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -22,6 +39,9 @@ const ThemeProvider = ({ children }) => {
   const themeContextValue = {
     darkMode,
     toggleDarkMode,
+    insertLocalStorage,
+    getLocalStorage,
+    removeLocalStorage
   };
 
   // Retornando o provedor envolvendo os componentes filhos

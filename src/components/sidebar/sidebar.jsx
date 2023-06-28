@@ -19,12 +19,19 @@ import { ThemeContext } from '../../contextApi/ThemeContext';
 
 
 export function Sidebar(){
-    const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+    const { darkMode, toggleDarkMode, getLocalStorage, removeLocalStorage } = useContext(ThemeContext);
+    const [userName, setUserName] = useState('');
     const [sidebarExpanded, setSidebarExpanded] = useState(false);
 
     useEffect(() => {
-        console.log('Valor do darkmode:', darkMode)
-    }, [darkMode])
+        const usuarioLocalStorage = getLocalStorage();
+        if (!usuarioLocalStorage) {
+            window.location.href = "/loginUser";
+        }
+        else{
+            setUserName(usuarioLocalStorage.name)
+        }
+    }, [])
 
     return (
         <nav className={`${darkMode ? styles.sidebarDark : styles.sidebar} ${sidebarExpanded ? styles.sidebarExpanded : ''}`}>
@@ -57,6 +64,11 @@ export function Sidebar(){
                     </li>
 
                     <ul className={styles.menuLinks}>
+
+                            <li className=''>
+                                <span className={`${styles.text} ${styles.navText}`}>Bem vindo {userName}!</span>
+                            </li>
+
                         <li className={styles.navLink}>
                             <Link to="/FirstPage">
                                 <i className={styles.icon}> <BsFillHouseDoorFill/></i>
@@ -97,12 +109,13 @@ export function Sidebar(){
 
                         <div className={`${styles.bottomContent} ${styles.navLink}`}>
                             <li className=''>
-                                <Link to="/#" >
+                                <Link to="/">
                                     <i className={styles.icon}> <BsDoorOpen/></i>
-                                    <span className={`${styles.text} ${styles.navText}`}> Sair </span>
+                                    <button className={`${styles.text} ${styles.navText} ${styles.button}`} onClick={removeLocalStorage}>
+                                        Sair
+                                    </button>
                                 </Link>
                             </li>
-
 
                             <li className={styles.mode}>
                                 <div className={styles.moonSun}>

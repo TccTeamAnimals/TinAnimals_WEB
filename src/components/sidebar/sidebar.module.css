@@ -340,7 +340,7 @@ left: 24px;
 }
 
 .bottomContent {
-margin-top: 300px; 
+margin-top: 250px; 
 }
 
 .switchDark::before {
@@ -354,4 +354,19 @@ margin-top: 300px;
     transform: translateY(-50%);
     background: var(--gray-800);
     transition: var(--tran-03);
+}
+
+.button {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--sidebar-color);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  outline: none; 
+  margin-right: 10px; 
+}
+
+.button:hover {
+  background-color: var(--primary-color-hover);
 }
