@@ -14,12 +14,13 @@ export function ImgsFeedAnimals() {
                 <Button variant="danger" style={{ padding: '15px 30px', fontSize: '18px' }}>
                     <FaTimes /> Rejeitar
                 </Button>
-                <Button variant="primary" style={{ padding: '15px 30px', fontSize: '18px' }}>
-                    <FaArrowRight /> Passar
-                </Button>
                 <Button variant="success" style={{ padding: '15px 30px', fontSize: '18px' }}>
                     <FaThumbsUp /> Curtir
                 </Button>
+                <Button variant="primary" style={{ padding: '15px 30px', fontSize: '18px' }}>
+                    <FaArrowRight /> Passar
+                </Button>
+                
                 </div>
             </div>
         </div>
