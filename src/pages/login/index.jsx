@@ -13,7 +13,7 @@ import axios from 'axios';
 
 import { ThemeContext } from '../../contextApi/ThemeContext';
 
-export function LoginUser() {
+export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { insertLocalStorage } = useContext(ThemeContext);
@@ -23,7 +23,6 @@ export function LoginUser() {
     event.preventDefault();
     axios.post("http://localhost:3333/api/users/login", { email, password })
       .then((response) => {
-        console.log("responsecxxffd", response)
         insertLocalStorage(response.data)
         toast.success('Usuario Logado Com Sucesso!', {
           position: "bottom-right",
@@ -64,11 +63,10 @@ export function LoginUser() {
             <div className={styles.wrapLogin}>
               <form className={styles.loginForm}>
                 <span className={styles.loginFormTitle}>
-                  Bem vindo!
-                </span>
-
-                <span className={styles.loginFormTitle}>
                   <img className={styles.img} src={logo} alt="login" />
+                </span>
+                <span className={styles.loginFormTitle}>
+                  Faça seu Login
                 </span>
 
                 <div className={styles.wrapInput}>
@@ -86,11 +84,16 @@ export function LoginUser() {
 
                 <div className={styles.wrapInput}>
                   <input 
-                  className={`${password !== "" ? styles.hasVal : ""} ${styles.inputs}`}  
-                  type="password" 
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  />
+                    className={`${password !== "" ? styles.hasVal : ""} ${styles.inputs}`}  
+                    type="password" 
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        handleSubmit(e)
+                      }
+                    }}
+                    />
                   <span className={styles.focusInput} data-placeholder='Password'>
                   </span>
                 </div>
@@ -105,10 +108,9 @@ export function LoginUser() {
                 </div>
 
                 <div className={styles.textCenter}> 
-                  <span className={styles.txt1}>esqueceu a senha ? <br /></span>
                   <Link to="/forgetPassword" className={styles.linkCad}>
                     <span className={styles.linkCad}>
-                      Click Aqui !
+                    Esqueceu a senha?
                     </span>
                   </Link>
                 </div>

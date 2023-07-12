@@ -26,7 +26,7 @@ export function Sidebar(){
     useEffect(() => {
         const usuarioLocalStorage = getLocalStorage();
         if (!usuarioLocalStorage) {
-            window.location.href = "/loginUser";
+            window.location.href = "/login";
         }
         else{
             setUserName(usuarioLocalStorage.name)
@@ -66,7 +66,7 @@ export function Sidebar(){
                     <ul className={styles.menuLinks}>
 
                             <li className=''>
-                                <span className={`${styles.text} ${styles.navText}`}>Bem vindo {userName}!</span>
+                                <span className={`${styles.text} ${styles.navText}`}>Bem vindo {userName.split(' ')[0]}!</span>
                             </li>
 
                         <li className={styles.navLink}>
@@ -88,7 +88,7 @@ export function Sidebar(){
                             </Link>
                         </li>
                         <li className={styles.navLink}>
-                            <a href="#">
+                            <a href="/chat">
                                 <i className={styles.icon}> <BsChatHeart/></i>
                                 <span className={`${styles.text} ${styles.navText}`}> Chat</span>
                             </a>

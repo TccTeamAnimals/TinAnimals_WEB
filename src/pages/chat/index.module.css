@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.dark_mode{
+    background-color: var(--gray-700);
+    color: var(--gray-300); 
+    height: 100vh;
+    width: 100vw;
+}
+
+.page_title {
+    margin-bottom: 20px;
+}
+
+.light_mode{
+    color: var(--gray-700); 
+    background-color: var(--background-color-light);
+    height: 100vh;
+    width: 100vw;
+}
+

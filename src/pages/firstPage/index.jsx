@@ -14,7 +14,7 @@ export function FirstPage() {
     useEffect(() => {
         const usuarioLocalStorage = getLocalStorage();
         if (!usuarioLocalStorage) {
-            window.location.href = "/loginUser";
+            window.location.href = "/login";
         }
         else{
             setUserName(usuarioLocalStorage.name)

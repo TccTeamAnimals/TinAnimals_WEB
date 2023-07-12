@@ -5,50 +5,46 @@ import Inputmask from 'inputmask';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-import logo from '../../imgs/logo.jpg';
+import logo from '../../imgs/ong.png';
 import styles from './index.module.css';
 
-
+import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import axios from 'axios';
+export function CadOng() {
 
-export function CadUser() {
-
-  const [informationUsers, setInformationUsers] = useState({
+  const [informationOng, setInformationOng] = useState({
     name: "",
     phone: "",
-    cpf: "",
     email: "",
     password: "",
     confirmPassword: "",
-    typeCad: "user"
+    typeCad: "ong"
   });
 
-  const [isCPFHovered, setIsCPFHovered] = useState(false);
   const [isPhoneHovered, setIsPhoneHovered] = useState(false);
 
   useEffect(() => {
     Inputmask("(99) 9-9999-9999").mask("#phone");
-    Inputmask("999.999.999-99").mask("#cpf");
   }, []);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setInformationUsers((prevInformationUsers) => ({
-      ...prevInformationUsers,
+    setInformationOng((prevInformationOng) => ({
+      ...prevInformationOng,
       [name]: value
     }));
   };
 
   const handleSubmit = (event) => {
-    console.log(informationUsers)
-    if (informationUsers.password == informationUsers.confirmPassword) {
+    console.log(informationOng)
+    if (informationOng.password === informationOng.confirmPassword) {
       event.preventDefault();
-      axios.post("http://localhost:3333/api/users", informationUsers)
+      // Chamada da requisição de cadastro de ONG
+      axios.post("http://localhost:3333/api/ong", informationOng)
         .then((response) => {
-          toast.success('Usuario cadastrado com sucesso!', {
+          toast.success('ONG cadastrada com sucesso!', {
             position: "bottom-right",
             autoClose: 2000,
             hideProgressBar: false,
@@ -75,23 +71,10 @@ export function CadUser() {
               theme: "dark",
               });
           }
-          if(error.response.data.message == "cpf already used"){
-            toast.error('CPF já cadastrado !', {
-              position: "bottom-right",
-              autoClose: 4000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-              });
-          }
           console.log("error", error);
         });
-      }
-    else {
-      toast.warn('Senhas Não Coincidem !', {
+    } else {
+      toast.warn('Senhas Não Coincidem!', {
         position: "bottom-right",
         autoClose: 4000,
         hideProgressBar: false,
@@ -100,7 +83,7 @@ export function CadUser() {
         draggable: true,
         progress: undefined,
         theme: "dark",
-        });
+      });
     }
   }
 
@@ -112,60 +95,43 @@ export function CadUser() {
           <div className={styles.wrapLogin}>
             <form className={styles.loginForm}>
               <span className={styles.loginFormTitle}>
-                <img className={styles.img} src={logo} alt="login" />Cadastre-se!
+                <img className={styles.img} src={logo} alt="login" />Cadastrar Ong
               </span>
 
               <div className={styles.wrapInput}>
                 <input
-                  className={`${informationUsers.name !== "" ? styles.hasVal : ""} ${styles.inputs}`}
+                  className={`${informationOng.name !== "" ? styles.hasVal : ""} ${styles.inputs}`}
                   type="text"
                   name="name"
-                  value={informationUsers.name}
+                  value={informationOng.name}
                   onChange={handleInputChange}
                 />
-                <span className={styles.focusInput} data-placeholder="Nome Completo"></span>
+                <span className={styles.focusInput} data-placeholder="Nome da Ong"></span>
               </div>
 
               <div className={styles.wrapInput}>
                 <input
-                  className={`${informationUsers.phone !== "" ? styles.hasVal : ""} ${styles.inputs}`}
+                  className={`${informationOng.phone !== "" ? styles.hasVal : ""} ${styles.inputs}`}
                   type="text"
                   id="phone"
                   name="phone"
-                  value={informationUsers.phone}
+                  value={informationOng.phone}
                   onChange={handleInputChange}
                   onMouseEnter={() => setIsPhoneHovered(true)}
                   onMouseLeave={() => setIsPhoneHovered(false)}
                 />
                 <span
-                  className={`${styles.focusInput} ${isPhoneHovered || informationUsers.phone !== "" ? styles.focused : ""}`}
+                  className={`${styles.focusInput} ${isPhoneHovered || informationOng.phone !== "" ? styles.focused : ""}`}
                   data-placeholder="Telefone"
                 ></span>
               </div>
 
               <div className={styles.wrapInput}>
                 <input
-                  className={`${informationUsers.cpf !== "" ? styles.hasVal : ""} ${styles.inputs}`}
-                  type="text"
-                  id="cpf"
-                  name="cpf"
-                  value={informationUsers.cpf}
-                  onChange={handleInputChange}
-                  onMouseEnter={() => setIsCPFHovered(true)}
-                  onMouseLeave={() => setIsCPFHovered(false)}
-                />
-                <span
-                  className={`${styles.focusInput} ${isCPFHovered || informationUsers.cpf !== "" ? styles.focused : ""}`}
-                  data-placeholder="CPF"
-                ></span>
-              </div>
-
-              <div className={styles.wrapInput}>
-                <input
-                  className={`${informationUsers.email !== "" ? styles.hasVal : ""} ${styles.inputs}`}
+                  className={`${informationOng.email !== "" ? styles.hasVal : ""} ${styles.inputs}`}
                   type="email"
                   name="email"
-                  value={informationUsers.email}
+                  value={informationOng.email}
                   onChange={handleInputChange}
                 />
                 <span className={styles.focusInput} data-placeholder="Email"></span>
@@ -173,10 +139,10 @@ export function CadUser() {
 
               <div className={styles.wrapInput}>
                 <input
-                  className={`${informationUsers.password !== "" ? styles.hasVal : ""} ${styles.inputs}`}
+                  className={`${informationOng.password !== "" ? styles.hasVal : ""} ${styles.inputs}`}
                   type="password"
                   name="password"
-                  value={informationUsers.password}
+                  value={informationOng.password}
                   onChange={handleInputChange}
                 />
                 <span className={styles.focusInput} data-placeholder="Password"></span>
@@ -184,22 +150,19 @@ export function CadUser() {
 
               <div className={styles.wrapInput}>
                 <input
-                  className={`${informationUsers.confirmPassword !== "" ? styles.hasVal : ""} ${styles.inputs}`}
+                  className={`${informationOng.confirmPassword !== "" ? styles.hasVal : ""} ${styles.inputs}`}
                   type="password"
                   name="confirmPassword"
-                  value={informationUsers.confirmPassword}
+                  value={informationOng.confirmPassword}
                   onChange={handleInputChange}
                 />
                 <span className={styles.focusInput} data-placeholder="Confirm Password"></span>
               </div>
 
               <div className={styles.containerLoginFormBtn}>
-                {/* <Link to="/FirstPage" className={styles.loginFormBtn}>
+                <button type="button" onClick={handleSubmit} className={styles.loginFormBtn}>
                   <span>Cadastrar</span>
-                </Link> */}
-                 <button type="button" onClick={handleSubmit} className={styles.loginFormBtn}>
-                    <span>Cadastrar</span>
-                 </button>
+                </button>
               </div>
             </form>
           </div>

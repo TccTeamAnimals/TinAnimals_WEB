@@ -35,8 +35,8 @@ export function Header() {
                     </NavDropdown> */}
                 </Nav>
                 <Nav>
-                    <Nav.Link href="/cadUser">Cadastrar</Nav.Link>
-                    <Nav.Link href="/loginUser">Login</Nav.Link>
+                    <Nav.Link href="/cadastros">Cadastrar</Nav.Link>
+                    <Nav.Link href="/login">Login</Nav.Link>
                 </Nav>
                 </Navbar.Collapse>
             </Container>
