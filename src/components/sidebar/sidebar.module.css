@@ -59,7 +59,17 @@ background-color: var(--gray-800);
     overflow: hidden;
 } */
 
+.sidebar .text2 {
+font-size: 1.3rem;
+font-weight: 500;
+color: var(--text-color);
+} 
 
+.sidebarDark .text2 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--text-color);
+  } 
 
 .sidebar .text {
 font-size: 1.2rem;
@@ -341,6 +351,10 @@ left: 24px;
 
 .bottomContent {
 margin-top: 250px; 
+}
+
+.bottomContentOng {
+  margin-top: 350px;
 }
 
 .switchDark::before {

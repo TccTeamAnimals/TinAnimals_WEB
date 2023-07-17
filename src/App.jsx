@@ -12,6 +12,7 @@ import { FirstPage } from './pages/firstPage/index.jsx';
 import { Chat } from './pages/chat/index.jsx';
 import { Cadastros } from './pages/cadastros/index.jsx';
 import { CadOng } from './pages/cadOng/index.jsx';
+import { Ongs } from './pages/ongs/index.jsx';
 
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -32,6 +33,7 @@ function App() {
       <Route path='/chat' element={<Chat />} />
       <Route path='/cadastros' element={<Cadastros />} />
       <Route path='/cadOng' element={<CadOng />} />
+      <Route path='/ongs' element={<Ongs />} />
 
     </Routes>
   );

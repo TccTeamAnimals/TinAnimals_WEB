@@ -23,8 +23,9 @@ export function Login() {
     event.preventDefault();
     axios.post("http://localhost:3333/api/users/login", { email, password })
       .then((response) => {
-        insertLocalStorage(response.data)
-        toast.success('Usuario Logado Com Sucesso!', {
+        // Se o login estiver na tabela de usuários, faça o login do usuário
+        insertLocalStorage(response.data);
+        toast.success('Usuário Logado Com Sucesso!', {
           position: "bottom-right",
           autoClose: 1000,
           hideProgressBar: false,
@@ -39,20 +40,38 @@ export function Login() {
           window.location.href = "/firstPage";
         }, 1800);
       })
-      .catch((error) => {
-        console.log("error", error);
-        if(error.response.data.message == "user not found"){
-          toast.warn('Login ou Senha Inválidos 😕 ', {
-            position: "bottom-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
+      .catch(() => {
+        // Se o login não estiver na tabela de usuários, verifique se está na tabela das ONGs
+        axios.post("http://localhost:3333/api/ong/login", { email, password })
+          .then((response) => {
+            insertLocalStorage(response.data);
+            toast.success('ONG Logada Com Sucesso!', {
+              position: "bottom-right",
+              autoClose: 1000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+            
+            setTimeout(() => {
+              window.location.href = "/firstPage";
+            }, 1800);
+          })
+          .catch(() => {
+            toast.warn('Login ou Senha Inválidos 😕 ', {
+              position: "bottom-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
           });
-        }
       });
   }
   return (

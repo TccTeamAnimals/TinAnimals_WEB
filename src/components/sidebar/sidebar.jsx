@@ -22,6 +22,7 @@ export function Sidebar(){
     const { darkMode, toggleDarkMode, getLocalStorage, removeLocalStorage } = useContext(ThemeContext);
     const [userName, setUserName] = useState('');
     const [sidebarExpanded, setSidebarExpanded] = useState(false);
+    const [typecad, setTypeCad] = useState('');	
 
     useEffect(() => {
         const usuarioLocalStorage = getLocalStorage();
@@ -29,6 +30,7 @@ export function Sidebar(){
             window.location.href = "/login";
         }
         else{
+            setTypeCad(usuarioLocalStorage.typeCad)
             setUserName(usuarioLocalStorage.name)
         }
     }, [])
@@ -66,7 +68,7 @@ export function Sidebar(){
                     <ul className={styles.menuLinks}>
 
                             <li className=''>
-                                <span className={`${styles.text} ${styles.navText}`}>Bem vindo {userName.split(' ')[0]}!</span>
+                                <span className={`${styles.text2} ${styles.navText}`}>Olá {userName.split(' ')[0]} {typecad === 'ong' ? '🏪' : '🐶'} </span>
                             </li>
 
                         <li className={styles.navLink}>
@@ -75,12 +77,15 @@ export function Sidebar(){
                                 <span className={`${styles.text} ${styles.navText}`}> Dashboard</span>
                             </Link>
                         </li>
-                        <li className={styles.navLink}>
-                            <a href="/feedAnimals">
-                                <i className={styles.icon}> <BsTencentQq/> </i>
-                                <span className={`${styles.text} ${styles.navText}`}> Feed </span>
-                            </a>
-                        </li>
+
+                        {typecad !== 'ong' && (
+                            <li className={styles.navLink}>
+                                <a href="/feedAnimals">
+                                    <i className={styles.icon}> <BsTencentQq/> </i>
+                                    <span className={`${styles.text} ${styles.navText}`}> Feed </span>
+                                </a>
+                            </li>
+                        )}
                         <li className={styles.navLink}>
                             <Link to="/animalsLiked">
                                 <i className={styles.icon}> <BsHeartFill/></i>
@@ -93,12 +98,16 @@ export function Sidebar(){
                                 <span className={`${styles.text} ${styles.navText}`}> Chat</span>
                             </a>
                         </li>
-                        <li className={styles.navLink}>
-                            <a href="#">
-                                <i className={styles.icon}> <BsFillPinMapFill/></i>
-                                <span className={`${styles.text} ${styles.navText}`}> ONGs</span>
-                            </a>
-                        </li>
+
+                        {typecad !== 'ong' && (
+                            <li className={styles.navLink}>
+                                <a href="/ongs">
+                                    <i className={styles.icon}> <BsFillPinMapFill/></i>
+                                    <span className={`${styles.text} ${styles.navText}`}> ONGs</span>
+                                </a>
+                            </li>
+                        )}
+
                         <li className={styles.navLink}>
                             <Link to="/profileUser">
                                 <i className={styles.icon}> <BsFillPersonFill/></i>
@@ -107,7 +116,7 @@ export function Sidebar(){
                         </li>
                     
 
-                        <div className={`${styles.bottomContent} ${styles.navLink}`}>
+                        <div className={`${typecad === 'user' ? `${styles.bottomContent} ${styles.navLink}` : `${styles.bottomContentOng} ${styles.navLink}`}`}>
                             <li className=''>
                                 <Link to="/">
                                     <i className={styles.icon}> <BsDoorOpen/></i>
