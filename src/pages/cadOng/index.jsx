@@ -4,6 +4,7 @@ import { Footer } from '../../components/footer/footer';
 import Inputmask from 'inputmask';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import logo from '../../imgs/ong.png';
 import styles from './index.module.css';
@@ -41,8 +42,13 @@ export function CadOng() {
     console.log(informationOng)
     if (informationOng.password === informationOng.confirmPassword) {
       event.preventDefault();
+      const id = uuidv4();
+      const ongData = {
+        ...informationOng,
+        id: id,
+      }
       // Chamada da requisição de cadastro de ONG
-      axios.post("http://localhost:3333/api/ong", informationOng)
+      axios.post("http://localhost:3333/api/ong", ongData)
         .then((response) => {
           toast.success('ONG cadastrada com sucesso!', {
             position: "bottom-right",

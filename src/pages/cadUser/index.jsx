@@ -4,6 +4,7 @@ import { Footer } from '../../components/footer/footer';
 import Inputmask from 'inputmask';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import logo from '../../imgs/logo.jpg';
 import styles from './index.module.css';
@@ -44,9 +45,15 @@ export function CadUser() {
 
   const handleSubmit = (event) => {
     console.log(informationUsers)
-    if (informationUsers.password == informationUsers.confirmPassword) {
+    if (informationUsers.password === informationUsers.confirmPassword) {
       event.preventDefault();
-      axios.post("http://localhost:3333/api/users", informationUsers)
+      const id = uuidv4();
+      const userData = {
+        ...informationUsers,
+        id: id,
+      }
+
+      axios.post("http://localhost:3333/api/users", userData)
         .then((response) => {
           toast.success('Usuario cadastrado com sucesso!', {
             position: "bottom-right",
