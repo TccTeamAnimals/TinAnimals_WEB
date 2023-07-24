@@ -62,7 +62,7 @@ export function Sidebar(){
 
                     <li className={`${darkMode ? styles.seachBoxDark : styles.seachBox}`}>
                         <i className={styles.icon}> <BsSearchHeart/></i>
-                        <input type="search" placeholder="Search..." />
+                        <input  className={styles.inputSearch} type="search" placeholder="Search..." />
                     </li>
 
                     <ul className={styles.menuLinks}>

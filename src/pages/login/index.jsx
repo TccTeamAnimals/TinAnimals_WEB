@@ -41,7 +41,6 @@ export function Login() {
         }, 1800);
       })
       .catch(() => {
-        // Se o login não estiver na tabela de usuários, verifique se está na tabela das ONGs
         axios.post("http://localhost:3333/api/ong/login", { email, password })
           .then((response) => {
             insertLocalStorage(response.data);

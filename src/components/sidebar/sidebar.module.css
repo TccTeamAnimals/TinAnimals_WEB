@@ -11,7 +11,7 @@ left: 0;
 height: 100%;
 width: 250px;
 padding: 1rem 1rem;
-background-color: var(--sidebar-color);
+background-color: #dde7f3;
 }
 
 .sidebarDark {
