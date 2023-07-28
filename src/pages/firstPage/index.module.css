@@ -6,17 +6,48 @@
 .dark_mode{
     background-color: var(--gray-700);
     color: var(--gray-300); 
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
 }
 
 .light_mode{
     color: var(--gray-700); 
-    background-color: var(--background-color-light);
+    background-color:#E8EEF2;
     height: 100vh;
     width: 100vw;
 }
 
 .margin{
-    margin-left: 20rem;
+    margin-left: 10rem;
+}
+
+.carousel {
+  max-width: 700px; /* Defina o valor que desejar para o carrossel */
+  margin: 0 auto; /* Centraliza o carrossel na página */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilos para as imagens do carrossel */
+.carousel .slide img {
+  max-height: 500px; /* Defina o valor que desejar para a altura das imagens */
+  object-fit: contain; /* Ajusta o redimensionamento da imagem para caber no espaço */
+}
+
+.titulo {
+    text-align: center;
+    margin-top: 2rem;
+    /* margin-left: 20rem; */
+    margin-right: 10rem;
+}
+
+.subtitulo {
+    text-align: center;
+    margin-top: 0.5rem;
+    /* margin-left: 20rem; */
+    
+}
+
+.containerInfo{
+    background-color: aqua;
 }
