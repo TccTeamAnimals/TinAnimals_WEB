@@ -1,53 +1,145 @@
-.container{
+.container {
     margin-left: 18rem;
     height: 100%;
-}
-
-.dark_mode{
+  }
+  
+  .dark_mode {
     background-color: var(--gray-700);
-    color: var(--gray-300); 
+    color: var(--gray-300);
     height: 100%;
     width: 100%;
+  }
+  
+  .light_mode {
+    color: var(--gray-700);
+    background-color: #e8eef2;
+    height: 100%;
+    width: 100%;
+  }
+
+  .title{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;  
 }
 
-.light_mode{
-    color: var(--gray-700); 
-    background-color:#E8EEF2;
-    height: 100vh;
-    width: 100vw;
+.logo{
+    margin-left: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 
-.margin{
+  .margin {
     margin-left: 10rem;
-}
+  }
 
-.carousel {
-  max-width: 700px; /* Defina o valor que desejar para o carrossel */
-  margin: 0 auto; /* Centraliza o carrossel na página */
-  align-items: center;
-  justify-content: center;
-}
-
-/* Estilos para as imagens do carrossel */
-.carousel .slide img {
-  max-height: 500px; /* Defina o valor que desejar para a altura das imagens */
-  object-fit: contain; /* Ajusta o redimensionamento da imagem para caber no espaço */
-}
-
-.titulo {
+  .marginTop{
+    margin-top: 2rem;
+  }
+  
+  .marginInfo {
+    margin-left: 10rem;
+    margin-top: 3rem;
+    display: flex; /* Use flexbox to align the items side by side */
+    align-items: center; /* Center the items vertically */
+    justify-content: space-around;
+  }
+  
+  .imageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 2rem 5rem 5rem; /* Adjust the space between the containers */
+  }
+  
+  .carousel {
+    margin-top: 10rem;
+    max-width: 700px; /* Defina o valor que desejar para o carrossel */
+    margin: 0 auto; /* Centraliza o carrossel na página */
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Estilos para as imagens do carrossel */
+  .carousel .slide img {
+    max-height: 500px; /* Defina o valor que desejar para a altura das imagens */
+    object-fit: contain; /* Ajusta o redimensionamento da imagem para caber no espaço */
+  }
+  
+  .titulo {
     text-align: center;
     margin-top: 2rem;
     /* margin-left: 20rem; */
     margin-right: 10rem;
-}
-
-.subtitulo {
+  }
+  
+  .subtitulo {
     text-align: center;
     margin-top: 0.5rem;
     /* margin-left: 20rem; */
+  }
+  
+  .containerInfo {
+    display: flex; /* Use flexbox to align the items side by side */
+    justify-content: space-around; /* Adjust the space between the items */
+    background-color: #465c69;
+    padding: 2rem 0; /* Add padding for better spacing */
+  }
+  
+  /* Add styles for each info item */
+  .infoItem {
+    text-align: center;
+    margin: 0 4rem; /* Adjust the space between the items */
+  }
+  
+  .imagensInfo {
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+  }
+  
+  .marginTextlowIcon {
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+
+  
+  .marginQuestions {
+    margin-left: 20rem;
+    margin-top: 2rem;
+    padding: 2rem; /* Adicione um espaçamento interno para melhorar a aparência */
+    height: 250px;
+    width: 65%;
+    background-color: #7e714a;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Alinhar verticalmente o conteúdo */
+    align-items: center; /* Alinhar horizontalmente o conteúdo */
+    padding-right: 12%;
     
+  }
+  
+  .marginTextQuestions {
+    /* Estilos de texto que você já tem */
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+.marginTextQuestions {
+    margin-left: 200px;
 }
 
-.containerInfo{
-    background-color: aqua;
+.buttonQuestion{
+    margin-top: 1rem;
+    margin-left: 200px;
+    cursor: pointer;
 }
+

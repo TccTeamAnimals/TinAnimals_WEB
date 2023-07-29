@@ -74,7 +74,7 @@ export function Sidebar(){
                         <li className={styles.navLink}>
                             <Link to="/FirstPage">
                                 <i className={styles.icon}> <BsFillHouseDoorFill/></i>
-                                <span className={`${styles.text} ${styles.navText}`}> Dashboard</span>
+                                <span className={`${styles.text} ${styles.navText}`}> Home</span>
                             </Link>
                         </li>
 
