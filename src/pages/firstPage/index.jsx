@@ -16,6 +16,7 @@ import img7 from '../../imgs/iconPet1.png';
 import logo from '../../imgs/logo.jpg';
 import likeHeart from '../../imgs/likeHeart.png';
 import iconChat from '../../imgs/iconChat.png';
+import { Link } from 'react-router-dom';
 
 export function FirstPage() {
   const { darkMode, getLocalStorage } = useContext(ThemeContext);
@@ -202,9 +203,12 @@ export function FirstPage() {
           <h6 className={styles.marginTextQuestions}>
             conosco que teremos o maior prazer em ajudar você.
           </h6>
-          <button className={`btn btn-primary ${styles.buttonQuestion}`}>
-            Ir para perguntas frequentes
-          </button>
+          
+          <Link to="/questions">
+            <button className={`btn btn-primary ${styles.buttonQuestion}`}>
+              Ir para perguntas frequentes
+            </button>
+          </Link>
         </div>
         <br /><br /><br />
       </div>
