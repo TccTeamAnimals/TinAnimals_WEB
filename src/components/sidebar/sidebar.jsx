@@ -67,9 +67,9 @@ export function Sidebar(){
 
                     <ul className={styles.menuLinks}>
 
-                            <li className=''>
+                            {/* <li className=''>
                                 <span className={`${styles.text2} ${styles.navText}`}>Olá {userName.split(' ')[0]} {typecad === 'ong' ? '🏪' : '🐶'} </span>
-                            </li>
+                            </li> */}
 
                         <li className={styles.navLink}>
                             <Link to="/FirstPage">
@@ -86,6 +86,16 @@ export function Sidebar(){
                                 </a>
                             </li>
                         )}
+
+                        {typecad !== 'user' && (
+                            <li className={styles.navLink}>
+                                <a href="/importAnimal">
+                                    <i className={styles.icon}> <BsTencentQq/> </i>
+                                    <span className={`${styles.text} ${styles.navText}`}> Cadastrar Animal </span>
+                                </a>
+                            </li>
+                        )}
+                        
                         <li className={styles.navLink}>
                             <Link to="/animalsLiked">
                                 <i className={styles.icon}> <BsHeartFill/></i>

@@ -13,11 +13,20 @@
   .light_mode {
     color: var(--gray-700);
     background-color: #e8eef2;
-    height: 100%;
-    width: 100%;
+    height: 100vw;
+    width: 100vw;
   }
 
   .margin{
-    margin-left: 17rem;
+    margin-left: 20rem;
   }
 
+  .accordion-item {
+    margin-bottom: 10px; /* Ajuste o espaçamento entre as dúvidas conforme necessário */
+  }
+
+  .alingTitle {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+  }

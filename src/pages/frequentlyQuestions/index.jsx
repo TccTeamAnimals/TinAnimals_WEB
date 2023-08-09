@@ -19,8 +19,11 @@ export function Questions() {
 
     return (
         <div className={`${darkMode ? styles.dark_mode : styles.light_mode}`}>
+            <br />
+            <div className={styles.alingTitle}>
+              <h1>Perguntas Frequentes</h1>
+            </div>
             <div className={styles.margin}>
-                <h1>Perguntas</h1>
                 <AccordionQuestions/>
             </div>
             <Sidebar/>

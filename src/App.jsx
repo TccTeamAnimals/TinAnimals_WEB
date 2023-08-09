@@ -14,6 +14,7 @@ import { Cadastros } from './pages/cadastros/index.jsx';
 import { CadOng } from './pages/cadOng/index.jsx';
 import { Ongs } from './pages/ongs/index.jsx';
 import { Questions } from './pages/frequentlyQuestions/index.jsx';
+import { ImportAnimal } from './pages/registerAnimal/index.jsx';
 
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -36,7 +37,7 @@ function App() {
       <Route path='/cadOng' element={<CadOng />} />
       <Route path='/ongs' element={<Ongs />} />
       <Route path='/questions' element={<Questions />} />
-
+      <Route path='/importAnimal' element={<ImportAnimal />} />
     </Routes>
   );
 }

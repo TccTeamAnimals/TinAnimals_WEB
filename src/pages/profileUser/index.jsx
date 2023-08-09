@@ -49,7 +49,7 @@ export function ProfileUser() {
   }, [infoUserInCache]);
 
   useEffect(() => {
-    // Atualize os campos do formulário com os dados retornados da API
+    // Atualiza os campos do formulário com os dados retornados da API
     setFormValues({
       name: dataUserOrOng.name || '',
       phone: dataUserOrOng.phone || '',
