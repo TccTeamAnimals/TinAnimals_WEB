@@ -55,15 +55,10 @@
     text-align: center;
   }
   .test{
-    
     margin-top: 20rem;
-    
   }
 
   .card {
-    /* padding-top: 1rem;
-    padding-left: 1rem;
-    padding-right: 1rem; */
     width: 14rem;
   }
 
@@ -87,4 +82,12 @@
     object-fit: cover; 
     margin-top: 1rem;
     margin-right: 1rem;
+}
+
+.marginTop{
+  margin-top: 1rem;
+}
+
+.marginTopButton{
+  margin-top: 2.3rem;
 }

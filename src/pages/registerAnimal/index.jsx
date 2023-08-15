@@ -16,6 +16,10 @@ export function ImportAnimal() {
     const [selectedImage, setSelectedImage] = useState(null);
     const [animalsInBD, setAnimalsInBD] = useState([]);
     const [animalName, setAnimalName] = useState("");
+    const [animalIdade, setAnimalIdade] = useState("");
+    const [animalRaca, setAnimalRaca] = useState("");
+    const [animalSexo, setAnimalSexo] = useState("");
+    const [animalDescricao, setAnimalDescricao] = useState("");
 
     useEffect(() => {
         const userData = getLocalStorage();
@@ -51,7 +55,7 @@ export function ImportAnimal() {
                 });
                 setTimeout(() => {
                     window.location.href = "/importAnimal";
-                }, 1800);
+                }, 1000);
             })
         .catch((error) => {
             console.log('Erro ao delete o animal:', error);
@@ -142,16 +146,52 @@ export function ImportAnimal() {
                             onChange={(e) => setAnimalName(e.target.value)}
                         />
                     </div>
+
+                    <div className='col-lg-2'>
+                        <h5>Idade Animal</h5>
+                        <input
+                            className={styles.inputName}
+                            type="text"
+                            value={animalIdade}
+                            onChange={(e) => setAnimalIdade(e.target.value)}
+                        />
+                    </div>
+
+                    <div className='col-lg-2'>
+                        <h5 >Raça</h5>
+                        <input
+                            className={styles.inputName}
+                            type="text"
+                            value={animalRaca}
+                            onChange={(e) => setAnimalRaca(e.target.value)}
+                        />
+                    </div>
+
+                    <div className='col-lg-2'>
+                        <h5 >Sexo</h5>
+                        <input
+                            className={styles.inputName}
+                            type="text"
+                            value={animalSexo}
+                            onChange={(e) => setAnimalSexo(e.target.value)}
+                        />
+                    </div>
+                </div>
+
+                <div className='row'>
                     <div className='col-lg-3'>
-                        <h5>Foto do animal</h5>
+                        <h5 className={styles.marginTop}>Foto do animal</h5>
                         <input  type="file" accept="image/*" onChange={getHandlerImg} />
                     </div>
-                   
-                   
-                </div>
-                <button className='btn btn-success mt-3' onClick={handleImportPicture}>Cadastrar Animal</button>
-               
+
+                    <div className='col-lg-2'>
+                        <div className={styles.marginTopButton}>
+                            <button className={`btn btn-success mt-3`}  onClick={handleImportPicture}>Cadastrar Animal</button>
+                        </div>
+                    </div>
+                </div>               
             </div>
+            
             <div className={`${styles.divCard} ${styles.cardContainer}`}>
                 <div className='container'>
                     <div className='row'>

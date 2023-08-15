@@ -60,4 +60,17 @@ font-weight: bold;
 cursor: pointer;
 }
 
+.infoPets{
+   padding-left: 20px;
+   padding-top: 10px;
+   border-radius: 8px;
+   margin-right: 40px;
+   width: 400px;
+   height: 400px;
+   background-color: #554971;
+   color: white;
+}
 
+.spaceTop{
+    margin-top: 7rem;
+}
