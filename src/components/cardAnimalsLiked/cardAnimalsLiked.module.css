@@ -1,0 +1,24 @@
+.card {
+    width: 14rem;
+  }
+
+  .cardBody {
+  
+    margin-top: 1rem;
+    
+
+    background-color: rgb(205, 253, 205);
+    color: #e8eef2;
+  }
+
+  .textColor{
+    color: black;
+  }
+
+  .cardImg {
+    width: 100%; 
+    height: 200px; 
+    object-fit: cover; 
+    margin-top: 1rem;
+    margin-right: 1rem;
+}

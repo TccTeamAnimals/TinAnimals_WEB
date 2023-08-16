@@ -6,11 +6,26 @@ import 'bootstrap/dist/css/bootstrap.min.css?inline';
 import { FaThumbsUp, FaTimes, FaArrowRight } from 'react-icons/fa';
 import axios from 'axios';
 import { useState, useContext, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { ThemeContext } from '../../contextApi/ThemeContext';
 
 
 export function ImgsFeedAnimals() {
+    const { getLocalStorage } = useContext(ThemeContext);
     const [animals, setAnimals] = useState([]);
     const [currentAnimalIndex, setCurrentAnimalIndex] = useState(0);
+    const [userID, setUserID] = useState('');
+
+    useEffect(() => {
+        const usuarioLocalStorage = getLocalStorage();
+        if (!usuarioLocalStorage) {
+            window.location.href = "/login";
+        }
+        else{
+            setUserID(usuarioLocalStorage.id)
+        }
+    }, [])
+
 
     useEffect(() => {
         axios.get('http://localhost:3333/api/ong/getAnimals/pictures')
@@ -21,6 +36,26 @@ export function ImgsFeedAnimals() {
                 console.log('Erro ao atualizar dados:', error);
             });
     }, []);
+
+    const handleLike = () => {
+        const id = uuidv4();
+        const data = {
+            id: id,
+            user_id: userID,
+            animal_id: animals[currentAnimalIndex].id,
+        };
+
+        console.log("dataaa", data)
+
+        axios.post("http://localhost:3333/api/like", data)
+        .then((response) => {
+            console.log(response.data);
+        })
+        .catch((error) => {
+            console.log('Erro ao atualizar dados:', error);
+        });
+            
+    };
 
     const handlePass = () => {
         if (currentAnimalIndex < animals.length - 1) {
@@ -34,20 +69,28 @@ export function ImgsFeedAnimals() {
     return (
         <div className={styles.cardContainer}>
             
-            <div className={styles.infoPets}>
-                <h4>nome: animal 4</h4>
-                <h4>idade: 2 anos</h4>
-                <h4>sexo: macho </h4>
-                <h4>raça: vira lata </h4>
-                <h4 className={styles.spaceTop}>Descrição: carinhoso </h4>
-
-            </div>
+            {animals.length > 0 && (
+                <div className={styles.infoPets}>
+                    <div className={styles.petInfo}>
+                        <h3 className={styles.infoTitle}>Detalhes do Animal</h3>
+                        <div className={styles.infoDetail}>
+                            <p><span className={styles.infoLabel}>Nome:</span> {animals[currentAnimalIndex].name}</p>
+                            <p><span className={styles.infoLabel}>Idade:</span> {animals[currentAnimalIndex].idade}</p>
+                            <p><span className={styles.infoLabel}>Sexo:</span> {animals[currentAnimalIndex].sexo}</p>
+                            <p><span className={styles.infoLabel}>Raça:</span> {animals[currentAnimalIndex].raca}</p>
+                        </div>
+                    </div>
+                    <div className={styles.heartContainer}>
+                        <span className={styles.heart}>❤️</span>
+                    </div>
+                </div>
+            )}
             
             {animals.length > 0  && (
                 <div className={styles.card}>
                     <img src={animals[currentAnimalIndex].image_url} alt="Animal" />
                     <div className={styles.buttons}>
-                        <Button variant="success" style={{ padding: '15px 30px', fontSize: '18px' }}>
+                        <Button onClick={handleLike} variant="success" style={{ padding: '15px 30px', fontSize: '18px' }}>
                             <FaThumbsUp /> Curtir
                         </Button>
                         <Button onClick={handlePass} variant="primary" style={{ padding: '15px 30px', fontSize: '18px' }}>

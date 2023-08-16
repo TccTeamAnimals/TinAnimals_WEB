@@ -19,7 +19,6 @@ export function ImportAnimal() {
     const [animalIdade, setAnimalIdade] = useState("");
     const [animalRaca, setAnimalRaca] = useState("");
     const [animalSexo, setAnimalSexo] = useState("");
-    const [animalDescricao, setAnimalDescricao] = useState("");
 
     useEffect(() => {
         const userData = getLocalStorage();
@@ -97,11 +96,12 @@ export function ImportAnimal() {
             const ongData = {
                 id: id,
                 ongId: userData.id,
-                name: nameImg,
+                name: animalName,
                 imageUrl: imageUrl,
-                description: animalName,
+                idade: animalIdade,
+                raca: animalRaca,
+                sexo: animalSexo,
             };
-
 
             axios.post(`http://localhost:3333/api/ong/register_animal`, ongData)
                 .then((response) => {
@@ -119,7 +119,7 @@ export function ImportAnimal() {
                         // setAnimalsInBD([...animalsInBD, ongData]);
                         setTimeout(() => {
                             window.location.href = "/importAnimal";
-                        }, 1800);
+                        }, 800);
                 })
                 .catch((error) => {
                     console.log('Erro ao atualizar dados:', error);

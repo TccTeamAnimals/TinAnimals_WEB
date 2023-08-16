@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { ThemeContext } from "../../contextApi/ThemeContext"
 import { Sidebar } from "../../components/sidebar/sidebar"
 import styles from "./index.module.css"
+import { CardAnimalsLiked } from "../../components/cardAnimalsLiked/cardAnimalsLiked"
 
 export function AnimalsLiked (){
     const { darkMode } = useContext(ThemeContext);
@@ -11,8 +12,10 @@ export function AnimalsLiked (){
 
             <div className={styles.margin}>
                 <h1>page animal curtidos </h1>
+                <CardAnimalsLiked/>
             </div>
             <Sidebar/>
+            
         </div>
         
     )
