@@ -48,7 +48,7 @@ export function Sidebar(){
 
                     <div className={`${styles.text} ${styles.headerText}`}>
                         <span className={styles.name}>TinAnimals</span>
-                        <span className={styles.description}>Adote seu pet!</span>
+                        <span className={styles.description}>{typecad == 'user' ? "Adote seu pet!" : "cadastre animais para adoção"  }</span>
                         <span className={styles.description}></span>
                     </div>
                 </div>
@@ -108,15 +108,6 @@ export function Sidebar(){
                                 <span className={`${styles.text} ${styles.navText}`}> Chat</span>
                             </a>
                         </li>
-
-                        {typecad !== 'ong' && (
-                            <li className={styles.navLink}>
-                                <a href="/ongs">
-                                    <i className={styles.icon}> <BsFillPinMapFill/></i>
-                                    <span className={`${styles.text} ${styles.navText}`}> ONGs</span>
-                                </a>
-                            </li>
-                        )}
 
                         <li className={styles.navLink}>
                             <Link to="/profileUser">

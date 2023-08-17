@@ -55,7 +55,7 @@ export function CardProfileUser(){
                     <strong> { dataUserOrOng.name }</strong>
                     <br />
                     <span>  
-                    {infoUserInCache.typeCad === 'user' ? 'Adotante ' : 'Adoção Responsavel '} </span>
+                    {infoUserInCache.typeCad === 'user' ? 'Adotante ' : 'ONG '} </span>
                 </div>
 
                 <footer>

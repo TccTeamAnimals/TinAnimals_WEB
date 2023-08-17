@@ -11,6 +11,19 @@
     color: #e8eef2;
   }
 
+  .divCard{
+    margin-left: 21.5rem;
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-right: 5rem;
+  } 
+
   .textColor{
     color: black;
   }
@@ -21,4 +34,30 @@
     object-fit: cover; 
     margin-top: 1rem;
     margin-right: 1rem;
+}
+
+.dark_mode {
+  background-color: var(--gray-700);
+  color: var(--gray-300);
+  height: 100%;
+  width: 100%;
+}
+.dark_modeVW {
+  background-color: var(--gray-700);
+  color: var(--gray-300);
+  height: 100vw;
+  width: 100vw;
+}
+
+.light_mode {
+  color: var(--gray-700);
+  background-color: #e8eef2;
+  height: 100%;
+  width: 100%;
+}
+
+.light_modeVW {
+  background-color: #e8eef2;
+  height: 100vw;
+  width: 100vw;
 }

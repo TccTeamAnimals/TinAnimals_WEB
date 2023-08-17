@@ -8,6 +8,8 @@ import axios from 'axios';
 import { useState, useContext, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { ThemeContext } from '../../contextApi/ThemeContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export function ImgsFeedAnimals() {
@@ -43,12 +45,25 @@ export function ImgsFeedAnimals() {
             id: id,
             user_id: userID,
             animal_id: animals[currentAnimalIndex].id,
+            name: animals[currentAnimalIndex].name,
+            idade: animals[currentAnimalIndex].idade,
+            sexo: animals[currentAnimalIndex].sexo,
+            raca: animals[currentAnimalIndex].raca,
+            image_url: animals[currentAnimalIndex].image_url,
         };
-
-        console.log("dataaa", data)
 
         axios.post("http://localhost:3333/api/like", data)
         .then((response) => {
+            toast.success('Animal curtido e adicionado na sua coleção', {
+                position: "bottom-right",
+                autoClose: 1400,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
             console.log(response.data);
         })
         .catch((error) => {
@@ -68,7 +83,6 @@ export function ImgsFeedAnimals() {
 
     return (
         <div className={styles.cardContainer}>
-            
             {animals.length > 0 && (
                 <div className={styles.infoPets}>
                     <div className={styles.petInfo}>
@@ -99,6 +113,7 @@ export function ImgsFeedAnimals() {
                     </div>
                 </div>
             )}
+            <ToastContainer />
         </div>
     );
 }

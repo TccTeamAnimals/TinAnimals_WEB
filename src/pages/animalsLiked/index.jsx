@@ -11,9 +11,10 @@ export function AnimalsLiked (){
         <div className={`${darkMode ? styles.dark_mode : styles.light_mode}`}>
 
             <div className={styles.margin}>
-                <h1>page animal curtidos </h1>
-                <CardAnimalsLiked/>
+                <br />
+                <h1 className="text-center">Animais Curtidos </h1>
             </div>
+            <CardAnimalsLiked/>
             <Sidebar/>
             
         </div>
