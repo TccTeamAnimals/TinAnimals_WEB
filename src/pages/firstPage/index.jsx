@@ -6,13 +6,13 @@ import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import img1 from '../../imgs/iconPet7.jpg';
-import img2 from '../../imgs/iconPet6.jpg';
-import img3 from '../../imgs/iconPet5.png';
-import img4 from '../../imgs/iconPet4.png';
+import img1 from '../../imgs/cachorros4.jpg';
+import img2 from '../../imgs/gatos3.png';
+import img3 from '../../imgs/cachorros3.png';
+import img4 from '../../imgs/cachorro2.jpg';
 import img5 from '../../imgs/iconPet3.png';
-import img6 from '../../imgs/iconPet2.png';
-import img7 from '../../imgs/iconPet1.png';
+import img6 from '../../imgs/gato.jpg';
+import img7 from '../../imgs/cachorro.jpg';
 import logo from '../../imgs/logo.jpg';
 import likeHeart from '../../imgs/likeHeart.png';
 import iconChat from '../../imgs/iconChat.png';
@@ -22,6 +22,9 @@ export function FirstPage() {
   const { darkMode, getLocalStorage } = useContext(ThemeContext);
   const [userData, setUserData] = useState({});
   const [dataUserOrOng, setDataUserOrOng] = useState({});
+  const [NumOngs, setNumOngs] = useState([]);
+  const [NumUsers, setNumUsers] = useState([]);
+  const [NumAnimals, setNumAnimals] = useState([]);
 
   useEffect(() => {
     const usuarioLocalStorage = getLocalStorage();
@@ -56,6 +59,45 @@ export function FirstPage() {
       GetUserOrOng();
     }
   }, [userData]);
+
+
+  useEffect(() => {
+    if (userData.typeCad === 'user') {
+      const GetAllOngs = async () => {
+        try {
+          const response = await axios.get(`http://localhost:3333/api/ongs`);
+          setNumOngs(response.data.length);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      GetAllOngs();
+    }else{
+      const GetAllAnimalsRegistered = async () => {
+        try {
+          const response = await axios.get('http://localhost:3333/api/ong/getAnimals/pictures');
+          setNumAnimals(response.data.length);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      GetAllAnimalsRegistered();
+
+    }
+  }, []);
+
+
+  useEffect(() => {
+    const GetAllUsers = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3333/api/users`);
+        setNumUsers(response.data.length);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    GetAllUsers();
+  }, []);
 
   return (
     <div className={`${darkMode ? styles.dark_mode : styles.light_mode}`}>
@@ -121,25 +163,19 @@ export function FirstPage() {
         <div className={styles.containerInfo}>
           <div className={styles.infoItem}>
             <h1 className={styles.marginTextTitle}>+185 mil</h1>
-            <h5 className={styles.marginText}>animais abandonados em 2023</h5>
+            <h5 className={styles.marginText}>Animais Abandonados Em 2023</h5>
           </div>
           <div className={styles.infoItem}>
             <h1 className={styles.marginTextTitle}>
-              {userData.typeCad === 'user' ? '8 Ong\'s' : '+30'}
+              {userData.typeCad === 'user' ? NumOngs + ' ONGs' : NumAnimals + ' Animais'}
             </h1>
             <h5 className={styles.marginText}>
-              {userData.typeCad === 'user' ? 'cadastradas' : 'Animais cadastrados'}
+              {userData.typeCad === 'user' ? 'Cadastradas No Sistema' : 'Cadastrados No Sistema'}
             </h5>
           </div>
           <div className={styles.infoItem}>
-            <h1 className={styles.marginTextTitle}>+900 Usuários</h1>
-            <h5 className={styles.marginText}>cadastrados</h5>
-          </div>
-          <div className={styles.infoItem}>
-            <h1 className={styles.marginTextTitle}>
-              {userData.typeCad === 'user' ? '+1 mil' : '+200'}
-            </h1>
-            <h5 className={styles.marginText}>Adoções realizadas</h5>
+            <h1 className={styles.marginTextTitle}>{NumUsers} Usuarios</h1>
+            <h5 className={styles.marginText}>Cadastrados No Sistema</h5>
           </div>
         </div>
 
@@ -153,11 +189,11 @@ export function FirstPage() {
         </div>
         <div className={styles.marginInfo}>
           <div className={styles.imageContainer}>
-            <img className={styles.imagensInfo} src={img6} alt="" />
+            <img className={styles.imagensInfo} src={img5} alt="" />
             <h5 className={styles.marginTextlowIcon}>
               {userData.typeCad === 'user'
                 ? 'Procure um animal entre todas as ongs'
-                : 'Cadastre os animais que têm disponível para adoção'
+                : 'Cadastre os animais que estão disponíveis para adoção'
               }
             </h5>
           </div>
@@ -176,14 +212,8 @@ export function FirstPage() {
             <img className={styles.imagensInfo} src={iconChat} alt="" />
             <h5 className={styles.marginTextlowIcon}>
               {userData.typeCad === 'user'
-                ? 'Converse com a ong'
-                : 'E assim inicie esse primeiro contato com a ong'
-              }
-            </h5>
-            <h5>
-              {userData.typeCad === 'user'
-                ? 'Para realizar a adoção ou tirar alguma dúvida'
-                : 'Para tratar da adoção ou tirar alguma dúvida'
+                ? 'Converse com a ong para realizar a adoção ou tirar alguma dúvida'
+                : 'E assim inicie esse primeiro contato com a ong para tratar da adoção ou tirar alguma dúvida'
               }
             </h5>
           </div>

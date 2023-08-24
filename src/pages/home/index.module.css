@@ -1,6 +1,80 @@
-.darkMode{
-    background-color: var(--gray-700);
-    color: var(--gray-300); 
-    height: 100vh;
-    width: 100vw;
+
+.backgroundImageContainer {
+  background-image: url("../../imgs/background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.5; /* Ajuste a opacidade conforme necessário */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Coloca o elemento atrás do conteúdo */
 }
+
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 3rem;
+}
+
+.img{
+    height: 3.5rem;
+    border-radius: 50px;
+}
+
+
+.contentContainer {
+    width: 80%;
+    max-width: 1200px;
+    padding: 40px 20px;
+    margin: auto;
+  }
+
+  .introSection {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .logo {
+    margin-left: 1rem;
+    margin-top: 0.4rem;
+    width: 65px; 
+    border-radius: 50%; 
+  }
+
+  .ongSection {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .ctaText {
+    margin-top: 20px;
+    font-size: 18px;
+    color: var(--gray-500);
+  }
+  
+  .ctaButton {
+    padding: 10px 20px;
+    background-color: green;
+    color: var(--white);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .ctaButton:hover {
+    background-color: rgb(53, 189, 53);
+  }
+
+  .alingImg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }

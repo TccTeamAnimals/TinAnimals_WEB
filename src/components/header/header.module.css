@@ -21,6 +21,14 @@
     width: 200px;
 }
 
+.dropdownItemText {
+    color: white;
+}
+
+.customDropdownMenu::houver {
+    background-color: var(--gray-800); /* Use a cor de fundo desejada */
+}
+
 .logoLink {
     text-decoration: none;
   }
