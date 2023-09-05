@@ -19,6 +19,15 @@
     align-items: center;
     flex-direction: column;
     margin-top: 3rem;
+    font-size: 30px;
+}
+
+.subTitle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 3rem;
 }
 
 .img{
@@ -53,7 +62,7 @@
 
   .ctaText {
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 22px;
     color: var(--gray-500);
   }
   

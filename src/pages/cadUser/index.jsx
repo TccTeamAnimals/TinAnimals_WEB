@@ -44,36 +44,20 @@ export function CadUser() {
   };
 
   const handleSubmit = (event) => {
-    console.log(informationUsers)
-    if (informationUsers.password === informationUsers.confirmPassword) {
-      event.preventDefault();
-      const id = uuidv4();
-      const userData = {
-        ...informationUsers,
-        id: id,
-      }
+    if (checkFields()) {
+      if (informationUsers.password === informationUsers.confirmPassword) {
+        event.preventDefault();
+        const id = uuidv4();
+        const userData = {
+          ...informationUsers,
+          id: id,
+        }
 
-      axios.post("http://localhost:3333/api/users", userData)
-        .then((response) => {
-          toast.success('Usuario cadastrado com sucesso!', {
-            position: "bottom-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-            });
-            setTimeout(() => {
-              window.location.href = "/login";
-            }, 2800);
-        })
-        .catch((error) => {
-          if(error.response.data.message == "email already used"){
-            toast.error('🦄 Email já cadastrado !', {
+        axios.post("http://localhost:3333/api/users", userData)
+          .then((response) => {
+            toast.success('Usuario cadastrado com sucesso!', {
               position: "bottom-right",
-              autoClose: 4000,
+              autoClose: 2000,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -81,24 +65,52 @@ export function CadUser() {
               progress: undefined,
               theme: "dark",
               });
-          }
-          if(error.response.data.message == "cpf already used"){
-            toast.error('CPF já cadastrado !', {
-              position: "bottom-right",
-              autoClose: 4000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-              });
-          }
-          console.log("error", error);
-        });
+              setTimeout(() => {
+                window.location.href = "/login";
+              }, 2800);
+          })
+          .catch((error) => {
+            if(error.response.data.message == "email already used"){
+              toast.error('🦄 Email já cadastrado !', {
+                position: "bottom-right",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
+            }
+            if(error.response.data.message == "cpf already used"){
+              toast.error('CPF já cadastrado !', {
+                position: "bottom-right",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
+            }
+            console.log("error", error);
+          });
+        }
+      else {
+        toast.warn('Senhas Não Coincidem !', {
+          position: "bottom-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
       }
-    else {
-      toast.warn('Senhas Não Coincidem !', {
+    }  else {
+      toast.warn('Preencha todos os campos!', {
         position: "bottom-right",
         autoClose: 4000,
         hideProgressBar: false,
@@ -107,8 +119,16 @@ export function CadUser() {
         draggable: true,
         progress: undefined,
         theme: "dark",
-        });
+      });
     }
+  }
+
+  const checkFields = () => {
+    if (informationUsers.name === "" || informationUsers.email === "" || informationUsers.password === "" ||
+      informationUsers.confirmPassword === "" || informationUsers.phone === "" || informationUsers.cpf === "") {
+      return false;
+    }
+    return true;
   }
 
   return (

@@ -14,6 +14,7 @@ export function Questions() {
           window.location.href = '/login';
         } else {
           setdataInCache(usuarioLocalStorage);
+          window.scrollTo(0, 0);
         }
       }, []);
 

@@ -19,6 +19,10 @@ export function CadOng() {
     name: "",
     phone: "",
     email: "",
+    address: "",
+    district: "",
+    numero: "",
+    cep: "",
     password: "",
     confirmPassword: "",
     typeCad: "ong"
@@ -38,37 +42,66 @@ export function CadOng() {
     }));
   };
 
-  const handleSubmit = (event) => {
-    console.log(informationOng)
-    if (informationOng.password === informationOng.confirmPassword) {
-      event.preventDefault();
-      const id = uuidv4();
-      const ongData = {
-        ...informationOng,
-        id: id,
-      }
-      // Chamada da requisição de cadastro de ONG
-      axios.post("http://localhost:3333/api/ong", ongData)
+  const handleCepSearch = () => {
+    if (informationOng.cep.length === 8) {
+      axios
+        .get(`https://viacep.com.br/ws/${informationOng.cep}/json/`)
         .then((response) => {
-          toast.success('ONG cadastrada com sucesso!', {
-            position: "bottom-right",
-            autoClose: 2000,
+          const { data } = response;
+          if (!data.erro) {
+            setInformationOng((prevInformationOng) => ({
+              ...prevInformationOng,
+              address: data.logradouro,
+              district: data.bairro,
+            }));
+          } else {
+            toast.error('CEP não encontrado', {
+              position: 'bottom-right',
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'dark',
+            });
+          }
+        })
+        .catch((error) => {
+          console.error('Erro ao buscar informações do CEP', error);
+          toast.error('Erro ao buscar informações do CEP', {
+            position: 'bottom-right',
+            autoClose: 4000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "dark",
-            });
-            setTimeout(() => {
-              window.location.href = "/login";
-            }, 2800);
-        })
-        .catch((error) => {
-          if(error.response.data.message == "email already used"){
-            toast.error('🦄 Email já cadastrado !', {
+            theme: 'dark',
+          });
+        });
+    }
+  };
+
+  const handleSubmit = (event) => {
+    console.log("info ong", informationOng)
+    // const filds = checkFields();
+    if (checkFields()) {
+      if (informationOng.password === informationOng.confirmPassword) {
+        event.preventDefault();
+        const id = uuidv4();
+        const ongData = {
+          ...informationOng,
+          id: id,
+        }
+
+        console.log("info ong", ongData)
+        // Chamada da requisição de cadastro de ONG
+        axios.post("http://localhost:3333/api/ong", ongData)
+          .then((response) => {
+            toast.success('ONG cadastrada com sucesso!', {
               position: "bottom-right",
-              autoClose: 4000,
+              autoClose: 2000,
               hideProgressBar: false,
               closeOnClick: true,
               pauseOnHover: true,
@@ -76,11 +109,40 @@ export function CadOng() {
               progress: undefined,
               theme: "dark",
               });
-          }
-          console.log("error", error);
+              setTimeout(() => {
+                window.location.href = "/login";
+              }, 2800);
+          })
+          .catch((error) => {
+            if(error.response.data.message == "email already used"){
+              toast.error('🦄 Email já cadastrado !', {
+                position: "bottom-right",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
+            }
+            console.log("error", error);
+          });
+      } else {
+        toast.warn('Senhas Não Coincidem!', {
+          position: "bottom-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
         });
-    } else {
-      toast.warn('Senhas Não Coincidem!', {
+      }
+    }
+    else {
+      toast.warn('Preencha todos os campos!', {
         position: "bottom-right",
         autoClose: 4000,
         hideProgressBar: false,
@@ -92,6 +154,23 @@ export function CadOng() {
       });
     }
   }
+
+  const checkFields = () => {
+    if (
+      informationOng.name === "" || 
+      informationOng.email === "" || 
+      informationOng.address === "" ||
+      informationOng.district === "" ||
+      informationOng.numero === "" ||
+      informationOng.cep === "" || 
+      informationOng.password === "" || 
+      informationOng.confirmPassword === "" || 
+      informationOng.phone === "") {
+      return false;
+    }
+    return true;
+  }
+  
 
   return (
     <div className={styles.darkMode}>
@@ -111,6 +190,7 @@ export function CadOng() {
                   name="name"
                   value={informationOng.name}
                   onChange={handleInputChange}
+                  required
                 />
                 <span className={styles.focusInput} data-placeholder="Nome da Ong"></span>
               </div>
@@ -123,6 +203,7 @@ export function CadOng() {
                   name="phone"
                   value={informationOng.phone}
                   onChange={handleInputChange}
+                  required
                   onMouseEnter={() => setIsPhoneHovered(true)}
                   onMouseLeave={() => setIsPhoneHovered(false)}
                 />
@@ -143,6 +224,65 @@ export function CadOng() {
                 <span className={styles.focusInput} data-placeholder="Email"></span>
               </div>
 
+              <div className={styles.wrapInput2}>
+                <div className={styles.inputContainer}>
+                  <input
+                    className={`${informationOng.cep !== "" ? styles.hasVal : ""} ${styles.inputs}`}
+                    type="text"
+                    name="cep"
+                    value={informationOng.cep}
+                    onChange={handleInputChange}
+                    onBlur={handleCepSearch}
+                    required
+                   />
+                    <span className={styles.focusInput} data-placeholder="CEP (Apenas os numeros)"></span>
+                </div>
+                
+                <div className={styles.inputContainer}>
+                  <input
+                    className={`${informationOng.address !== "" ? styles.hasVal : ""} ${styles.inputs}`}
+                    type="text"
+                    name="address"
+                    value={informationOng.address}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  <span className={styles.focusInput} data-placeholder="Rua"></span>
+                </div>
+              </div>
+
+
+              <div className={styles.wrapInput2}>
+                <div className={styles.inputContainer}>
+                  <input
+                    className={`${informationOng.district !== "" ? styles.hasVal : ""} ${styles.inputs}`}
+                    type="text"
+                    name="district"
+                    value={informationOng.district}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  <span className={styles.focusInput} data-placeholder="Bairro"></span>
+                </div>
+
+                
+                <div className={styles.inputContainer}>
+                  <input
+                    className={`${informationOng.numero !== "" ? styles.hasVal : ""} ${styles.inputs}`}
+                    type="text"
+                    name="numero"
+                    value={informationOng.numero}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  <span className={styles.focusInput} data-placeholder="Numero"></span>
+                </div>
+
+
+              </div>
+
+
+              
               <div className={styles.wrapInput}>
                 <input
                   className={`${informationOng.password !== "" ? styles.hasVal : ""} ${styles.inputs}`}
@@ -150,6 +290,7 @@ export function CadOng() {
                   name="password"
                   value={informationOng.password}
                   onChange={handleInputChange}
+                  required
                 />
                 <span className={styles.focusInput} data-placeholder="Password"></span>
               </div>
@@ -159,6 +300,7 @@ export function CadOng() {
                   className={`${informationOng.confirmPassword !== "" ? styles.hasVal : ""} ${styles.inputs}`}
                   type="password"
                   name="confirmPassword"
+                  required
                   value={informationOng.confirmPassword}
                   onChange={handleInputChange}
                 />
@@ -174,7 +316,7 @@ export function CadOng() {
           </div>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
       <ToastContainer />
     </div>
   );

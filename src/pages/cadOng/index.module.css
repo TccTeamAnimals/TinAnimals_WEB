@@ -23,7 +23,7 @@
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 40px;
+    padding: 20px;
   }
   
   .wrapLogin {
@@ -33,6 +33,7 @@
     overflow: hidden;
     padding: 77px 55px 33px 55px;
     box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2);
+    /* height: 800px; */
   }
   
   .loginForm {
@@ -56,6 +57,25 @@
     position: relative;
     border-bottom: 2px solid var(--gray-700);
     margin-bottom: 37px;
+  }
+
+  .wrapInput2 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .inputContainer {
+    flex-grow: 1;
+    position: relative;
+    border-bottom: 2px solid var(--gray-700);
+    margin-bottom: 37px;
+  }
+  
+  /* Ajuste a largura e a margem conforme necessário */
+  .inputContainer input {
+    width: calc(50% - 10px); /* Ajuste a largura conforme necessário */
+    margin-right: 10px; /* Ajuste a margem conforme necessário */
   }
   
   .inputs {
@@ -181,7 +201,7 @@
   .darkMode {
     background-color: var(--gray-700);
     color: var(--gray-300);
-    height: 100vh;
+    height: 100vw;
     width: 100vw;
   }
   

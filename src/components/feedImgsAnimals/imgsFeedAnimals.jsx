@@ -38,6 +38,7 @@ export function ImgsFeedAnimals() {
         const data = {
             id: id,
             user_id: userID,
+            ong_id: animals[currentAnimalIndex].ong_id,
             animal_id: animals[currentAnimalIndex].id,
             name: animals[currentAnimalIndex].name,
             idade: animals[currentAnimalIndex].idade,

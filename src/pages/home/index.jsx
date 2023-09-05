@@ -27,15 +27,15 @@ export function Home() {
               <img src={logo} alt="Tin Animal Logo" className={styles.logo} />
             </div>
             
-            <h2 className={styles.center}>Você Deseja adotar um pet ? </h2>
+            <h1 className={styles.subTitle}>Você Deseja adotar um pet ? </h1>
             <h5 className={styles.center}>O lugar perfeito para encontrar seu novo amiguinho de quatro patas!</h5>
-            <p className={styles.ctaText}>Cadastre-se agora para explorar todas as opções de adoção conhecer a nossa plataforma e encontrar o animal perfeito para você!</p>
+            <h6 className={styles.ctaText}>Cadastre-se agora para explorar todas as opções de adoção conhecer a nossa plataforma e encontrar o animal perfeito para você!</h6>
             <button onClick={redirectToCadUser} className={styles.ctaButton}>Cadastre-se</button>
           </div>
           <div className={styles.ongSection}>
-            <h2 className={styles.center}>Você é parte de uma ONG?</h2>
+            <h2 className={styles.subTitle}>Você é parte de uma ONG?</h2>
             <h5 className={styles.center}>Na Tin Animal, também ajudamos organizações a encontrarem lares amorosos para animais que precisam.</h5>
-            <p className={styles.ctaText}>Junte-se a nós para conheça a plataforma e conectar seus amiguinhos peludos a lares amorosos!</p>
+            <h6 className={styles.ctaText}>Junte-se a nós para conheça a plataforma e conectar seus amiguinhos peludos a lares amorosos!</h6>
             <button onClick={redirectToCadOng} className={styles.ctaButton}>Cadastre-se</button>
           </div>
         </div>
