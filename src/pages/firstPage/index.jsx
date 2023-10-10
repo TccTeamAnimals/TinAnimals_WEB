@@ -170,7 +170,7 @@ export function FirstPage() {
               {userData.typeCad === 'user' ? NumOngs + ' ONGs' : NumAnimals + ' Animais'}
             </h1>
             <h5 className={styles.marginText}>
-              {userData.typeCad === 'user' ? 'Cadastradas No Sistema' : 'Cadastrados No Sistema'}
+              {userData.typeCad === 'ong' ? 'Cadastradas No Sistema' : 'Cadastrados No Sistema'}
             </h5>
           </div>
           <div className={styles.infoItem}>
