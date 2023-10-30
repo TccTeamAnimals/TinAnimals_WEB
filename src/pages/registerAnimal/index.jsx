@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom'
 
 
 export function ImportAnimal() {
@@ -20,11 +21,13 @@ export function ImportAnimal() {
     const [animalRaca, setAnimalRaca] = useState("");
     const [animalSexo, setAnimalSexo] = useState("");
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const userData = getLocalStorage();
         setUserData(userData);
 
-        axios.get(`http://localhost:3333/api/ong/getAnimalByOng/${userData.id}`)
+        axios.get(`http://localhost:8000/api/ong/getAnimalByOng/${userData.id}`)
             .then((response) => {
                 setAnimalsInBD(response.data);
                 console.log(response.data);
@@ -32,7 +35,7 @@ export function ImportAnimal() {
             .catch((error) => {
                 console.log('Erro ao atualizar dados:', error);
             });
-
+        navigate("/importAnimal");
     }, []);
 
     const getHandlerImg = (event) => {
@@ -40,7 +43,7 @@ export function ImportAnimal() {
     }
 
     const deleteAnimal = (id) => {
-        axios.delete(`http://localhost:3333/api/ong/deleteAnimalByOng/${id}`)
+        axios.delete(`http://localhost:8000/api/ong/deleteAnimalByOng/${id}`)
         .then((response) => {
             toast.success('Sucesso Animal Deletado', {
                 position: "bottom-right",
@@ -51,11 +54,9 @@ export function ImportAnimal() {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                });
-                setTimeout(() => {
-                    window.location.href = "/importAnimal";
-                }, 1000);
-            })
+            });
+            
+        })
         .catch((error) => {
             console.log('Erro ao delete o animal:', error);
         });
@@ -103,7 +104,7 @@ export function ImportAnimal() {
                 sexo: animalSexo,
             };
 
-            axios.post(`http://localhost:3333/api/ong/register_animal`, ongData)
+            axios.post(`http://localhost:8000/api/ong/register_animal`, ongData)
                 .then((response) => {
                     toast.success('Animal cadastrado com sucesso', {
                         position: "bottom-right",
@@ -212,7 +213,6 @@ export function ImportAnimal() {
                     </div>
                 </div>
             </div>
-            <Sidebar />
             <ToastContainer />
         </div>
     )

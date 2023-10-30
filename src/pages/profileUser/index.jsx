@@ -28,14 +28,14 @@ export function ProfileUser() {
     const GetUserOrOng = async () => {
       if (infoUserInCache.typeCad === 'ong') {
         try {
-          const response = await axios.get(`http://localhost:3333/api/ong/${infoUserInCache.id}`);
+          const response = await axios.get(`http://localhost:8000/api/ong/${infoUserInCache.id}`);
           setDataUserOrOng(response.data);
         } catch (error) {
           console.log(error);
         }
       } else {
         try {
-          const response = await axios.get(`http://localhost:3333/api/users/${infoUserInCache.id}`);
+          const response = await axios.get(`http://localhost:8000/api/users/${infoUserInCache.id}`);
           setDataUserOrOng(response.data);
         } catch (error) {
           console.log(error);
@@ -66,7 +66,7 @@ export function ProfileUser() {
           password: event.target.password.value,
         };
         axios
-          .put(`http://localhost:3333/api/ong/${infoUserInCache.id}`, ongData)
+          .put(`http://localhost:8000/api/ong/${infoUserInCache.id}`, ongData)
           .then((response) => {
             toast.success(
               'Ong Atualizada Com Sucesso',
@@ -111,7 +111,7 @@ export function ProfileUser() {
           password: event.target.password.value,
         };
         axios
-          .put(`http://localhost:3333/api/users/${infoUserInCache.id}`, UserData)
+          .put(`http://localhost:8000/api/users/${infoUserInCache.id}`, UserData)
           .then((response) => {
             console.log("caiu no deu bom")
             toast.success(
@@ -156,7 +156,6 @@ export function ProfileUser() {
 
   return (
     <div className={`${darkMode ? styles.dark_mode : styles.light_mode}`}>
-      <Sidebar />
       <div className={styles.margin}>
         <br />
           <h3>Edite seu perfil</h3>

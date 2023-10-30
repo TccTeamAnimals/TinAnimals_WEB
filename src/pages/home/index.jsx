@@ -3,7 +3,6 @@ import { Footer } from '../../components/footer/footer'
 import { Sidebar } from '../../components/sidebar/sidebar'
 import styles from './index.module.css'
 import logo from '../../imgs/logo.jpg';
-
 import backgroundImage from '../../imgs/background.png';
 
 function redirectToCadOng() {

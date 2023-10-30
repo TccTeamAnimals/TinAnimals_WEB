@@ -97,7 +97,7 @@ export function CadOng() {
 
         console.log("info ong", ongData)
         // Chamada da requisição de cadastro de ONG
-        axios.post("http://localhost:3333/api/ong", ongData)
+        axios.post("http://localhost:8000/api/ong", ongData)
           .then((response) => {
             toast.success('ONG cadastrada com sucesso!', {
               position: "bottom-right",

@@ -21,7 +21,7 @@ export function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post("http://localhost:3333/api/users/login", { email, password })
+    axios.post("http://localhost:8000/api/users/login", { email, password })
       .then((response) => {
         // Se o login estiver na tabela de usuários, faça o login do usuário
         insertLocalStorage(response.data);
@@ -41,7 +41,7 @@ export function Login() {
         }, 1800);
       })
       .catch(() => {
-        axios.post("http://localhost:3333/api/ong/login", { email, password })
+        axios.post("http://localhost:8000/api/ong/login", { email, password })
           .then((response) => {
             insertLocalStorage(response.data);
             toast.success('ONG Logada Com Sucesso!', {

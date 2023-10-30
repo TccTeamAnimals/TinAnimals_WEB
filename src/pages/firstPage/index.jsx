@@ -39,14 +39,14 @@ export function FirstPage() {
     const GetUserOrOng = async () => {
       if (userData.typeCad === 'ong') {
         try {
-          const response = await axios.get(`http://localhost:3333/api/ong/${userData.id}`);
+          const response = await axios.get(`http://localhost:8000/api/ong/${userData.id}`);
           setDataUserOrOng(response.data);
         } catch (error) {
           console.log(error);
         }
       } else {
         try {
-          const response = await axios.get(`http://localhost:3333/api/users/${userData.id}`);
+          const response = await axios.get(`http://localhost:8000/api/users/${userData.id}`);
           setDataUserOrOng(response.data);
         } catch (error) {
           console.log(error);
@@ -65,7 +65,7 @@ export function FirstPage() {
     if (userData.typeCad === 'user') {
       const GetAllOngs = async () => {
         try {
-          const response = await axios.get(`http://localhost:3333/api/ongs`);
+          const response = await axios.get(`http://localhost:8000/api/ongs`);
           setNumOngs(response.data.length);
         } catch (error) {
           console.log(error);
@@ -75,7 +75,7 @@ export function FirstPage() {
     }else{
       const GetAllAnimalsRegistered = async () => {
         try {
-          const response = await axios.get('http://localhost:3333/api/ong/getAnimals/pictures');
+          const response = await axios.get('http://localhost:8000/api/ong/getAnimals/pictures');
           setNumAnimals(response.data.length);
         } catch (error) {
           console.log(error);
@@ -90,7 +90,7 @@ export function FirstPage() {
   useEffect(() => {
     const GetAllUsers = async () => {
       try {
-        const response = await axios.get(`http://localhost:3333/api/users`);
+        const response = await axios.get(`http://localhost:8000/api/users`);
         setNumUsers(response.data.length);
       } catch (error) {
         console.log(error);
@@ -242,7 +242,6 @@ export function FirstPage() {
         </div>
         <br /><br /><br />
       </div>
-      <Sidebar />
     </div>
   );
 }

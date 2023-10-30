@@ -9,9 +9,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { BsFillInfoSquareFill, BsChatRightDots, BsHeartbreak, BsXSquare, BsX, BsXLg } from "react-icons/bs";
+import { useNavigate } from 'react-router-dom';
 
 export function CardAnimalsLiked() {
-    const { darkMode, getLocalStorage } = useContext(ThemeContext);
+    const { darkMode, getLocalStorage, socket } = useContext(ThemeContext);
     const [userData, setUserData] = useState({});
     const [animalsInBD, setAnimalsInBD] = useState([]);
     const [loadingAnimalsLiked, setLoadingAnimalsLiked] = useState(false);
@@ -19,13 +20,15 @@ export function CardAnimalsLiked() {
     const [showModal, setShowModal] = useState(false);
     const [selectedOngInfo, setSelectedOngInfo] = useState({});
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const data = getLocalStorage();
         setUserData(data);
     }, []);
 
     const getOngAnimal = (id) => {
-        axios.get(`http://localhost:3333/api/ong/${id}`)
+        axios.get(`http://localhost:8000/api/ong/${id}`)
             .then((response) => {
                 setSelectedOngInfo(response.data);
                 setShowModal(true);
@@ -40,7 +43,7 @@ export function CardAnimalsLiked() {
             let data = {
                 userId: userData.id,
             }
-            axios.get(`http://localhost:3333/api/likesByUser/${data.userId}`)
+            axios.get(`http://localhost:8000/api/likesByUser/${data.userId}`)
                 .then((response) => {
                     setAnimalsInBD(response.data);
                     setLoadingAnimalsLiked(true);
@@ -53,7 +56,7 @@ export function CardAnimalsLiked() {
     }, [userData.id]);
 
     const deleteLikedAnimalByUser = (id) => {
-        axios.delete(`http://localhost:3333/api/removelikesByUser/${id}`)
+        axios.delete(`http://localhost:8000/api/removelikesByUser/${id}`)
             .then((response) => {
                 console.log(response.data);
                 toast.success('Curtida removida com sucesso!', {
@@ -76,6 +79,26 @@ export function CardAnimalsLiked() {
     const handleCloseModal = () => {
         setShowModal(false);
     };
+
+    const createChat = async (ong_id) => {
+        try {
+            socket.emit('create-room', { user_id: userData.id, ong_id: ong_id })
+
+            // await axios.post(`http://localhost:8000/api/create-chat`, {
+            //     user_id: userData.id,
+            //     ong_id: ong_id,
+            // })
+
+            // window.location.href = '/chat'
+            navigate(`/chat`, {
+                state: {
+                    ong_id,
+                }
+            })
+        } catch (error) {
+            console.log('Erro ao criar chat')
+        }
+    }
 
     return (
         <div>
@@ -170,7 +193,7 @@ export function CardAnimalsLiked() {
                     
                 </Modal.Body>
                 <Modal.Footer style={{ backgroundColor: '#333', color: '#fff' }}>
-                    <Button variant="success" style={{ fontSize: '1.2rem', fontFamily: 'Franklin Gothic Medium, Arial Narrow, Arial, sans-serif' }}>
+                    <Button variant="success" style={{ fontSize: '1.2rem', fontFamily: 'Franklin Gothic Medium, Arial Narrow, Arial, sans-serif' }} onClick={() => createChat(selectedOngInfo.id)}>
                        Falar com a ONG <span className={styles.marginButtonModal}><BsChatRightDots /></span> 
                     </Button>
                     <Button variant="danger" onClick={handleCloseModal} style={{ fontSize: '1.2rem', fontFamily: 'Franklin Gothic Medium, Arial Narrow, Arial, sans-serif' }}>

@@ -24,7 +24,7 @@ export function ImgsFeedAnimals() {
     }, [])
 
     useEffect(() => {
-        axios.get('http://localhost:3333/api/ong/getAnimals/pictures')
+        axios.get('http://localhost:8000/api/ong/getAnimals/pictures')
             .then((response) => {
                 setAnimals(response.data);
             })
@@ -47,7 +47,7 @@ export function ImgsFeedAnimals() {
             image_url: animals[currentAnimalIndex].image_url,
         };
 
-        axios.post("http://localhost:3333/api/like", data)
+        axios.post("http://localhost:8000/api/like", data)
             .then((response) => {
                 toast.success('Animal curtido e adicionado na sua coleção', {
                     position: "bottom-right",

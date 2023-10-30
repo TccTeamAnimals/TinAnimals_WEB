@@ -1,56 +1,110 @@
-.chat_container {
-    display: flex;
+:root {
+  --blue-l: #708fc2;
+}
+
+.container {
+    /* display: flex;
     flex-direction: column;
     height: 700px;
     width: 1200px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    padding: 50px;
+    padding: 50px; */
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+    max-height: 700px;
+    max-width: 1200px;
+    margin: 16px;
     background-color: rgb(155, 175, 207);
+    display: grid;
+    grid-template-columns: minmax(200px, 300px) 1fr ;
   }
-  
-  .message_text {
-    font-family: 'Roboto', sans-serif;
+
+
+  .chat_contaiener {
+    width: 100%;
+    height: 100%;
+    border-right: 1px solid #708fc2;
+    overflow: auto;
+  }
+
+  .chat_user {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--blue-l);
+  }
+
+  .chat_user_image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .chat_user_text strong {
     font-size: 18px;
-    color: black;
-  }
-  
-  .messages_container {
-    flex: 1;
-    overflow-y: scroll;
-  }
-  
-  .message {
-    margin-bottom: 10px;
-  }
-  
-  .username {
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px;
-    color: black;
     font-weight: bold;
-    margin-right: 5px;
+    color: black;
   }
-  
+
+  .chat_user_text p {
+    font-size: 14px;
+    color: rgb(56, 56, 56);
+    margin: 0;
+  }
+
+  .message_container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 70px;
+    background-color: #4e70a6;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    overflow: auto;
+  }
+
   .input_container {
     display: flex;
-    margin-top: 10px;
-    align-items: flex-end; /* Alinha o input no final do container */
+    gap: 16px;
+    padding: 16px;
   }
-  
-  .input_field {
-    flex: 1;
-    padding: 5px;
-    border: 1px solid #070707;
+
+  .input_button {
     border-radius: 4px;
-    margin-right: 5px;
   }
+
+  .messages {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .message_send {
+    display: flex;
+    justify-content: end;
+  }
+
+  .message_send .message {
+    background-color: green;
+  }
+
+  .message_recive {
+    display: flex;
+    justify-content: start;
+  }
+
+  .message {
+    width: fit-content;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: black;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: var(--blue-l);
+  }
+
+
   
-  .send_button {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 5px 10px;
-    cursor: pointer;
-  }

@@ -53,7 +53,7 @@ export function CadUser() {
           id: id,
         }
 
-        axios.post("http://localhost:3333/api/users", userData)
+        axios.post("http://localhost:8000/api/users", userData)
           .then((response) => {
             toast.success('Usuario cadastrado com sucesso!', {
               position: "bottom-right",

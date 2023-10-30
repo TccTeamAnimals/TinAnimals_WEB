@@ -50,7 +50,7 @@ export function AnimalsLiked (){
             </div>
             
             <CardAnimalsLiked/>
-            <Sidebar/>
+         
             
         </div>
         

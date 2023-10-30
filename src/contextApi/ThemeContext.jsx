@@ -1,7 +1,16 @@
 import React, { createContext, useEffect, useState } from 'react';
+import { io } from "socket.io-client";
+
+const WS_URL = 'ws://127.0.0.1:8000';
 
 // Criação do contexto
 const ThemeContext = createContext();
+
+const socket = io(WS_URL);
+
+socket.on('create-room-response', (data) => {
+  console.log(data);
+});
 
 // Provedor do contexto
 const ThemeProvider = ({ children }) => {
@@ -18,8 +27,9 @@ const ThemeProvider = ({ children }) => {
   }
 
   const removeLocalStorage = () => {
-    console.log("passou aqui")
     localStorage.removeItem('usuario');
+    const usuario = localStorage.getItem('usuario');
+    console.log("usuario removido do local storage", usuario);
   }
 
   const getLocalStorage = () => {
@@ -41,7 +51,8 @@ const ThemeProvider = ({ children }) => {
     toggleDarkMode,
     insertLocalStorage,
     getLocalStorage,
-    removeLocalStorage
+    removeLocalStorage,
+    socket
   };
 
   // Retornando o provedor envolvendo os componentes filhos

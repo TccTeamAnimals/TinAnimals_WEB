@@ -13,7 +13,6 @@ export function FeedAnimals() {
             <div className={styles.margin}>
                 <ImgsFeedAnimals />
             </div>
-            <Sidebar />
         </div>
     );
 }

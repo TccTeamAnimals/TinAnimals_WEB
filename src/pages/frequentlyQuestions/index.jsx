@@ -27,7 +27,6 @@ export function Questions() {
             <div className={styles.margin}>
                 <AccordionQuestions/>
             </div>
-            <Sidebar/>
         </div>
     )
 }

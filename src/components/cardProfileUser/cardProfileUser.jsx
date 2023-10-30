@@ -22,7 +22,7 @@ export function CardProfileUser(){
         const GetUserOrOng = async () => {
           if (infoUserInCache.typeCad === 'ong') {
             try {
-              const response = await axios.get(`http://localhost:3333/api/ong/${infoUserInCache.id}`);
+              const response = await axios.get(`http://localhost:8000/api/ong/${infoUserInCache.id}`);
               setDataUserOrOng(response.data);
               console.log("DADOS DA ONG", response.data)
             } catch (error) {
@@ -30,7 +30,7 @@ export function CardProfileUser(){
             }
           } else {
             try {
-              const response = await axios.get(`http://localhost:3333/api/users/${infoUserInCache.id}`);
+              const response = await axios.get(`http://localhost:8000/api/users/${infoUserInCache.id}`);
               setDataUserOrOng(response.data);
               console.log("DADOS DO USUARIO", response.data)
             } catch (error) {

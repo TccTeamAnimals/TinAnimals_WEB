@@ -27,7 +27,7 @@ export function Sidebar(){
     useEffect(() => {
         const usuarioLocalStorage = getLocalStorage();
         if (!usuarioLocalStorage) {
-            window.location.href = "/login";
+           console.log("não tem usuario logado");
         }
         else{
             setTypeCad(usuarioLocalStorage.typeCad)
@@ -80,19 +80,19 @@ export function Sidebar(){
 
                         {typecad !== 'ong' && (
                             <li className={styles.navLink}>
-                                <a href="/feedAnimals">
+                                <Link to="/feedAnimals">
                                     <i className={styles.icon}> <BsTencentQq/> </i>
                                     <span className={`${styles.text} ${styles.navText}`}> Feed </span>
-                                </a>
+                                </Link>
                             </li>
                         )}
 
                         {typecad !== 'user' && (
                             <li className={styles.navLink}>
-                                <a href="/importAnimal">
+                                <Link to="/importAnimal">
                                     <i className={styles.icon}> <BsTencentQq/> </i>
                                     <span className={`${styles.text} ${styles.navText}`}> Cadastrar Animal </span>
-                                </a>
+                                </Link>
                             </li>
                         )}
                         
@@ -106,10 +106,10 @@ export function Sidebar(){
                         )}
 
                         <li className={styles.navLink}>
-                            <a href="/chat">
+                            <Link to="/chat">
                                 <i className={styles.icon}> <BsChatHeart/></i>
                                 <span className={`${styles.text} ${styles.navText}`}> Chat</span>
-                            </a>
+                            </Link>
                         </li>
 
                         <li className={styles.navLink}>

@@ -1,5 +1,3 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
 import { Sidebar } from '../../components/sidebar/sidebar.jsx'
 import { ChatComponent } from '../../components/chat/chat.jsx'
 import { useContext } from "react"
@@ -15,7 +13,6 @@ export function Chat () {
                     <h1 className={styles.page_title}>Página do Chat</h1>
                     <ChatComponent/>
                 </div>
-                <Sidebar/>
             </div>
         </div>
     )

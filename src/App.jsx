@@ -1,6 +1,6 @@
 import './global.css'
 import React from 'react' 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Home } from './pages/home/index.jsx';
 import { CadUser } from './pages/cadUser/index.jsx';
 import { Login } from './pages/login/index.jsx';
@@ -16,29 +16,44 @@ import { Ongs } from './pages/ongs/index.jsx';
 import { Questions } from './pages/frequentlyQuestions/index.jsx';
 import { ImportAnimal } from './pages/registerAnimal/index.jsx';
 
+import { useContext, useEffect, useState } from 'react';
+import { ThemeContext } from "./contextApi/ThemeContext";
+
+import { Chat_test } from './pages/chat_test/index.jsx';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { Sidebar } from './components/sidebar/sidebar';
 
 function App() {
-  
+  const { getLocalStorage } = useContext(ThemeContext);
+  const [userData, setUserData] = useState({});
+ 
+//   useEffect(() => {
+//     const data = getLocalStorage();
+//     setUserData(data); 
+// }, [userData]);
+
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/cadUser" element={<CadUser />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/forgetPassword" element={<ForgetPassword />} />
-      <Route path="/profileUser" element={<ProfileUser />} />
-      <Route path='/animalsLiked' element={<AnimalsLiked />} />
-      <Route path='/feedAnimals' element={<FeedAnimals />} />
-      <Route path='/firstPage' element={<FirstPage />} />
-      <Route path='/chat' element={<Chat />} />
-      <Route path='/cadastros' element={<Cadastros />} />
-      <Route path='/cadOng' element={<CadOng />} />
-      <Route path='/ongs' element={<Ongs />} />
-      <Route path='/questions' element={<Questions />} />
-      <Route path='/importAnimal' element={<ImportAnimal />} />
-    </Routes>
+    <>
+    {userData && <Sidebar />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cadUser" element={<CadUser />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgetPassword" element={<ForgetPassword />} />
+        <Route path="/profileUser" element={<ProfileUser />} />
+        <Route path='/animalsLiked' element={<AnimalsLiked />} />
+        <Route path='/feedAnimals' element={<FeedAnimals />} />
+        <Route path='/firstPage' element={<FirstPage />} />
+        <Route path='/chat' element={<Chat />} />
+        <Route path='/cadastros' element={<Cadastros />} />
+        <Route path='/cadOng' element={<CadOng />} />
+        <Route path='/ongs' element={<Ongs />} />
+        <Route path='/questions' element={<Questions />} />
+        <Route path='/importAnimal' element={<ImportAnimal />} />
+      </Routes>
+    </>
   );
 }
 

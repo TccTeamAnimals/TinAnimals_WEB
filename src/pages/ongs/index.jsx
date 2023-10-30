@@ -27,9 +27,6 @@ export function Ongs() {
                 <h1>test</h1>
                 <CardOngs/>                
             </div>
-            
-            <Sidebar />
-            
         </div>
     )
 }
