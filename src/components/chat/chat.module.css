@@ -21,6 +21,10 @@
     grid-template-columns: minmax(200px, 300px) 1fr ;
   }
 
+  .chat_user{
+    cursor: pointer;
+  }
+
 
   .chat_contaiener {
     width: 100%;

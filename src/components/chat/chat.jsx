@@ -9,9 +9,11 @@ export function ChatComponent() {
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [chats, setChats] = useState([]);
+  const [getLastMessagem, setGetLastMessagem] = useState([]);
   
   const { getLocalStorage, socket } = useContext(ThemeContext);
   const { state } = useLocation();
+  const [IDrecived, setIDrecived] = useState('');
 
   const {
     id,
@@ -24,12 +26,28 @@ export function ChatComponent() {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    const messageText = inputValue.trim()
+    const messageText = inputValue.trim();
+    console.log("inputValue", messageText)
+
+    IDrecived !== '' ? IDrecived : chats[0].user_id  
+
+    var messageTextInformation = {
+      sender: id,
+      receiver: state ? state.ong_id : IDrecived,
+      message: messageText
+    }
+
+
+  
     if (messageText !== '') {
-      setMessages([...messages, { sender: id, recive: 'Ong', message: messageText }]);
+      // const room_id = `${state.user_id}-${state.ong_id}`;
+      socket.emit('message', { user_id: typeCad == 'user' ? id : IDrecived, ong_id: state ? state.ong_id : id, message: messageTextInformation });
+  
+      setMessages([...messages, messageTextInformation]);
       setInputValue('');
     }
   };
+
 
   const getChats = async () => {
     const params = {}
@@ -44,10 +62,18 @@ export function ChatComponent() {
     });
 
     setChats(response.data);
+    getLastMessagens(response.data)
+    console.log("CHATS", response.data)
+    console.log("STATEEEEE", state)
 
-    if(state.ong_id){
+ 
+  
+    if(state){
       choseChat(state.ong_id)
     }
+    // else {
+    //   choseChat(IDrecived)
+    // }
   }
 
   const choseChat = async (toId) => {
@@ -61,51 +87,66 @@ export function ChatComponent() {
       params.user_id = toId;
     }
 
+    console.log("ID_USER", toId)
+    console.log("Params in choseChat:", params);
     socket.emit('join-room', params)
   }
 
+  const getLastMessagens = async (chats) => {
+      chats.map((chat) => {
+      chat.mensagens = JSON.parse(chat.mensagens);
+      setGetLastMessagem(chat.mensagens[chat.mensagens.length - 1])
+    });
+  };
+
   useEffect(() => {
-    if(state){
+    
       getChats();
-    }
+   
   },[state])
 
   socket.on('join-room-response', (message) => {
-    setMessages(JSON.parse(message.messages))
-  })
+    setMessages((prevMessages) => JSON.parse(message.messages));
+    console.log("MESSAGES", JSON.parse(message.messages));
+  });
 
   socket.on('message', (message) => {
-
+    
   })
 
   return (
     <div className={style.container}>
-      {chats.map((chat, index) => (
-        <div key={index} className={style.chat_contaiener}>
-          <div className={style.chat_user}>
+      <div className={style.chat_container}>
+        {chats.map((chat, index) => (
+          <div 
+            key={index}
+            className={style.chat_user}
+            onClick={() => {
+              choseChat(chat.chat.id);
+              setIDrecived(chat.user_id); 
+            }}>
             <img className={style.chat_user_image} src={userImage} alt="" />
             <div className={style.chat_user_text}>
               <strong>{chat.chat.name}</strong>
-              <p>Last Message</p>
+              <p>{chat.mensagens.length > 0 ? chat.mensagens[chat.mensagens.length - 1].message : ''}</p>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+      
       
       <div className={style.message_container}>
         <div className={style.messages}>
-
           {messages.map((message, index) => (
             <div key={index} className={`${message.sender === id ? style.message_send : style.message_recive}`}>
               <p className={style.message}>
-                {message.message}
+              {message.message}
               </p>
             </div>
           ))}
-
-          
-
         </div>
+
+
         <form onSubmit={handleFormSubmit} className={style.input_container}>
           <input
             type="text"
