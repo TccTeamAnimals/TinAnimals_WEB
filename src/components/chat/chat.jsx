@@ -100,19 +100,33 @@ export function ChatComponent() {
   };
 
   useEffect(() => {
-    
-      getChats();
-   
-  },[state])
+    getChats();
+  
+    if (socket) {
+      socket.on('join-room-response', (message) => {
+        setMessages(JSON.parse(message.messages));
+      });
+  
+      socket.on('message-response', (response) => {
+        if (response.status === 'success') {
+          setMessages((prevMessages) => [...prevMessages, response.message]);
+        }
+      });
+    }
+  
+    return () => {
+      if (socket) {
+        socket.off('join-room-response');
+        socket.off('message-response');
+      }
+    };
+  }, [socket, state]);
 
   socket.on('join-room-response', (message) => {
     setMessages((prevMessages) => JSON.parse(message.messages));
     console.log("MESSAGES", JSON.parse(message.messages));
   });
 
-  socket.on('message', (message) => {
-    
-  })
 
   return (
     <div className={style.container}>

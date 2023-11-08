@@ -29,9 +29,6 @@ const ThemeProvider = ({ children }) => {
   const removeLocalStorage = () => {
     localStorage.setItem('usuario', JSON.stringify({}));
     localStorage.removeItem('usuario');
-    console.log("chamou a funcao de remover do local storege")
-    // const usuario = localStorage.getItem('usuario');
-    // console.log("usuario removido do local storage", usuario);
   }
 
   const getLocalStorage = () => {
