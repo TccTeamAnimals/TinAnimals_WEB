@@ -29,17 +29,20 @@ function App() {
   const { getLocalStorage } = useContext(ThemeContext);
   const [userData, setUserData] = useState({});
  
-//   useEffect(() => {
-//     const data = getLocalStorage();
-//     setUserData(data); 
-// }, [userData]);
+  useEffect(() => {
+    const data = getLocalStorage();
+    setUserData(data); 
+}, []);
 
   return (
     <>
-    {userData && <Sidebar />}
+    {userData && typeof userData === 'object' && Object.keys(userData).length > 0 && (
+        <Sidebar userData={userData} setUserData={setUserData} />
+      )}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cadUser" element={<CadUser />} />
+        <Route path='/cadOng' element={<CadOng />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgetPassword" element={<ForgetPassword />} />
         <Route path="/profileUser" element={<ProfileUser />} />
@@ -48,7 +51,6 @@ function App() {
         <Route path='/firstPage' element={<FirstPage />} />
         <Route path='/chat' element={<Chat />} />
         <Route path='/cadastros' element={<Cadastros />} />
-        <Route path='/cadOng' element={<CadOng />} />
         <Route path='/ongs' element={<Ongs />} />
         <Route path='/questions' element={<Questions />} />
         <Route path='/importAnimal' element={<ImportAnimal />} />

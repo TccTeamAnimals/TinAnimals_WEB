@@ -18,7 +18,7 @@ import {
 import { ThemeContext } from '../../contextApi/ThemeContext';
 
 
-export function Sidebar(){
+export function Sidebar({setUserData}){
     const { darkMode, toggleDarkMode, getLocalStorage, removeLocalStorage } = useContext(ThemeContext);
     const [userName, setUserName] = useState('');
     const [sidebarExpanded, setSidebarExpanded] = useState(false);
@@ -122,9 +122,12 @@ export function Sidebar(){
 
                         <div className={`${typecad === 'user' ? `${styles.bottomContent} ${styles.navLink}` : `${styles.bottomContentOng} ${styles.navLink}`}`}>
                             <li className=''>
-                                <Link to="/">
+                                <Link to="/" onClick={() => {
+                                        removeLocalStorage();
+                                        setUserData({}); 
+                                    }}>
                                     <i className={styles.icon}> <BsDoorOpen/></i>
-                                    <button className={`${styles.text} ${styles.navText} ${styles.button}`} onClick={removeLocalStorage}>
+                                    <button className={`${styles.text} ${styles.navText} ${styles.button}`} >
                                         Sair
                                     </button>
                                 </Link>
