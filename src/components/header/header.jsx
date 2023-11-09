@@ -16,11 +16,10 @@ export function Header() {
                     <Navbar.Brand className={styles.marginLogo}>TinAnimals</Navbar.Brand>
                 </Link>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
+                <Navbar.Collapse id="responsive-navbar-nav" className={styles.optionsCollapsed}>
                     <Nav className="me-auto">
                     </Nav>
                     <Nav>
-                        {/* Substitua o Nav.Link por um Dropdown */}
                         <Dropdown>
                             <Dropdown.Toggle variant="dark" id="cadastro-dropdown">
                                 Cadastrar
@@ -41,7 +40,7 @@ export function Header() {
                                 </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
-                        <Nav.Link href="/login">Login</Nav.Link>
+                        <Nav.Link className={styles.marginButton} href="/login">Login</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

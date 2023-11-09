@@ -12,6 +12,14 @@
     border-bottom: 1px solid var(--gray-700);
 }
 
+.optionsCollapsed{
+    display: inline-flex;
+}
+
+.marginButton{
+    margin-left: 0.8rem;
+}
+
 .marginLogo{
     margin-left: 0.5rem;
 }
