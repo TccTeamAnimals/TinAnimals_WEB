@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { ThemeContext } from '../../contextApi/ThemeContext';
@@ -13,12 +13,29 @@ export function ChatComponent() {
   
   const { getLocalStorage, socket } = useContext(ThemeContext);
   const { state } = useLocation();
-  const [IDrecived, setIDrecived] = useState('');
+
+  const [ getReceiver, setGetReceiver ] = useState({});
+
+  const messagesContainerRef = useRef();
+
+  const [ongID , setOngID] = useState('');
+  const [userID , setUserID] = useState('');
+  const [aux , setAux] = useState('');
 
   const {
     id,
     typeCad
   } = getLocalStorage()
+
+  const getPerfil = () => {
+    if(typeCad === 'user'){
+      setUserID(id);
+    } else {
+      setOngID(id);
+    }
+  }
+
+  
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -29,20 +46,24 @@ export function ChatComponent() {
     const messageText = inputValue.trim();
     console.log("inputValue", messageText)
 
-    IDrecived !== '' ? IDrecived : chats[0].user_id  
 
     var messageTextInformation = {
       sender: id,
-      receiver: state ? state.ong_id : IDrecived,
+      receiver: state ? state.ong_id : getReceiver,
       message: messageText
     }
-
 
   
     if (messageText !== '') {
       // const room_id = `${state.user_id}-${state.ong_id}`;
-      socket.emit('message', { user_id: typeCad == 'user' ? id : IDrecived, ong_id: state ? state.ong_id : id, message: messageTextInformation });
-  
+      socket.emit('message', { user_id: typeCad == 'user' ?  userID : aux, ong_id: ongID ? ongID : aux, message: messageTextInformation });
+      
+      console.log("user_idddx", typeCad == 'user' ?  userID : aux)
+      console.log("ong_idddx", state ? state.ong_id : ongID)
+
+      console.log("AUX", aux)
+
+
       setMessages([...messages, messageTextInformation]);
       setInputValue('');
     }
@@ -76,6 +97,8 @@ export function ChatComponent() {
     // }
   }
 
+
+
   const choseChat = async (toId) => {
     const params = {}
 
@@ -100,6 +123,7 @@ export function ChatComponent() {
   };
 
   useEffect(() => {
+    getPerfil();
     getChats();
   
     if (socket) {
@@ -122,12 +146,31 @@ export function ChatComponent() {
     };
   }, [socket, state]);
 
+  useEffect(() => {
+    // Rola até o final do contêiner de mensagens quando novas mensagens são adicionadas
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  useEffect(() => {
+    // Rola para a última mensagem quando o componente monta ou as mensagens mudam
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   socket.on('join-room-response', (message) => {
     setMessages((prevMessages) => JSON.parse(message.messages));
     console.log("MESSAGES", JSON.parse(message.messages));
   });
 
-
+  // const createChatOrJoin = (IDrecived) => {
+  //   socket.emit('create-room', { user_id: (typeCad == 'user' ? id : IDrecived) , ong_id: (typeCad == 'user' ? IDrecived : id) })
+  //   console.log("YYYY USER ID", id)
+  //   console.log("XXX ID RECEIVED", IDrecived)
+  // }
+ 
   return (
     <div className={style.container}>
       <div className={style.chat_container}>
@@ -137,7 +180,10 @@ export function ChatComponent() {
             className={style.chat_user}
             onClick={() => {
               choseChat(chat.chat.id);
-              setIDrecived(chat.user_id); 
+              setGetReceiver(chat.chat.id);
+              setAux(chat.chat.id);
+              // createChatOrJoin(chat.chat.id);
+              // setIDrecived(chat.user_id); 
             }}>
             <img className={style.chat_user_image} src={userImage} alt="" />
             <div className={style.chat_user_text}>
@@ -150,7 +196,7 @@ export function ChatComponent() {
       
       
       <div className={style.message_container}>
-        <div className={style.messages}>
+        <div className={style.messages} ref={messagesContainerRef}>
           {messages.map((message, index) => (
             <div key={index} className={`${message.sender === id ? style.message_send : style.message_recive}`}>
               <p className={style.message}>
