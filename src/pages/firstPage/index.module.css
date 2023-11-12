@@ -2,7 +2,7 @@
     margin-left: 18rem;
     height: 100%;
   }
-  
+
   .dark_mode {
     background-color: var(--gray-700);
     color: var(--gray-300);
@@ -15,8 +15,8 @@
     background-color: #e8eef2;
     height: 100%;
     width: 100%;
-  }
-
+  } 
+  
   .title{
     text-align: center;
     justify-content: center;
@@ -34,7 +34,7 @@
 }
 
   .margin {
-    margin-left: 10rem;
+    margin-left: 20rem;
   }
 
   .marginTop{
@@ -143,3 +143,21 @@
     cursor: pointer;
 }
 
+@media (max-width: 1240px) {
+ .carousel {
+    margin-top: 10rem;
+    max-width: 700px; /* Defina o valor que desejar para o carrossel */
+    margin: 0 auto; /* Centraliza o carrossel na página */
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    
+  }
+  
+  /* Estilos para as imagens do carrossel */
+  .carousel .slide img {
+    max-height: 500px; /* Defina o valor que desejar para a altura das imagens */
+    object-fit: contain; /* Ajusta o redimensionamento da imagem para caber no espaço */
+    visibility: hidden; 
+  }
+}

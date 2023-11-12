@@ -24,6 +24,7 @@ import { Chat_test } from './pages/chat_test/index.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Sidebar } from './components/sidebar/sidebar';
+import { MenuMobile } from './components/menuMobile';
 
 function App() {
   const { getLocalStorage } = useContext(ThemeContext);
@@ -37,7 +38,12 @@ function App() {
   return (
     <>
     {userData && typeof userData === 'object' && Object.keys(userData).length > 0 && (
-        <Sidebar userData={userData} setUserData={setUserData} />
+        <> 
+        <Sidebar userData={userData} setUserData={setUserData}/>
+        <MenuMobile userData={userData} setUserData={setUserData}/>
+        </>
+
+        
       )}
       <Routes>
         <Route path="/" element={<Home />} />

@@ -36,7 +36,7 @@ export function Sidebar({setUserData}){
     }, [])
 
     return (
-        <nav className={`${darkMode ? styles.sidebarDark : styles.sidebar} ${sidebarExpanded ? styles.sidebarExpanded : ''}`}>
+        <nav className={` ${darkMode ? styles.sidebarDark : styles.sidebar} ${sidebarExpanded ? styles.sidebarExpanded : ''} d-none d-lg-block d-xl-block d-md-block`}>
             <header>
                 <div className={styles.imageText}>
                     <span className={styles.image}>
