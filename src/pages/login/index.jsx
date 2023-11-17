@@ -21,7 +21,7 @@ export function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post("http://localhost:8000/api/users/login", { email, password })
+    axios.post("https://master--tinanimals.netlify.app/api/users/login", { email, password })
       .then((response) => {
         // Se o login estiver na tabela de usuários, faça o login do usuário
         insertLocalStorage(response.data);
