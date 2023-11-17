@@ -17,7 +17,11 @@
 }
 
 .marginButton{
+    margin-top: 0.5rem;
     margin-left: 0.8rem;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.819);
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .marginLogo{

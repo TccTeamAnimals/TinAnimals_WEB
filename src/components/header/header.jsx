@@ -32,15 +32,17 @@ export function Header() {
                                         }
                                     `}
                                 </style>
-                                <Dropdown.Item href="/cadUser" style={{ color: 'white' }}>
+                                <Link to="/cadUser" className="dropdown-item" style={{ color: 'white' }}>
                                     Usuário
-                                </Dropdown.Item>
-                                <Dropdown.Item href="/cadOng" style={{ color: 'white' }}>
+                                </Link>
+                                <Link to="/cadOng" className="dropdown-item" style={{ color: 'white' }}>
                                     ONG
-                                </Dropdown.Item>
+                                </Link>
                             </Dropdown.Menu>
                         </Dropdown>
-                        <Nav.Link className={styles.marginButton} href="/login">Login</Nav.Link>
+                        <Link to="/login" className={styles.marginButton}>
+                            <label>Login</label>
+                        </Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
