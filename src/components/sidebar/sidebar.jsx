@@ -60,10 +60,10 @@ export function Sidebar({setUserData}){
             <div className={styles.menuBar}>
                 <div className={styles.menu}>
 
-                    <li className={`${darkMode ? styles.seachBoxDark : styles.seachBox}`}>
+                    {/* <li className={`${darkMode ? styles.seachBoxDark : styles.seachBox}`}>
                         <i className={styles.icon}> <BsSearchHeart/></i>
                         <input  className={styles.inputSearch} type="search" placeholder="Search..." />
-                    </li>
+                    </li> */}
 
                     <ul className={styles.menuLinks}>
 

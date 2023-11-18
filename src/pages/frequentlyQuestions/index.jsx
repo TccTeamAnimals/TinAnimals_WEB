@@ -3,15 +3,20 @@ import { Sidebar } from '../../components/sidebar/sidebar'
 import { ThemeContext } from '../../contextApi/ThemeContext';
 import styles from './index.module.css';
 import { AccordionQuestions } from '../../components/accordionQuestions/accordion.jsx';
+import { useNavigate } from 'react-router-dom';
 
 export function Questions() { 
     const { darkMode, getLocalStorage } = useContext(ThemeContext);
     const [dataInCache, setdataInCache] = useState({});
 
+    const navigate = useNavigate();
+
+    const [redirect, setRedirect] = useState(false);
+
     useEffect(() => {
         const usuarioLocalStorage = getLocalStorage();
         if (!usuarioLocalStorage) {
-          window.location.href = '/login';
+          navigate('/login');
         } else {
           setdataInCache(usuarioLocalStorage);
           window.scrollTo(0, 0);

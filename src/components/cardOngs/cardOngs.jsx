@@ -4,20 +4,33 @@ import ong from '../../imgs/ong3.jpg'
 import user from '../../imgs/user.png' 
 import { useState, useContext, useEffect } from 'react';
 import { ThemeContext } from "../../contextApi/ThemeContext";
+import { useNavigate } from 'react-router-dom';
 
 export function CardOngs(){
     const { darkMode, getLocalStorage } = useContext(ThemeContext);
     const [userName, setUserName] = useState('');
 
+    const navigate = useNavigate();
+
+    const [redirect, setRedirect] = useState(false);
+
+    const URL_API_PROD = "https://tinanimalsapi.onrender.com";
+    const URL_API_DEV = "http://localhost:8000";
+
     useEffect(() => {
         const usuarioLocalStorage = getLocalStorage();
         if (!usuarioLocalStorage) {
-            window.location.href = "/login";
+            setRedirect(true);
         }
         else{
             setUserName(usuarioLocalStorage.name)
         }
     }, [])
+
+    if (redirect) {
+        navigate('/login'); 
+        return null; 
+    }
 
     return (
         <div className={styles.wrapper}>
