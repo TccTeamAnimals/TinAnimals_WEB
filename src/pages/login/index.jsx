@@ -3,8 +3,9 @@ import { Footer } from '../../components/footer/footer';
 import  logo  from '../../imgs/logo.jpg';
 import styles from './index.module.css';
 
-import { Link } from 'react-router-dom'
+import { Link  } from 'react-router-dom'
 import { useState, useContext, useEffect } from 'react';
+import { createBrowserHistory } from 'history';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,6 +18,7 @@ export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { insertLocalStorage } = useContext(ThemeContext);
+  const history = createBrowserHistory();
 
   const URL_API_PROD = "https://tinanimalsapi.onrender.com";
   const URL_API_DEV = "http://localhost:8000";
@@ -39,7 +41,8 @@ export function Login() {
         });
         
         setTimeout(() => {
-          window.location.href = "/firstPage";
+          history.push("/firstPage"); 
+          window.location.reload();
         }, 1800);
       })
       .catch(() => {
@@ -58,7 +61,8 @@ export function Login() {
             });
             
             setTimeout(() => {
-              window.location.href = "/firstPage";
+              history.push("/firstPage"); 
+              window.location.reload();
             }, 1800);
           })
           .catch(() => {
