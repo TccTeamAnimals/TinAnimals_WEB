@@ -3,9 +3,9 @@ import { Footer } from '../../components/footer/footer';
 import  logo  from '../../imgs/logo.jpg';
 import styles from './index.module.css';
 
-import { Link  } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
-import { createBrowserHistory } from 'history';
+
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,7 +18,9 @@ export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { insertLocalStorage } = useContext(ThemeContext);
-  const history = createBrowserHistory();
+  const navigate = useNavigate();
+
+  const [redirectToFirstPage, setRedirectToFirstPage] = useState(false);
 
   const URL_API_PROD = "https://tinanimalsapi.onrender.com";
   const URL_API_DEV = "http://localhost:8000";
@@ -40,10 +42,13 @@ export function Login() {
           theme: "dark",
         });
         
-        setTimeout(() => {
-          history.push("/firstPage"); 
-          window.location.reload();
-        }, 1800);
+        // setTimeout(() => {
+        //   history.push("/firstPage"); 
+        //   window.location.reload();
+        // }, 1800);
+
+        setRedirectToFirstPage(true);
+        
       })
       .catch(() => {
         axios.post(`${URL_API_PROD}/api/ong/login`, { email, password })
@@ -60,10 +65,11 @@ export function Login() {
               theme: "dark",
             });
             
-            setTimeout(() => {
-              history.push("/firstPage"); 
-              window.location.reload();
-            }, 1800);
+            // setTimeout(() => {
+            //   history.push("/firstPage"); 
+            //   window.location.reload();
+            // }, 1800);
+            setRedirectToFirstPage(true);
           })
           .catch(() => {
             toast.warn('Login ou Senha Inválidos 😕 ', {
@@ -79,6 +85,12 @@ export function Login() {
           });
       });
   }
+
+  if (redirectToFirstPage) {
+    navigate('/firstPage'); 
+    return null; 
+  }
+
   return (
     <div className={styles.darkMode}>
       <Header />

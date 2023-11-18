@@ -9,6 +9,8 @@ import { v4 as uuidv4 } from 'uuid';
 import logo from '../../imgs/logo.jpg';
 import styles from './index.module.css';
 
+import { createBrowserHistory } from 'history';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,6 +31,12 @@ export function CadUser() {
 
   const [isCPFHovered, setIsCPFHovered] = useState(false);
   const [isPhoneHovered, setIsPhoneHovered] = useState(false);
+
+  const [redirectToFirstPage, setRedirectToFirstPage] = useState(false);
+  const navigate = useNavigate();
+  const history = createBrowserHistory();
+  const URL_API_PROD = "https://tinanimalsapi.onrender.com";
+  const URL_API_DEV = "http://localhost:8000";
 
   useEffect(() => {
     Inputmask("(99) 9-9999-9999").mask("#phone");
@@ -53,7 +61,7 @@ export function CadUser() {
           id: id,
         }
 
-        axios.post("http://localhost:8000/api/users", userData)
+        axios.post(`${URL_API_PROD}/api/users`, userData)
           .then((response) => {
             toast.success('Usuario cadastrado com sucesso!', {
               position: "bottom-right",
@@ -65,9 +73,10 @@ export function CadUser() {
               progress: undefined,
               theme: "dark",
               });
-              setTimeout(() => {
-                window.location.href = "/login";
-              }, 2800);
+              // setTimeout(() => {
+              //   window.location.href = "/login";
+              // }, 2800);
+              setRedirectToFirstPage(true);
           })
           .catch((error) => {
             if(error.response.data.message == "email already used"){
@@ -121,6 +130,11 @@ export function CadUser() {
         theme: "dark",
       });
     }
+  }
+
+  if (redirectToFirstPage) {
+    navigate('/login'); 
+    return null; 
   }
 
   const checkFields = () => {

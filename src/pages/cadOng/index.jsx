@@ -9,6 +9,8 @@ import { v4 as uuidv4 } from 'uuid';
 import logo from '../../imgs/ong.png';
 import styles from './index.module.css';
 
+import { Link, useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,6 +31,11 @@ export function CadOng() {
   });
 
   const [isPhoneHovered, setIsPhoneHovered] = useState(false);
+
+  const [redirectToFirstPage, setRedirectToFirstPage] = useState(false);
+  const navigate = useNavigate();
+  const URL_API_PROD = "https://tinanimalsapi.onrender.com";
+  const URL_API_DEV = "http://localhost:8000";
 
   useEffect(() => {
     Inputmask("(99) 9-9999-9999").mask("#phone");
@@ -97,7 +104,7 @@ export function CadOng() {
 
         console.log("info ong", ongData)
         // Chamada da requisição de cadastro de ONG
-        axios.post("http://localhost:8000/api/ong", ongData)
+        axios.post(`${URL_API_PROD}/api/ong`, ongData)
           .then((response) => {
             toast.success('ONG cadastrada com sucesso!', {
               position: "bottom-right",
@@ -109,9 +116,11 @@ export function CadOng() {
               progress: undefined,
               theme: "dark",
               });
-              setTimeout(() => {
-                window.location.href = "/login";
-              }, 2800);
+              // setTimeout(() => {
+              //   window.location.href = "/login";
+              // }, 2800);
+
+              setRedirectToFirstPage(true);
           })
           .catch((error) => {
             if(error.response.data.message == "email already used"){
@@ -169,6 +178,11 @@ export function CadOng() {
       return false;
     }
     return true;
+  }
+
+  if (redirectToFirstPage) {
+    navigate('/login'); 
+    return null; 
   }
   
 

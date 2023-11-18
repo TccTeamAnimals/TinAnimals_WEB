@@ -21,6 +21,11 @@ export function ImportAnimal() {
     const [animalRaca, setAnimalRaca] = useState("");
     const [animalSexo, setAnimalSexo] = useState("");
 
+
+    const [redirectToFirstPage, setRedirectToFirstPage] = useState(false);
+    const URL_API_PROD = "https://tinanimalsapi.onrender.com";
+    const URL_API_DEV = "http://localhost:8000";
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -104,7 +109,7 @@ export function ImportAnimal() {
                 sexo: animalSexo,
             };
 
-            axios.post(`http://localhost:8000/api/ong/register_animal`, ongData)
+            axios.post(`${URL_API_PROD}/api/ong/register_animal`, ongData)
                 .then((response) => {
                     toast.success('Animal cadastrado com sucesso', {
                         position: "bottom-right",

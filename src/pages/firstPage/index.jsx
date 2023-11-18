@@ -17,6 +17,8 @@ import logo from '../../imgs/logo.jpg';
 import likeHeart from '../../imgs/likeHeart.png';
 import iconChat from '../../imgs/iconChat.png';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 export function FirstPage() {
   const { darkMode, getLocalStorage } = useContext(ThemeContext);
@@ -26,27 +28,39 @@ export function FirstPage() {
   const [NumUsers, setNumUsers] = useState([]);
   const [NumAnimals, setNumAnimals] = useState([]);
 
+  const [redirectToFirstPage, setRedirectToFirstPage] = useState(false);
+    const URL_API_PROD = "https://tinanimalsapi.onrender.com";
+    const URL_API_DEV = "http://localhost:8000";
+    const navigate = useNavigate();
+
   useEffect(() => {
     const usuarioLocalStorage = getLocalStorage();
     if (!usuarioLocalStorage) {
-      window.location.href = '/login';
+      setRedirectToFirstPage(true);
+      console.log("PASSO AQUI Y")
     } else {
+      console.log("PASSO AQUI X")
       setUserData(usuarioLocalStorage);
     }
   }, []);
+
+  if (redirectToFirstPage) {
+    navigate('/login'); 
+    return null; 
+  }
 
   useEffect(() => {
     const GetUserOrOng = async () => {
       if (userData.typeCad === 'ong') {
         try {
-          const response = await axios.get(`http://localhost:8000/api/ong/${userData.id}`);
+          const response = await axios.get(`${URL_API_PROD}/api/ong/${userData.id}`);
           setDataUserOrOng(response.data);
         } catch (error) {
           console.log(error);
         }
       } else {
         try {
-          const response = await axios.get(`http://localhost:8000/api/users/${userData.id}`);
+          const response = await axios.get(`${URL_API_PROD}/api/users/${userData.id}`);
           setDataUserOrOng(response.data);
         } catch (error) {
           console.log(error);
@@ -65,7 +79,7 @@ export function FirstPage() {
     if (userData.typeCad === 'user') {
       const GetAllOngs = async () => {
         try {
-          const response = await axios.get(`http://localhost:8000/api/ongs`);
+          const response = await axios.get(`${URL_API_PROD}/api/ongs`);
           setNumOngs(response.data.length);
         } catch (error) {
           console.log(error);
@@ -75,7 +89,7 @@ export function FirstPage() {
     }else{
       const GetAllAnimalsRegistered = async () => {
         try {
-          const response = await axios.get('http://localhost:8000/api/ong/getAnimals/pictures');
+          const response = await axios.get(`${URL_API_PROD}/api/ong/getAnimals/pictures`);
           setNumAnimals(response.data.length);
         } catch (error) {
           console.log(error);
@@ -90,7 +104,7 @@ export function FirstPage() {
   useEffect(() => {
     const GetAllUsers = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/users`);
+        const response = await axios.get(`${URL_API_PROD}/api/users`);
         setNumUsers(response.data.length);
       } catch (error) {
         console.log(error);
