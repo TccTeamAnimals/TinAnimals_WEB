@@ -1,7 +1,10 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { io } from "socket.io-client";
 
-const WS_URL = 'ws://127.0.0.1:8000';
+// const WS_URL = 'ws://127.0.0.1:8000';
+// const WS_URL = 'wss://tinanimalsapi.onrender.com';
+const WS_URL = 'https://tinanimalsapi.onrender.com';
+
 
 // Criação do contexto
 const ThemeContext = createContext();
