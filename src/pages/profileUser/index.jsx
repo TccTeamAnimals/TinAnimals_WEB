@@ -9,6 +9,8 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { useNavigate } from 'react-router-dom';
+
 export function ProfileUser() {
   const { darkMode, getLocalStorage } = useContext(ThemeContext);
   const [infoUserInCache, setInfoUserInCache] = useState({});
@@ -16,6 +18,10 @@ export function ProfileUser() {
   const [formValues, setFormValues] = useState({});
   const [editMode, setEditMode] = useState(false); 
 
+  const [redirect, setRedirect] = useState(false);
+  const URL_API_PROD = "https://tinanimalsapi.onrender.com";
+  const URL_API_DEV = "http://localhost:8000";
+  const navigate = useNavigate();
 
   useEffect(() => {
     Inputmask('(99) 9-9999-9999').mask('#phone');
@@ -28,14 +34,14 @@ export function ProfileUser() {
     const GetUserOrOng = async () => {
       if (infoUserInCache.typeCad === 'ong') {
         try {
-          const response = await axios.get(`http://localhost:8000/api/ong/${infoUserInCache.id}`);
+          const response = await axios.get(`${URL_API_PROD}/api/ong/${infoUserInCache.id}`);
           setDataUserOrOng(response.data);
         } catch (error) {
           console.log(error);
         }
       } else {
         try {
-          const response = await axios.get(`http://localhost:8000/api/users/${infoUserInCache.id}`);
+          const response = await axios.get(`${URL_API_PROD}/api/users/${infoUserInCache.id}`);
           setDataUserOrOng(response.data);
         } catch (error) {
           console.log(error);
@@ -49,7 +55,6 @@ export function ProfileUser() {
   }, [infoUserInCache]);
 
   useEffect(() => {
-    // Atualiza os campos do formulário com os dados retornados da API
     setFormValues({
       name: dataUserOrOng.name || '',
       phone: dataUserOrOng.phone || '',
@@ -66,10 +71,10 @@ export function ProfileUser() {
           password: event.target.password.value,
         };
         axios
-          .put(`http://localhost:8000/api/ong/${infoUserInCache.id}`, ongData)
+          .put(`${URL_API_PROD}/api/ong/${infoUserInCache.id}`, ongData)
           .then((response) => {
             toast.success(
-              'Ong Atualizada Com Sucesso',
+              'Atualizada Com Sucesso',
               {
                 position: 'bottom-right',
                 autoClose: 3000,
@@ -90,7 +95,8 @@ export function ProfileUser() {
 
             // Desativar o modo de edição após enviar o formulário
             setEditMode(false);
-            window.location.reload();
+            setRedirect(true)
+            // window.location.reload();
           })
           .catch((error) => {
             toast.error('Erro ao atualizar perfil!', {
@@ -111,11 +117,10 @@ export function ProfileUser() {
           password: event.target.password.value,
         };
         axios
-          .put(`http://localhost:8000/api/users/${infoUserInCache.id}`, UserData)
+          .put(`${URL_API_PROD}/api/users/${infoUserInCache.id}`, UserData)
           .then((response) => {
-            console.log("caiu no deu bom")
             toast.success(
-              'Usuario Atualizada Com Sucesso',
+              'Atualizada Com Sucesso',
               {
                 position: 'bottom-right',
                 autoClose: 3000,
@@ -136,10 +141,11 @@ export function ProfileUser() {
 
             // Desativar o modo de edição após enviar o formulário
             setEditMode(false);
-            window.location.reload();
+            // window.location.reload();
+            setRedirect(true);
           })
           .catch((error) => {
-            toast.error('Erro ao atualizar perfil!', {
+            toast.error('Erro ao atualizar!', {
               position: 'bottom-right',
               autoClose: 2000,
               hideProgressBar: false,
@@ -153,6 +159,11 @@ export function ProfileUser() {
       }
     }
   };
+
+  if (redirect) {
+    navigate('/profileUser'); 
+    // return null; 
+  }
 
   return (
     <div className={`${darkMode ? styles.dark_mode : styles.light_mode}`}>

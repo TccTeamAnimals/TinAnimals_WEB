@@ -22,13 +22,18 @@ export function CardAnimalsLiked() {
 
     const navigate = useNavigate();
 
+    const [redirect, setRedirect] = useState(false);
+  
+    const URL_API_PROD = "https://tinanimalsapi.onrender.com";
+    const URL_API_DEV = "http://localhost:8000";
+
     useEffect(() => {
         const data = getLocalStorage();
         setUserData(data);
     }, []);
 
     const getOngAnimal = (id) => {
-        axios.get(`http://localhost:8000/api/ong/${id}`)
+        axios.get(`${URL_API_PROD}/api/ong/${id}`)
             .then((response) => {
                 setSelectedOngInfo(response.data);
                 setShowModal(true);
@@ -43,7 +48,7 @@ export function CardAnimalsLiked() {
             let data = {
                 userId: userData.id,
             }
-            axios.get(`http://localhost:8000/api/likesByUser/${data.userId}`)
+            axios.get(`${URL_API_PROD}/api/likesByUser/${data.userId}`)
                 .then((response) => {
                     setAnimalsInBD(response.data);
                     setLoadingAnimalsLiked(true);
@@ -56,7 +61,7 @@ export function CardAnimalsLiked() {
     }, [userData.id]);
 
     const deleteLikedAnimalByUser = (id) => {
-        axios.delete(`http://localhost:8000/api/removelikesByUser/${id}`)
+        axios.delete(`${URL_API_PROD}/api/removelikesByUser/${id}`)
             .then((response) => {
                 console.log(response.data);
                 toast.success('Curtida removida com sucesso!', {

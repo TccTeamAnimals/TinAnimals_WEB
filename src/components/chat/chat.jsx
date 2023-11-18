@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { ThemeContext } from '../../contextApi/ThemeContext';
 import style from './chat.module.css';
 import userImage from '../../imgs/user.png';
+import { useNavigate } from 'react-router-dom';
 
 export function ChatComponent() {
   const [messages, setMessages] = useState([]);
@@ -21,6 +22,12 @@ export function ChatComponent() {
   const [ongID , setOngID] = useState('');
   const [userID , setUserID] = useState('');
   const [aux , setAux] = useState('');
+
+
+  const [redirect, setRedirect] = useState(false);
+  const URL_API_PROD = "https://tinanimalsapi.onrender.com";
+  const URL_API_DEV = "http://localhost:8000";
+  const navigate = useNavigate();
 
   const {
     id,
@@ -78,7 +85,7 @@ export function ChatComponent() {
       params.ong_id = id;
     }
 
-    const response = await axios.get('http://localhost:8000/api/chats', {
+    const response = await axios.get(`${URL_API_PROD}/api/chats`, {
       params
     });
 
@@ -87,8 +94,6 @@ export function ChatComponent() {
     console.log("CHATS", response.data)
     console.log("STATEEEEE", state)
 
- 
-  
     if(state){
       choseChat(state.ong_id)
     }

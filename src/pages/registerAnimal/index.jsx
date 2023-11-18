@@ -22,7 +22,7 @@ export function ImportAnimal() {
     const [animalSexo, setAnimalSexo] = useState("");
 
 
-    const [redirectToFirstPage, setRedirectToFirstPage] = useState(false);
+    const [redirect, setRedirect] = useState(false);
     const URL_API_PROD = "https://tinanimalsapi.onrender.com";
     const URL_API_DEV = "http://localhost:8000";
 
@@ -32,7 +32,7 @@ export function ImportAnimal() {
         const userData = getLocalStorage();
         setUserData(userData);
 
-        axios.get(`http://localhost:8000/api/ong/getAnimalByOng/${userData.id}`)
+        axios.get(`${URL_API_PROD}/api/ong/getAnimalByOng/${userData.id}`)
             .then((response) => {
                 setAnimalsInBD(response.data);
                 console.log(response.data);
@@ -48,7 +48,7 @@ export function ImportAnimal() {
     }
 
     const deleteAnimal = (id) => {
-        axios.delete(`http://localhost:8000/api/ong/deleteAnimalByOng/${id}`)
+        axios.delete(`${URL_API_PROD}/api/ong/deleteAnimalByOng/${id}`)
         .then((response) => {
             toast.success('Sucesso Animal Deletado', {
                 position: "bottom-right",
@@ -123,9 +123,11 @@ export function ImportAnimal() {
                         });
 
                         // setAnimalsInBD([...animalsInBD, ongData]);
-                        setTimeout(() => {
-                            window.location.href = "/importAnimal";
-                        }, 800);
+                        // setTimeout(() => {
+                        //     window.location.href = "/importAnimal";
+                        // }, 800);
+
+                        setRedirect(true);
                 })
                 .catch((error) => {
                     console.log('Erro ao atualizar dados:', error);
@@ -135,6 +137,11 @@ export function ImportAnimal() {
             console.log('Erro ao fazer upload da imagem:', error);
         }
     }
+
+    if (redirect) {
+        navigate('/importAnimal'); 
+        return null; 
+      }
 
     return (
         <div className={`${darkMode ? (animalsInBD.length > 4 ? styles.dark_mode : styles.dark_modeVW) : (animalsInBD.length > 4 ? styles.light_mode : styles.light_modeVW)}`}>

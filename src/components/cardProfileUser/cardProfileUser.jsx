@@ -6,12 +6,18 @@ import user from '../../imgs/user.png'
 import { useState, useContext, useEffect } from 'react';
 import { ThemeContext } from '../../contextApi/ThemeContext';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export function CardProfileUser(){
 
-    const { darkMode, getLocalStorage } = useContext(ThemeContext);
-    const [ infoUserInCache, setInfoUserInCache] = useState({});
-    const [dataUserOrOng, setDataUserOrOng] = useState({});
+  const { darkMode, getLocalStorage } = useContext(ThemeContext);
+  const [ infoUserInCache, setInfoUserInCache] = useState({});
+  const [dataUserOrOng, setDataUserOrOng] = useState({});
+
+  const [redirect, setRedirect] = useState(false);
+  const URL_API_PROD = "https://tinanimalsapi.onrender.com";
+  const URL_API_DEV = "http://localhost:8000";
+  const navigate = useNavigate();
 
     useEffect(() => {
         const userData = getLocalStorage();
@@ -22,7 +28,7 @@ export function CardProfileUser(){
         const GetUserOrOng = async () => {
           if (infoUserInCache.typeCad === 'ong') {
             try {
-              const response = await axios.get(`http://localhost:8000/api/ong/${infoUserInCache.id}`);
+              const response = await axios.get(`${URL_API_PROD}/api/ong/${infoUserInCache.id}`);
               setDataUserOrOng(response.data);
               console.log("DADOS DA ONG", response.data)
             } catch (error) {
@@ -30,7 +36,7 @@ export function CardProfileUser(){
             }
           } else {
             try {
-              const response = await axios.get(`http://localhost:8000/api/users/${infoUserInCache.id}`);
+              const response = await axios.get(`${URL_API_PROD}/api/users/${infoUserInCache.id}`);
               setDataUserOrOng(response.data);
               console.log("DADOS DO USUARIO", response.data)
             } catch (error) {
@@ -59,7 +65,7 @@ export function CardProfileUser(){
                 </div>
 
                 <footer>
-                    <a href="#">
+                    <a className={styles.colorText}>
                         Editar perfil
                         <ArrowRight size={16} />
                     </a>

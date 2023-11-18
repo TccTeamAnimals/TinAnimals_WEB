@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ThemeContext } from '../../contextApi/ThemeContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link, useNavigate } from 'react-router-dom';
 
 export function ImgsFeedAnimals() {
     const { getLocalStorage } = useContext(ThemeContext);
@@ -14,17 +15,29 @@ export function ImgsFeedAnimals() {
     const [currentAnimalIndex, setCurrentAnimalIndex] = useState(0);
     const [userID, setUserID] = useState('');
 
+    const navigate = useNavigate();
+
+    const [redirect, setRedirect] = useState(false);
+  
+    const URL_API_PROD = "https://tinanimalsapi.onrender.com";
+    const URL_API_DEV = "http://localhost:8000";
+
     useEffect(() => {
         const usuarioLocalStorage = getLocalStorage();
         if (!usuarioLocalStorage) {
-            window.location.href = "/login";
+            setRedirect(true);
         } else {
             setUserID(usuarioLocalStorage.id)
         }
     }, [])
 
+    if (redirect) {
+        navigate('/login'); 
+        return null; 
+      }
+
     useEffect(() => {
-        axios.get('http://localhost:8000/api/ong/getAnimals/pictures')
+        axios.get(`${URL_API_PROD}/api/ong/getAnimals/pictures`)
             .then((response) => {
                 setAnimals(response.data);
             })
@@ -47,7 +60,7 @@ export function ImgsFeedAnimals() {
             image_url: animals[currentAnimalIndex].image_url,
         };
 
-        axios.post("http://localhost:8000/api/like", data)
+        axios.post(`${URL_API_PROD}/api/like`, data)
             .then((response) => {
                 toast.success('Animal curtido e adicionado na sua coleção', {
                     position: "bottom-right",

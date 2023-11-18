@@ -120,3 +120,7 @@ box-sizing: initial;
     background: var(--green-500);
     color: var(--white);
 }
+
+.colorText{
+    color: green;
+}

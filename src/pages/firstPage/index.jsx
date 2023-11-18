@@ -28,23 +28,21 @@ export function FirstPage() {
   const [NumUsers, setNumUsers] = useState([]);
   const [NumAnimals, setNumAnimals] = useState([]);
 
-  const [redirectToFirstPage, setRedirectToFirstPage] = useState(false);
-    const URL_API_PROD = "https://tinanimalsapi.onrender.com";
-    const URL_API_DEV = "http://localhost:8000";
-    const navigate = useNavigate();
+  const [redirect, setRedirect] = useState(false);
+  const URL_API_PROD = "https://tinanimalsapi.onrender.com";
+  const URL_API_DEV = "http://localhost:8000";
+  const navigate = useNavigate();
 
   useEffect(() => {
     const usuarioLocalStorage = getLocalStorage();
     if (!usuarioLocalStorage) {
-      setRedirectToFirstPage(true);
-      console.log("PASSO AQUI Y")
+      setRedirect(true);
     } else {
-      console.log("PASSO AQUI X")
       setUserData(usuarioLocalStorage);
     }
   }, []);
 
-  if (redirectToFirstPage) {
+  if (redirect) {
     navigate('/login'); 
     return null; 
   }
