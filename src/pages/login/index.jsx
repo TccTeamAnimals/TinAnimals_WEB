@@ -18,10 +18,12 @@ export function Login() {
   const [password, setPassword] = useState("");
   const { insertLocalStorage } = useContext(ThemeContext);
 
+  const URL_API_PROD = "https://tinanimalsapi.onrender.com";
+  const URL_API_DEV = "http://localhost:8000";
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post("https://tinanimalsapi.onrender.com/api/users/login", { email, password })
+    axios.post(`${URL_API_PROD}/api/users/login`, { email, password })
       .then((response) => {
         // Se o login estiver na tabela de usuários, faça o login do usuário
         insertLocalStorage(response.data);
@@ -41,7 +43,7 @@ export function Login() {
         }, 1800);
       })
       .catch(() => {
-        axios.post("https://tinanimalsapi.onrender.com/api/ong/login", { email, password })
+        axios.post(`${URL_API_PROD}/api/ong/login`, { email, password })
           .then((response) => {
             insertLocalStorage(response.data);
             toast.success('ONG Logada Com Sucesso!', {
