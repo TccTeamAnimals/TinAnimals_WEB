@@ -27,18 +27,15 @@ import { Sidebar } from './components/sidebar/sidebar';
 // import { MenuMobile } from './components/menuMobile';
 
 function App() {
-  const { getLocalStorage } = useContext(ThemeContext);
+  const { getLocalStorage, usuario } = useContext(ThemeContext);
   const [userData, setUserData] = useState({});
  
-  useEffect(() => {
-    const data = getLocalStorage();
-    setUserData(data); 
-}, []);
+
   
 
   return (
     <>
-    {userData && typeof userData === 'object' && Object.keys(userData).length > 0 && (
+    {usuario && (
         <> 
         <Sidebar userData={userData} setUserData={setUserData}/>
         {/* <MenuMobile userData={userData} setUserData={setUserData}/> */}

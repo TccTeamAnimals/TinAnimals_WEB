@@ -3,7 +3,8 @@ import styles from './sidebar.module.css'
 import logo from '../../imgs/logo.jpg';
 import { Link } from 'react-router-dom'
 import { 
-    BsArrowRightShort, 
+    BsArrowRightShort,
+    BsArrowLeftShort, 
     BsFillHouseDoorFill,
     BsSearchHeart,
     BsHeartFill,
@@ -21,7 +22,7 @@ import { ThemeContext } from '../../contextApi/ThemeContext';
 export function Sidebar({setUserData}){
     const { darkMode, toggleDarkMode, getLocalStorage, removeLocalStorage } = useContext(ThemeContext);
     const [userName, setUserName] = useState('');
-    const [sidebarExpanded, setSidebarExpanded] = useState(false);
+    const [sidebarExpanded, setSidebarExpanded] = useState(true);
     const [typecad, setTypeCad] = useState('');	
 
     useEffect(() => {
@@ -33,10 +34,16 @@ export function Sidebar({setUserData}){
             setTypeCad(usuarioLocalStorage.typeCad)
             setUserName(usuarioLocalStorage.name)
         }
+
+        if (window.innerWidth < 768) {
+            setSidebarExpanded(false);
+        }
     }, [])
 
+  
+
     return (
-        <nav className={` ${darkMode ? styles.sidebarDark : styles.sidebar} ${sidebarExpanded ? styles.sidebarExpanded : ''} d-none d-lg-block d-xl-block d-md-block`}>
+        <nav className={` ${darkMode ? styles.sidebarDark : styles.sidebar} ${sidebarExpanded ? styles.sidebarExpanded : styles.sidebarCollapsed}`}>
             <header>
                 <div className={styles.imageText}>
                     <span className={styles.image}>
@@ -44,21 +51,26 @@ export function Sidebar({setUserData}){
                             <img src={ logo } alt="TinAnimalsLogo" />
                         </Link>
                     </span>
-                
-
-                    <div className={`${styles.text} ${styles.headerText}`}>
-                        <span className={styles.name}>TinAnimals</span>
-                        <span className={styles.description}>{typecad == 'user' ? "Adote Seu Pet!" : "Cadastre Animais!"  }</span>
-                        <span className={styles.description}></span>
-                    </div>
                 </div>
 
-                <i className={styles.toggle} onClick={() => setSidebarExpanded(!sidebarExpanded)}> <BsArrowRightShort /></i>
-                    
+                <i className={styles.toggle} onClick={() => setSidebarExpanded(!sidebarExpanded)}>  
+                    {sidebarExpanded && (
+                       <BsArrowLeftShort/>
+                    )}
+                    {!sidebarExpanded && (
+                       <BsArrowRightShort />
+                    )}
+                </i>
+
             </header>
 
             <div className={styles.menuBar}>
+                <div className={`${styles.text} ${styles.headerText}`}>
+                    <p className={styles.name}>TinAnimals</p>
+                    <p className={styles.description}>{typecad == 'user' ? "Adote Seu Pet!" : "Cadastre Animais!"  }</p>
+                </div>
                 <div className={styles.menu}>
+
 
                     {/* <li className={`${darkMode ? styles.seachBoxDark : styles.seachBox}`}>
                         <i className={styles.icon}> <BsSearchHeart/></i>

@@ -10,7 +10,7 @@ export function Chat () {
         <div>
             <div className={`${darkMode ? styles.dark_mode : styles.light_mode}`}>
                 <div className={styles.container}>
-                    <h1 className={styles.page_title}>Página do Chat</h1>
+                    <h1 className={styles.page_title}>Chat</h1>
                     <ChatComponent/>
                 </div>
             </div>

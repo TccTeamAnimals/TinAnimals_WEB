@@ -18,20 +18,31 @@ socket.on('create-room-response', (data) => {
 // Provedor do contexto
 const ThemeProvider = ({ children }) => {
   let cacheDarkMode = JSON.parse(localStorage.getItem('darkMode'))
+  
+  let cacheUsuario = JSON.parse(localStorage.getItem('usuario'))
+
 
   if(!cacheDarkMode) {
     cacheDarkMode = false
   }
+
+  if(!cacheUsuario) {
+    cacheUsuario = null
+  }
   
   const [darkMode, setDarkMode] = useState(cacheDarkMode);
 
-  const insertLocalStorage = (usuario) => {
+  const [usuario, setUsuario] = useState(cacheUsuario);
+
+  function insertLocalStorage(usuario) {
     localStorage.setItem('usuario', JSON.stringify(usuario));
+    setUsuario(usuario);
   }
 
   const removeLocalStorage = () => {
-    localStorage.setItem('usuario', JSON.stringify({}));
+    // localStorage.setItem('usuario', JSON.stringify({}));
     localStorage.removeItem('usuario');
+    setUsuario(null);
   }
 
   const getLocalStorage = () => {
@@ -39,7 +50,6 @@ const ThemeProvider = ({ children }) => {
     if (usuario) {
       return JSON.parse(usuario);
     }
-    
   }
 
   const toggleDarkMode = () => {
@@ -54,7 +64,8 @@ const ThemeProvider = ({ children }) => {
     insertLocalStorage,
     getLocalStorage,
     removeLocalStorage,
-    socket
+    socket,
+    usuario
   };
 
   // Retornando o provedor envolvendo os componentes filhos

@@ -5,7 +5,15 @@
     justify-content: center;
     height: 100%;
     padding-left: 200px;
+    padding-right: 20px;
 }
+
+ 
+@media screen and (max-width: 768px) {
+    .container {
+      padding: 20px;
+    }
+  }
 
 .dark_mode{
     background-color: var(--gray-700);

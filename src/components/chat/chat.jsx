@@ -182,7 +182,8 @@ export function ChatComponent() {
         {chats.map((chat, index) => (
           <div 
             key={index}
-            className={style.chat_user}
+            // className={style.chat_user}
+            className={`${style.chat_user} ${chat.chat.id == aux ? style.chat_user_selector : ''}`}
             onClick={() => {
               choseChat(chat.chat.id);
               setGetReceiver(chat.chat.id);
@@ -193,7 +194,7 @@ export function ChatComponent() {
             <img className={style.chat_user_image} src={userImage} alt="" />
             <div className={style.chat_user_text}>
               <strong>{chat.chat.name}</strong>
-              <p>{chat.mensagens.length > 0 ? chat.mensagens[chat.mensagens.length - 1].message : ''}</p>
+              <p className={style.maxWidth}>{chat.mensagens.length > 0 ? chat.mensagens[chat.mensagens.length - 1].message : ''}</p>
             </div>
           </div>
         ))}

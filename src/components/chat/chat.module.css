@@ -19,12 +19,24 @@
     background-color: rgb(155, 175, 207);
     display: grid;
     grid-template-columns: minmax(200px, 300px) 1fr;
+    margin: 8px;
   }
+
+
 
   .chat_user{
     cursor: pointer;
+    transition: background-color 0.3s;
+
   }
 
+  .chat_user:hover{
+    background-color: rgb(110, 144, 199); 
+  }
+
+  .chat_user_selector{
+    background-color: #607fb0;
+  }
 
   .chat_contaiener {
     width: 100%;
@@ -94,7 +106,7 @@
   }
 
   .message_send .message {
-    background-color: green;
+    background-color: #479E56;
   }
 
   .message_recive {
@@ -102,7 +114,12 @@
     justify-content: start;
   }
 
+  .maxWidth{
+    overflow-wrap: anywhere;
+  }
+  
   .message {
+    overflow-wrap: anywhere;
     width: fit-content;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
@@ -113,4 +130,16 @@
   }
 
 
-  
+  @media screen and (max-width: 768px) {
+    .container {
+      grid-template-columns: minmax(100px, 150px) 1fr;
+    }
+
+    .input_container {
+      flex-direction: column;
+    }
+
+    .message_container{
+      grid-template-rows: 1fr 130px;
+    }
+  }
