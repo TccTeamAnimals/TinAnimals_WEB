@@ -31,7 +31,7 @@ export function ImportAnimal() {
 
     useEffect(() => {
         const userData = getLocalStorage();
-        // setUserData(userData);
+        setUserData(userData);
 
         axios.get(`${URL_API_PROD}/api/ong/getAnimalByOng/${userData.id}`)
             .then((response) => {
