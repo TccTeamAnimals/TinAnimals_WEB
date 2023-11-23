@@ -75,6 +75,20 @@ export function ImgsFeedAnimals() {
                 console.log(response.data);
             })
             .catch((error) => {
+                console.log("eriorr",error.response.data.message)
+
+                if (error.response.data.message === 'Animal Já Curtido') {
+                    toast.error('Animal já curtido', {
+                        position: "bottom-right",
+                        autoClose: 1400,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    });
+                }
                 console.log('Erro ao atualizar dados:', error);
             });
     };
