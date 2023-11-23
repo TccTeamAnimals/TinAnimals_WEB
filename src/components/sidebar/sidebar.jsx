@@ -47,7 +47,7 @@ export function Sidebar({setUserData}){
             <header>
                 <div className={styles.imageText}>
                     <span className={styles.image}>
-                        <Link to="/#">
+                        <Link to="/FirstPage">
                             <img src={ logo } alt="TinAnimalsLogo" />
                         </Link>
                     </span>
