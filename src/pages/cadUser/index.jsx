@@ -15,6 +15,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { BarLoader } from 'react-spinners';
+
 import axios from 'axios';
 
 export function CadUser() {
@@ -38,6 +40,8 @@ export function CadUser() {
   const URL_API_PROD = "https://tinanimalsapi.onrender.com";
   const URL_API_DEV = "http://localhost:8000";
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     Inputmask("(99) 9-9999-9999").mask("#phone");
     Inputmask("999.999.999-99").mask("#cpf");
@@ -54,6 +58,7 @@ export function CadUser() {
   const handleSubmit = (event) => {
     if (checkFields()) {
       if (informationUsers.password === informationUsers.confirmPassword) {
+        setIsLoading(true);
         event.preventDefault();
         const id = uuidv4();
         const userData = {
@@ -63,6 +68,7 @@ export function CadUser() {
 
         axios.post(`${URL_API_PROD}/api/users`, userData)
           .then((response) => {
+            setIsLoading(false);
             toast.success('Usuario cadastrado com sucesso!', {
               position: "bottom-right",
               autoClose: 2000,
@@ -79,6 +85,7 @@ export function CadUser() {
               setRedirectToFirstPage(true);
           })
           .catch((error) => {
+            setIsLoading(false);
             if(error.response.data.message == "email already used"){
               toast.error('🦄 Email já cadastrado !', {
                 position: "bottom-right",
@@ -107,7 +114,7 @@ export function CadUser() {
           });
         }
       else {
-        toast.warn('Senhas Não Coincidem !', {
+        toast.warn('Senhas Não Coincidem!', {
           position: "bottom-right",
           autoClose: 4000,
           hideProgressBar: false,
@@ -238,9 +245,21 @@ export function CadUser() {
                 {/* <Link to="/FirstPage" className={styles.loginFormBtn}>
                   <span>Cadastrar</span>
                 </Link> */}
+                {!isLoading && (
                  <button type="button" onClick={handleSubmit} className={styles.loginFormBtn}>
                     <span>Cadastrar</span>
                  </button>
+                 )}
+              </div>
+              
+              <div className={styles.loading}>
+                {isLoading && (
+                <div>
+                  <h4>Cadastrando...</h4>
+                  <BarLoader className={styles.BarLoader} color={'#36D7B7'} loading={isLoading} />
+                </div>    
+                )}
+                
               </div>
             </form>
           </div>

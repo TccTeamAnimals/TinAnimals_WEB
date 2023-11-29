@@ -203,3 +203,14 @@
     top: -15px;
     white-space: nowrap; /* Adicione esta linha */
   }
+
+  .loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .BarLoader{
+    margin-left: 20px;
+  }
