@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Sidebar } from '../../components/sidebar/sidebar';
 import { ThemeContext } from '../../contextApi/ThemeContext';
 import styles from './index.module.css';
-import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -18,7 +17,6 @@ import likeHeart from '../../imgs/likeHeart.png';
 import iconChat from '../../imgs/iconChat.png';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
 
 export function FirstPage() {
   const { darkMode, getLocalStorage } = useContext(ThemeContext);
@@ -43,8 +41,8 @@ export function FirstPage() {
   }, []);
 
   if (redirect) {
-    navigate('/login'); 
-    return null; 
+    navigate('/login');
+    return null;
   }
 
   useEffect(() => {
@@ -73,43 +71,39 @@ export function FirstPage() {
   }, [userData]);
 
 
-  useEffect(() => {
-    if (userData.typeCad === 'user') {
-      const GetAllOngs = async () => {
-        try {
-          const response = await axios.get(`${URL_API_PROD}/api/ongs`);
-          setNumOngs(response.data.length);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-      GetAllOngs();
-    }else{
-      const GetAllAnimalsRegistered = async () => {
-        try {
-          const response = await axios.get(`${URL_API_PROD}/api/ong/getAnimals/pictures`);
-          setNumAnimals(response.data.length);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-      GetAllAnimalsRegistered();
-
+  const GetAllOngs = async () => {
+    try {
+      const response = await axios.get(`${URL_API_PROD}/api/ongs`);
+      setNumOngs(response.data.length);
+    } catch (error) {
+      console.log(error);
     }
-  }, []);
+  }
 
+  const GetAllAnimalsRegistered = async () => {
+    try {
+      const response = await axios.get(`${URL_API_PROD}/api/ong/getAnimals/pictures`);
+      setNumAnimals(response.data.length);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const GetAllUsers = async () => {
+    try {
+      const response = await axios.get(`${URL_API_PROD}/api/users`);
+      setNumUsers(response.data.length);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
-    const GetAllUsers = async () => {
-      try {
-        const response = await axios.get(`${URL_API_PROD}/api/users`);
-        setNumUsers(response.data.length);
-      } catch (error) {
-        console.log(error);
-      }
-    }
+    GetAllOngs();
+    GetAllAnimalsRegistered();
     GetAllUsers();
   }, []);
+
 
   return (
     <div className={`${darkMode ? styles.dark_mode : styles.light_mode}`}>
@@ -171,26 +165,28 @@ export function FirstPage() {
           }
         </h6>
         <br /> <br /> <br />
+      </div>
 
-        <div className={styles.containerInfo}>
-          <div className={styles.infoItem}>
-            <h1 className={styles.marginTextTitle}>+185 mil</h1>
-            <h5 className={styles.marginText}>Animais Abandonados Em 2023</h5>
-          </div>
-          <div className={styles.infoItem}>
-            <h1 className={styles.marginTextTitle}>
-              {userData.typeCad === 'user' ? NumOngs + ' ONGs' : NumAnimals + ' Animais'}
-            </h1>
-            <h5 className={styles.marginText}>
-              {userData.typeCad === 'ong' ? 'Cadastradas No Sistema' : 'Cadastrados No Sistema'}
-            </h5>
-          </div>
-          <div className={styles.infoItem}>
-            <h1 className={styles.marginTextTitle}>{NumUsers} Usuarios</h1>
-            <h5 className={styles.marginText}>Cadastrados No Sistema</h5>
-          </div>
+      <div className={styles.containerInfo}>
+        <div className={styles.infoItem}>
+          <h1 className={styles.marginTextTitle}>+185 mil</h1>
+          <h5 className={styles.marginText}>Animais Abandonados Em 2023</h5>
         </div>
+        <div className={styles.infoItem}>
+          <h1 className={styles.marginTextTitle}>
+            {userData.typeCad === 'user' ? NumOngs + ' ONGs' : NumAnimals + ' Animais'}
+          </h1>
+          <h5 className={styles.marginText}>
+            {userData.typeCad === 'ong' ? 'Cadastradas No Sistema' : 'Cadastrados No Sistema'}
+          </h5>
+        </div>
+        <div className={styles.infoItem}>
+          <h1 className={styles.marginTextTitle}>{NumUsers} Usuarios</h1>
+          <h5 className={styles.marginText}>Cadastrados No Sistema</h5>
+        </div>
+      </div>
 
+      <div className={styles.margin}>
         <div className={styles.marginTop}>
           <h3 className='text-center'>
             {userData.typeCad === 'user'
@@ -245,14 +241,13 @@ export function FirstPage() {
           <h6 className={styles.marginTextQuestions}>
             conosco que teremos o maior prazer em ajudar você.
           </h6>
-          
+
           <Link to="/questions">
             <button className={`btn btn-primary ${styles.buttonQuestion}`}>
               Ir para perguntas frequentes
             </button>
           </Link>
-        </div>
-        <br /><br /><br />
+        </div><br /><br /><br />
       </div>
     </div>
   );

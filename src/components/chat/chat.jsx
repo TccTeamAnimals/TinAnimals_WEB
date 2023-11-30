@@ -5,6 +5,8 @@ import { ThemeContext } from '../../contextApi/ThemeContext';
 import style from './chat.module.css';
 import userImage from '../../imgs/user.png';
 import { useNavigate } from 'react-router-dom';
+import { BarLoader } from 'react-spinners';
+
 
 export function ChatComponent() {
   const [messages, setMessages] = useState([]);
@@ -23,6 +25,7 @@ export function ChatComponent() {
   const [userID , setUserID] = useState('');
   const [aux , setAux] = useState('');
 
+  const [isLoading, setIsLoading] = useState(true);
 
   const [redirect, setRedirect] = useState(false);
   const URL_API_PROD = "https://tinanimalsapi.onrender.com";
@@ -88,7 +91,7 @@ export function ChatComponent() {
     const response = await axios.get(`${URL_API_PROD}/api/chats`, {
       params
     });
-
+    setIsLoading(false);
     setChats(response.data);
     getLastMessagens(response.data)
     console.log("CHATS", response.data)
@@ -179,6 +182,16 @@ export function ChatComponent() {
   return (
     <div className={style.container}>
       <div className={style.chat_container}>
+
+        {isLoading && (
+          <div className={style.loading}>
+            <div>
+              <h4 className={style.colorTextLoading}>Carregando...</h4>
+              <BarLoader className={style.BarLoader} color={'#36D7B7'} loading={isLoading} />
+            </div>    
+          </div>
+        )}
+
         {chats.map((chat, index) => (
           <div 
             key={index}

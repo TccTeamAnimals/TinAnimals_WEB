@@ -14,6 +14,8 @@ import axios from 'axios';
 
 import { ThemeContext } from '../../contextApi/ThemeContext';
 
+import { BarLoader } from 'react-spinners';
+
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,11 +27,14 @@ export function Login() {
   const URL_API_PROD = "https://tinanimalsapi.onrender.com";
   const URL_API_DEV = "http://localhost:8000";
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
     axios.post(`${URL_API_PROD}/api/users/login`, { email, password })
       .then((response) => {
-        // Se o login estiver na tabela de usuários, faça o login do usuário
+        setLoading(false)
         insertLocalStorage(response.data);
         toast.success('Usuário Logado Com Sucesso!', {
           position: "bottom-right",
@@ -41,18 +46,15 @@ export function Login() {
           progress: undefined,
           theme: "dark",
         });
-        
-        // setTimeout(() => {
-        //   history.push("/firstPage"); 
-        //   window.location.reload();
-        // }, 1800);
 
         setRedirectToFirstPage(true);
         
       })
       .catch(() => {
+        setLoading(false)
         axios.post(`${URL_API_PROD}/api/ong/login`, { email, password })
           .then((response) => {
+            setLoading(false)
             insertLocalStorage(response.data);
             toast.success('ONG Logada Com Sucesso!', {
               position: "bottom-right",
@@ -65,13 +67,10 @@ export function Login() {
               theme: "dark",
             });
             
-            // setTimeout(() => {
-            //   history.push("/firstPage"); 
-            //   window.location.reload();
-            // }, 1800);
             setRedirectToFirstPage(true);
           })
           .catch(() => {
+            setLoading(false)
             toast.warn('Login ou Senha Inválidos 😕 ', {
               position: "bottom-right",
               autoClose: 3000,
@@ -134,14 +133,22 @@ export function Login() {
                   </span>
                 </div>
 
-                <div className={styles.containerLoginFormBtn}>
-                {/* <Link to="/FirstPage" className={styles.loginFormBtn}>
-                  <span>Login</span>
-                </Link> */}
-                <button type="button" onClick={handleSubmit} className={styles.loginFormBtn}>
-                  <span>Login</span>
-                </button>
-                </div>
+                {!loading && (
+                  <div className={styles.containerLoginFormBtn}>
+                    <button type="button" onClick={handleSubmit} className={styles.loginFormBtn}>
+                      <span>Login</span>
+                    </button>
+                  </div>
+                 )}
+
+                {loading && (
+                  <div className={styles.loading}>
+                    <div>
+                      <h4>Carregando...</h4>
+                      <BarLoader className={styles.BarLoader} color={'#36D7B7'} loading={loading} />
+                    </div>    
+                  </div>
+                )}
 
                 <div className={styles.textCenter}> 
                   <Link to="/forgetPassword" className={styles.linkCad}>
@@ -150,6 +157,7 @@ export function Login() {
                     </span>
                   </Link>
                 </div>
+
               </form>
             </div>
           </div>

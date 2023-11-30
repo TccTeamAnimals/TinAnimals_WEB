@@ -8,11 +8,14 @@ import { ThemeContext } from '../../contextApi/ThemeContext';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+import { BarLoader } from 'react-spinners';
+
 export function CardProfileUser(){
 
   const { darkMode, getLocalStorage } = useContext(ThemeContext);
   const [ infoUserInCache, setInfoUserInCache] = useState({});
   const [dataUserOrOng, setDataUserOrOng] = useState({});
+  const [Loading, setLoading] = useState(true);
 
   const [redirect, setRedirect] = useState(false);
   const URL_API_PROD = "https://tinanimalsapi.onrender.com";
@@ -30,16 +33,20 @@ export function CardProfileUser(){
             try {
               const response = await axios.get(`${URL_API_PROD}/api/ong/${infoUserInCache.id}`);
               setDataUserOrOng(response.data);
+              setLoading(false);
               console.log("DADOS DA ONG", response.data)
             } catch (error) {
+              setLoading(false);
               console.log(error);
             }
           } else {
             try {
               const response = await axios.get(`${URL_API_PROD}/api/users/${infoUserInCache.id}`);
+              setLoading(false);
               setDataUserOrOng(response.data);
               console.log("DADOS DO USUARIO", response.data)
             } catch (error) {
+              setLoading(false);
               console.log(error);
             }
           }
@@ -58,6 +65,13 @@ export function CardProfileUser(){
                 <div className={styles.profile}>
                     <img className={styles.avatar} src={user}/>
                     <br />
+                    {Loading && (
+                      <div className={styles.loading}>
+                        <div>
+                          <BarLoader className={styles.BarLoader} color={'#36D7B7'} loading={Loading} />
+                        </div>    
+                      </div>
+                    )}
                     <strong> { dataUserOrOng.name }</strong>
                     <br />
                     <span>  

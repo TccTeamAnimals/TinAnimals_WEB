@@ -201,7 +201,7 @@
 
   .hasVal + .focusInput::after {
     top: -15px;
-    white-space: nowrap; /* Adicione esta linha */
+    white-space: nowrap;
   }
 
   .loading{

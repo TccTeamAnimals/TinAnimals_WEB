@@ -8,6 +8,7 @@ import { ThemeContext } from '../../contextApi/ThemeContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { BarLoader } from 'react-spinners';
 
 export function ImgsFeedAnimals() {
     const { getLocalStorage } = useContext(ThemeContext);
@@ -21,6 +22,8 @@ export function ImgsFeedAnimals() {
   
     const URL_API_PROD = "https://tinanimalsapi.onrender.com";
     const URL_API_DEV = "http://localhost:8000";
+
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const usuarioLocalStorage = getLocalStorage();
@@ -39,9 +42,11 @@ export function ImgsFeedAnimals() {
     useEffect(() => {
         axios.get(`${URL_API_PROD}/api/ong/getAnimals/pictures`)
             .then((response) => {
+                setIsLoading(false);
                 setAnimals(response.data);
             })
             .catch((error) => {
+                setIsLoading(false);
                 console.log('Erro ao atualizar dados:', error);
             });
     }, []);
@@ -76,7 +81,6 @@ export function ImgsFeedAnimals() {
             })
             .catch((error) => {
                 console.log("eriorr",error.response.data.message)
-
                 if (error.response.data.message === 'Animal Já Curtido') {
                     toast.error('Animal já curtido', {
                         position: "bottom-right",
@@ -103,38 +107,47 @@ export function ImgsFeedAnimals() {
 
     return (
         <div className={styles.cardContainer}>
-            {animals.length === 0 ? (
-                <h1 style={{ textAlign: 'center' }}>
-                    Nenhum animal cadastrado ainda
-                </h1>
+            {isLoading ? (
+                <div className={styles.loading}>
+                    <h4>Carregando...</h4>
+                    <BarLoader className={styles.BarLoader} color={'#36D7B7'} loading={isLoading} />
+                </div>
             ) : (
                 <>
-                    <div className={styles.infoPets}>
-                        <div className={styles.petInfo}>
-                            <h3 className={styles.infoTitle}>Detalhes do Animal</h3>
-                            <div className={styles.infoDetail}>
-                                <p><span className={styles.infoLabel}>Nome:</span> {animals[currentAnimalIndex].name}</p>
-                                <p><span className={styles.infoLabel}>Idade:</span> {animals[currentAnimalIndex].idade}</p>
-                                <p><span className={styles.infoLabel}>Sexo:</span> {animals[currentAnimalIndex].sexo}</p>
-                                <p><span className={styles.infoLabel}>Raça:</span> {animals[currentAnimalIndex].raca}</p>
+                    {animals.length === 0 ? (
+                        <h1 style={{ textAlign: 'center' }}>
+                            Nenhum animal cadastrado ainda
+                        </h1>
+                    ) : (
+                        <>
+                            <div className={styles.infoPets}>
+                                <div className={styles.petInfo}>
+                                    <h3 className={styles.infoTitle}>Detalhes do Animal</h3>
+                                    <div className={styles.infoDetail}>
+                                        <p><span className={styles.infoLabel}>Nome:</span> {animals[currentAnimalIndex].name}</p>
+                                        <p><span className={styles.infoLabel}>Idade:</span> {animals[currentAnimalIndex].idade}</p>
+                                        <p><span className={styles.infoLabel}>Sexo:</span> {animals[currentAnimalIndex].sexo}</p>
+                                        <p><span className={styles.infoLabel}>Raça:</span> {animals[currentAnimalIndex].raca}</p>
+                                    </div>
+                                </div>
+                                <div className={styles.heartContainer}>
+                                    <span className={styles.heart}>❤️</span>
+                                </div>
                             </div>
-                        </div>
-                        <div className={styles.heartContainer}>
-                            <span className={styles.heart}>❤️</span>
-                        </div>
-                    </div>
-                    
-                    <div className={styles.card}>
-                        <img src={animals[currentAnimalIndex].image_url} alt="Animal" />
-                        <div className={styles.buttons}>
-                            <Button onClick={handleLike} variant="success" style={{ padding: '15px 30px', fontSize: '18px' }}>
-                                <FaThumbsUp /> Curtir
-                            </Button>
-                            <Button onClick={handlePass} variant="primary" style={{ padding: '15px 30px', fontSize: '18px' }}>
-                                <FaArrowRight /> Próximo
-                            </Button>
-                        </div>
-                    </div>
+
+                            <div className={styles.card}>
+                                <img src={animals[currentAnimalIndex].image_url} alt="Animal" />
+                                <div className={styles.buttons}>
+                                    <Button onClick={handleLike} variant="success" style={{ padding: '15px 30px', fontSize: '18px' }}>
+                                        <FaThumbsUp /> Curtir
+                                    </Button>
+                                    <Button onClick={handlePass} variant="primary" style={{ padding: '15px 30px', fontSize: '18px' }}>
+                                        <FaArrowRight /> Próximo
+                                    </Button>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </>
             )}
             <ToastContainer />

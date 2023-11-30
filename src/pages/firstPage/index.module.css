@@ -44,8 +44,8 @@
   .marginInfo {
     margin-left: 10rem;
     margin-top: 3rem;
-    display: flex; /* Use flexbox to align the items side by side */
-    align-items: center; /* Center the items vertically */
+    display: flex; 
+    align-items: center; 
     justify-content: space-around;
   }
   
@@ -53,21 +53,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 2rem 5rem 5rem; /* Adjust the space between the containers */
+    margin: 0 2rem 5rem 5rem; 
   }
   
   .carousel {
     margin-top: 10rem;
-    max-width: 700px; /* Defina o valor que desejar para o carrossel */
-    margin: 0 auto; /* Centraliza o carrossel na página */
+    max-width: 700px; 
+    margin: 0 auto; 
     align-items: center;
     justify-content: center;
   }
   
-  /* Estilos para as imagens do carrossel */
+
   .carousel .slide img {
-    max-height: 500px; /* Defina o valor que desejar para a altura das imagens */
-    object-fit: contain; /* Ajusta o redimensionamento da imagem para caber no espaço */
+    max-height: 500px;
+    object-fit: contain; 
   }
   
   .titulo {
@@ -84,16 +84,15 @@
   }
   
   .containerInfo {
-    display: flex; /* Use flexbox to align the items side by side */
-    justify-content: space-around; /* Adjust the space between the items */
+    display: flex; 
+    justify-content: space-around; 
     background-color: #465c69;
-    padding: 2rem 0; /* Add padding for better spacing */
+    padding: 2rem 0;
   }
   
-  /* Add styles for each info item */
   .infoItem {
     text-align: center;
-    margin: 0 4rem; /* Adjust the space between the items */
+    margin: 0 4rem; 
   }
   
   .imagensInfo {
@@ -112,21 +111,20 @@
   .marginQuestions {
     margin-left: 20rem;
     margin-top: 2rem;
-    padding: 2rem; /* Adicione um espaçamento interno para melhorar a aparência */
+    padding: 2rem;
     height: 250px;
     width: 65%;
     background-color: #7e714a;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Alinhar verticalmente o conteúdo */
-    align-items: center; /* Alinhar horizontalmente o conteúdo */
+    justify-content: center;
+    align-items: center;
     padding-right: 12%;
     
   }
   
   .marginTextQuestions {
-    /* Estilos de texto que você já tem */
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -146,18 +144,18 @@
 @media (max-width: 1240px) {
  .carousel {
     margin-top: 10rem;
-    max-width: 700px; /* Defina o valor que desejar para o carrossel */
-    margin: 0 auto; /* Centraliza o carrossel na página */
+    max-width: 700px;
+    margin: 0 auto;
     align-items: center;
     justify-content: center;
     visibility: hidden;
     
   }
   
-  /* Estilos para as imagens do carrossel */
+
   .carousel .slide img {
-    max-height: 500px; /* Defina o valor que desejar para a altura das imagens */
-    object-fit: contain; /* Ajusta o redimensionamento da imagem para caber no espaço */
+    max-height: 500px; 
+    object-fit: contain; 
     visibility: hidden; 
   }
 }

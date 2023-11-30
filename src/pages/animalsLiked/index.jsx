@@ -15,8 +15,6 @@ export function AnimalsLiked (){
 
     return (
         <div className={`${darkMode ? styles.dark_mode : styles.light_mode}`}>
-
-
             <div className={styles.margin}>
                 <br />
                 <div className={styles.test}>
@@ -43,8 +41,7 @@ export function AnimalsLiked (){
                     <span>Remover curtida</span>
                         <Button variant="danger">
                         <BsHeartbreak />
-                        </Button>
-                        
+                        </Button>    
                     </div>
                 </div>  
             </div>

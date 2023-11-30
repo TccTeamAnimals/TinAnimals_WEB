@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import logo from '../../imgs/logo.jpg';
 import styles from './index.module.css';
 
-import { createBrowserHistory } from 'history';
+// import { createBrowserHistory } from 'history';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -36,7 +36,7 @@ export function CadUser() {
 
   const [redirectToFirstPage, setRedirectToFirstPage] = useState(false);
   const navigate = useNavigate();
-  const history = createBrowserHistory();
+  // const history = createBrowserHistory();
   const URL_API_PROD = "https://tinanimalsapi.onrender.com";
   const URL_API_DEV = "http://localhost:8000";
 
@@ -259,7 +259,6 @@ export function CadUser() {
                   <BarLoader className={styles.BarLoader} color={'#36D7B7'} loading={isLoading} />
                 </div>    
                 )}
-                
               </div>
             </form>
           </div>

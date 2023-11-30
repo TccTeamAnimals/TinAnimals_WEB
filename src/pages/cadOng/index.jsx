@@ -15,6 +15,8 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { BarLoader } from 'react-spinners';
+
 export function CadOng() {
 
   const [informationOng, setInformationOng] = useState({
@@ -36,6 +38,8 @@ export function CadOng() {
   const navigate = useNavigate();
   const URL_API_PROD = "https://tinanimalsapi.onrender.com";
   const URL_API_DEV = "http://localhost:8000";
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     Inputmask("(99) 9-9999-9999").mask("#phone");
@@ -96,16 +100,16 @@ export function CadOng() {
     if (checkFields()) {
       if (informationOng.password === informationOng.confirmPassword) {
         event.preventDefault();
+        setLoading(true);
         const id = uuidv4();
         const ongData = {
           ...informationOng,
           id: id,
         }
 
-        console.log("info ong", ongData)
-        // Chamada da requisição de cadastro de ONG
         axios.post(`${URL_API_PROD}/api/ong`, ongData)
           .then((response) => {
+            setLoading(false);
             toast.success('ONG cadastrada com sucesso!', {
               position: "bottom-right",
               autoClose: 2000,
@@ -116,13 +120,11 @@ export function CadOng() {
               progress: undefined,
               theme: "dark",
               });
-              // setTimeout(() => {
-              //   window.location.href = "/login";
-              // }, 2800);
 
               setRedirectToFirstPage(true);
           })
           .catch((error) => {
+            setLoading(false);
             if(error.response.data.message == "email already used"){
               toast.error('🦄 Email já cadastrado !', {
                 position: "bottom-right",
@@ -321,11 +323,23 @@ export function CadOng() {
                 <span className={styles.focusInput} data-placeholder="Confirm Password"></span>
               </div>
 
+              {!loading && (
               <div className={styles.containerLoginFormBtn}>
                 <button type="button" onClick={handleSubmit} className={styles.loginFormBtn}>
                   <span>Cadastrar</span>
                 </button>
               </div>
+              )}
+
+              {loading && (
+                <div className={styles.loading}>
+                  <div>
+                    <h4>Carregando...</h4>
+                    <BarLoader className={styles.BarLoader} color={'#36D7B7'} loading={loading} />
+                  </div>    
+                </div>
+              )}
+
             </form>
           </div>
         </div>

@@ -10,22 +10,24 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { BsFillInfoSquareFill, BsChatRightDots, BsHeartbreak, BsXSquare, BsX, BsXLg } from "react-icons/bs";
 import { useNavigate } from 'react-router-dom';
+import { BarLoader } from 'react-spinners';
 
 export function CardAnimalsLiked() {
     const { darkMode, getLocalStorage, socket } = useContext(ThemeContext);
     const [userData, setUserData] = useState({});
     const [animalsInBD, setAnimalsInBD] = useState([]);
-    const [loadingAnimalsLiked, setLoadingAnimalsLiked] = useState(false);
-    
+
     const [showModal, setShowModal] = useState(false);
     const [selectedOngInfo, setSelectedOngInfo] = useState({});
 
     const navigate = useNavigate();
 
     const [redirect, setRedirect] = useState(false);
-  
+
     const URL_API_PROD = "https://tinanimalsapi.onrender.com";
     const URL_API_DEV = "http://localhost:8000";
+
+    const [Loading, setLoading] = useState(true);
 
     useEffect(() => {
         const data = getLocalStorage();
@@ -51,10 +53,10 @@ export function CardAnimalsLiked() {
             axios.get(`${URL_API_PROD}/api/likesByUser/${data.userId}`)
                 .then((response) => {
                     setAnimalsInBD(response.data);
-                    setLoadingAnimalsLiked(true);
-
+                    setLoading(false);
                 })
                 .catch((error) => {
+                    setLoading(false);
                     console.log('Erro ao atualizar dados:', error);
                 });
         }
@@ -107,105 +109,106 @@ export function CardAnimalsLiked() {
 
     return (
         <div>
-            {animalsInBD.length === 0 ? (
-                <h1 className={styles.NoneAnimal}>
-                    Nenhum animal curtido ainda
-                </h1>
-            ) : (
-                <div className={`${darkMode ? (animalsInBD.length > 4 ? styles.dark_mode : styles.dark_modeVW) : (animalsInBD.length > 4 ? styles.light_mode : styles.light_modeVW)}`}>
-                    <br />
-
-                    <div className={`${styles.divCard} ${styles.cardContainer}`}>
-                        <div className='container'>
-                            <div className='row'>
-                                {animalsInBD.map((animal) => (
-                                    <div className='col-lg-3 mb-5' key={animal.id}>
-                                        <Card className={styles.card}>
-                                            <Card.Img className={styles.cardImg} variant="top" src={animal.image_url} />
-                                            <Card.Body className={styles.cardBody}>
-                                                <Card.Title>{animal.description}</Card.Title>
-                                                <Card.Text className={styles.nameAnimals}>
-                                                    {animal.name}
-                                                </Card.Text>
-                                                <Card.Text>
-                                                    {animal.raca} - {animal.sexo}
-                                                </Card.Text>
-
-                                                <Button
-                                                    variant="primary"
-                                                    onClick={() => getOngAnimal(animal.ong_id)}
-                                                    className={styles.buttonTalkToOng}
-                                                >
-                                                    <BsFillInfoSquareFill />
-                                                </Button>
-
-                                                <Button
-                                                    variant="success"
-                                                    onClick={() => getOngAnimal(animal.ong_id)}
-                                                    className={`${styles.buttonTalkToOng} ${styles.marginRight}`}
-                                                >
-                                                    <BsChatRightDots />
-                                                </Button>
-
-                                                <Button
-                                                    variant="danger"
-                                                    onClick={() => deleteLikedAnimalByUser(animal.id)}
-                                                    className={styles.buttonTalkToOng}
-                                                >
-                                                    <BsXSquare />
-                                                </Button>
-
-                                            </Card.Body>
-                                        </Card>
-                                    </div>
-                                ))}
-                            </div>
-                            <ToastContainer />
-                        </div>
-                    </div>
+            {Loading ? (
+                <div className={styles.loading}>
+                    <h1>Carregando Curtidas...</h1>
+                    <BarLoader className={styles.BarLoader} color={'#36D7B7'} loading={Loading} />
                 </div>
+            ) : (
+                <>
+                    {animalsInBD.length === 0 ? (
+                        <h1 className={styles.NoneAnimal}>
+                            Nenhum animal curtido ainda
+                        </h1>
+                    ) : (
+                        <div className={`${darkMode ? (animalsInBD.length > 4 ? styles.dark_mode : styles.dark_modeVW) : (animalsInBD.length > 4 ? styles.light_mode : styles.light_modeVW)}`}>
+                            <br />
+                            <div className={`${styles.divCard} ${styles.cardContainer}`}>
+                                <div className='container'>
+                                    <div className='row'>
+                                        {animalsInBD.map((animal) => (
+                                            <div className='col-lg-3 mb-5' key={animal.id}>
+                                                <Card className={styles.card}>
+                                                    <Card.Img className={styles.cardImg} variant="top" src={animal.image_url} />
+                                                    <Card.Body className={styles.cardBody}>
+                                                        <Card.Title>{animal.description}</Card.Title>
+                                                        <Card.Text className={styles.nameAnimals}>
+                                                            {animal.name}
+                                                        </Card.Text>
+                                                        <Card.Text>
+                                                            {animal.raca} - {animal.sexo}
+                                                        </Card.Text>
+                                                        <Button
+                                                            variant="primary"
+                                                            onClick={() => getOngAnimal(animal.ong_id)}
+                                                            className={styles.buttonTalkToOng}
+                                                        >
+                                                            <BsFillInfoSquareFill />
+                                                        </Button>
+                                                        <Button
+                                                            variant="success"
+                                                            onClick={() => getOngAnimal(animal.ong_id)}
+                                                            className={`${styles.buttonTalkToOng} ${styles.marginRight}`}
+                                                        >
+                                                            <BsChatRightDots />
+                                                        </Button>
+                                                        <Button
+                                                            variant="danger"
+                                                            onClick={() => deleteLikedAnimalByUser(animal.id)}
+                                                            className={styles.buttonTalkToOng}
+                                                        >
+                                                            <BsXSquare />
+                                                        </Button>
+                                                    </Card.Body>
+                                                </Card>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <ToastContainer />
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    <Modal show={showModal} onHide={handleCloseModal}>
+                        <Modal.Header closeButton className={styles.darkModal}>
+                            <Modal.Title style={{ fontSize: '2rem', fontFamily: 'Franklin Gothic Medium, Arial Narrow, Arial, sans-serif' }}>Informações da ONG</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body className={styles.darkModal}>
+                            <div className='row'>
+                                <div className='col-lg-12'>
+                                    <p><strong>Nome da ONG:</strong>  {selectedOngInfo.name}</p>
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='col-lg-12'>
+                                    <p><strong>Bairro:</strong> {selectedOngInfo.district}</p>
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='col-lg-8'>
+                                    <p><strong>Rua:</strong> {selectedOngInfo.address}</p>
+                                </div>
+                                <div className='col-lg-4'>
+                                    <p><strong>Número:</strong> {selectedOngInfo.numero}</p>
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='col-lg-12'>
+                                    <p><strong>Telefone:</strong> {selectedOngInfo.phone}</p>
+                                </div>
+                            </div>
+                        </Modal.Body>
+                        <Modal.Footer style={{ backgroundColor: '#333', color: '#fff' }}>
+                            <Button variant="success" style={{ fontSize: '1.2rem', fontFamily: 'Franklin Gothic Medium, Arial Narrow, Arial, sans-serif' }} onClick={() => createChat(selectedOngInfo.id)}>
+                                Falar com a ONG <span className={styles.marginButtonModal}><BsChatRightDots /></span>
+                            </Button>
+                            <Button variant="danger" onClick={handleCloseModal} style={{ fontSize: '1.2rem', fontFamily: 'Franklin Gothic Medium, Arial Narrow, Arial, sans-serif' }}>
+                                Fechar <span className={styles.marginButtonModal}><BsXLg /></span>
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+                </>
             )}
-
-            <Modal show={showModal} onHide={handleCloseModal}>
-                <Modal.Header closeButton className={styles.darkModal}>
-                    <Modal.Title style={{ fontSize: '2rem', fontFamily: 'Franklin Gothic Medium, Arial Narrow, Arial, sans-serif' }}>Informações da ONG</Modal.Title>
-                </Modal.Header>
-                <Modal.Body className={styles.darkModal}>
-                    <div className='row'>
-                        <div className='col-lg-12'>
-                            <p><strong>Nome da ONG:</strong>  {selectedOngInfo.name}</p>
-                        </div>
-                    </div>
-                    <div className='row'>
-                        <div className='col-lg-12'>
-                            <p><strong>Bairro:</strong> {selectedOngInfo.district}</p>
-                        </div>
-                    </div>
-                    <div className='row'>
-                        <div className='col-lg-8'>
-                            <p><strong>Rua:</strong> {selectedOngInfo.address}</p>
-                        </div>
-                        <div className='col-lg-4'>
-                            <p><strong>Número:</strong> {selectedOngInfo.numero}</p>
-                        </div>
-                    </div>
-                    
-                    <div className='row'>
-                        <div className='col-lg-12'>
-                            <p><strong>Telefone:</strong> {selectedOngInfo.phone}</p>
-                        </div>
-                    </div>
-                    
-                </Modal.Body>
-                <Modal.Footer style={{ backgroundColor: '#333', color: '#fff' }}>
-                    <Button variant="success" style={{ fontSize: '1.2rem', fontFamily: 'Franklin Gothic Medium, Arial Narrow, Arial, sans-serif' }} onClick={() => createChat(selectedOngInfo.id)}>
-                       Falar com a ONG <span className={styles.marginButtonModal}><BsChatRightDots /></span> 
-                    </Button>
-                    <Button variant="danger" onClick={handleCloseModal} style={{ fontSize: '1.2rem', fontFamily: 'Franklin Gothic Medium, Arial Narrow, Arial, sans-serif' }}>
-                        Fechar <span className={styles.marginButtonModal}><BsXLg /></span> 
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </div>
     );
 }

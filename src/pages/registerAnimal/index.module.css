@@ -48,6 +48,10 @@
     margin-right: 5rem;
   } 
 
+  .positionLoading{
+    display: flex;
+  }
+
 
   .cardRow {
     display: flex;
@@ -111,4 +115,16 @@
 
 .colorText{
   color: #fff;
+}
+
+.loading{
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.BarLoader{
+  margin-left: 8px;
 }

@@ -9,7 +9,7 @@ import Card from 'react-bootstrap/Card';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom'
-
+import { BarLoader } from 'react-spinners';
 
 export function ImportAnimal() {
     const { darkMode, getLocalStorage } = useContext(ThemeContext);
@@ -21,7 +21,7 @@ export function ImportAnimal() {
     const [animalRaca, setAnimalRaca] = useState("");
     const [animalSexo, setAnimalSexo] = useState("");
 
-
+    const [Loading, setLoading] = useState(true);
  
     const URL_API_PROD = "https://tinanimalsapi.onrender.com";
     const URL_API_DEV = "http://localhost:8000";
@@ -35,7 +35,7 @@ export function ImportAnimal() {
 
         axios.get(`${URL_API_PROD}/api/ong/getAnimalByOng/${userData.id}`)
             .then((response) => {
-        
+                setLoading(false);
                 const animals = response.data.map((animal) => {
                     return {
                         id: animal.id,
@@ -50,6 +50,7 @@ export function ImportAnimal() {
                 setAnimalsInBD(animals);
             })
             .catch((error) => {
+                setLoading(false);
                 console.log('Erro ao atualizar dados:', error);
             });
     }, []);
@@ -85,6 +86,7 @@ export function ImportAnimal() {
     
 
     const handleImportPicture = async () => {
+        setLoading(true);
         if (!selectedImage) {
             toast.warning('Por favor selecione uma imagem', {
                 position: "bottom-right",
@@ -125,6 +127,7 @@ export function ImportAnimal() {
 
             axios.post(`${URL_API_PROD}/api/ong/register_animal`, ongData)
                 .then((response) => {
+                    setLoading(false);
                     toast.success('Animal cadastrado com sucesso', {
                         position: "bottom-right",
                         autoClose: 2000,
@@ -147,6 +150,7 @@ export function ImportAnimal() {
                         console.log("ongData", ongData)
                 })
                 .catch((error) => {
+                    setLoading(false);
                     console.log('Erro ao atualizar dados:', error);
                 });
 
@@ -222,10 +226,20 @@ export function ImportAnimal() {
                                 <button className={`btn btn-success mt-3`}  onClick={handleImportPicture}>Cadastrar Animal</button>
                             </div>
                         </div>
+                        <div className={`col-lg-6 ${styles.positionLoading}`}>
+                            {Loading && (
+                                <div className={styles.loading}>
+                                    <h4>Carregando...</h4>
+                                    <BarLoader className={styles.BarLoader} color={'#36D7B7'} loading={Loading} />    
+                                </div>
+                            )}
+                        </div>
                     </div>          
                 </div>     
             </div>
             
+            
+
             <div className={`${styles.divCard} ${styles.cardContainer}`}>
                 <div className='container'>
                     <div className='row'>
