@@ -121,8 +121,6 @@ export function ChatComponent() {
     console.log("ID_USER", toId)
     console.log("Params in choseChat:", params);
     socket.emit('join-room', params)
-    setAux(toId);
-    setGetReceiver(toId);
   }
 
   const getLastMessagens = async (chats) => {
