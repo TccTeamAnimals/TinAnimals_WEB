@@ -32,12 +32,12 @@ export function ImportAnimal() {
     useEffect(() => {
         const userData = getLocalStorage();
         setUserData(userData);
-        getAnimals();
+        getAnimals(userData.id);
         
     }, []);
 
-    const getAnimals = () => {
-        axios.get(`${URL_API_PROD}/api/ong/getAnimalByOng/${userData.id}`)
+    const getAnimals = (UserDataid) => {
+        axios.get(`${URL_API_PROD}/api/ong/getAnimalByOng/${UserDataid}`)
             .then((response) => {
                 setLoading(false);
                 const animals = response.data.map((animal) => {
