@@ -10,7 +10,6 @@ export function Chat () {
 
     useEffect(() => {
         setUsuario(getLocalStorage());
-        console.log("USEEEEEEEEEEEEEEEEEER", usuario)
     }, [])
 
     return (
