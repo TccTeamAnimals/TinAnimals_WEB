@@ -32,7 +32,11 @@ export function ImportAnimal() {
     useEffect(() => {
         const userData = getLocalStorage();
         setUserData(userData);
+        getAnimals();
+        
+    }, []);
 
+    const getAnimals = () => {
         axios.get(`${URL_API_PROD}/api/ong/getAnimalByOng/${userData.id}`)
             .then((response) => {
                 setLoading(false);
@@ -53,9 +57,7 @@ export function ImportAnimal() {
                 setLoading(false);
                 console.log('Erro ao atualizar dados:', error);
             });
-    }, []);
-
-
+    }
    
 
     const getHandlerImg = (event) => {
@@ -75,7 +77,7 @@ export function ImportAnimal() {
                 progress: undefined,
                 theme: "dark",
             });
-            
+            getAnimals();
         })
         .catch((error) => {
             console.log('Erro ao delete o animal:', error);
