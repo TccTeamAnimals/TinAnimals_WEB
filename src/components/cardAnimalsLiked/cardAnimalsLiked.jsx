@@ -95,13 +95,16 @@ export function CardAnimalsLiked() {
             //     user_id: userData.id,
             //     ong_id: ong_id,
             // })
+            socket.on('create-room-response', (message) => {
+                navigate(`/chat`, {
+                    state: {
+                        ong_id,
+                    }
+                })
+              });
 
             // window.location.href = '/chat'
-            navigate(`/chat`, {
-                state: {
-                    ong_id,
-                }
-            })
+            
         } catch (error) {
             console.log('Erro ao criar chat')
         }
